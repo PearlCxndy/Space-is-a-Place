@@ -1,9 +1,7 @@
-// import React from "react";
 import transition from "../transition";
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import { ReactSketchCanvas } from "react-sketch-canvas";
-
 const Canvas = () => {
   const [state, setState] = useState({
     some: " ",
@@ -14,25 +12,19 @@ const Canvas = () => {
     otherMode: "Eraser",
     eraserOn: false
   });
-
   const canvas = React.createRef();
-
   const selectPenColor = (col) => {
     setState({ ...state, color: col });
   };
-
   const selectBgrColor = (col) => {
     setState({ ...state, bgrColor: col });
   };
-
   const selectPenSize = (size) => {
     setState({ ...state, penSize: size });
   };
-
   const selectEraserSize = (size) => {
     setState({ ...state, eraserSize: size });
   };
-
   return (
     <div>
       <ReactSketchCanvas
@@ -71,7 +63,6 @@ const Canvas = () => {
       >
         Reset
       </button>
-
       <button
         onClick={() => {
           canvas.current.redo();
@@ -116,8 +107,6 @@ const Canvas = () => {
     </div>
   );
 };
-
 const rootElement = document.getElementById("title");
 ReactDOM.render(<Canvas />, rootElement);
 export default transition(Canvas);
-

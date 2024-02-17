@@ -17,6 +17,11 @@ const NavBar = () => {
             Draw Here!
           </Link>
         </div>
+        <div className="nav-item">
+          <Link className="nav-link" to="/Bg">
+            Another!
+          </Link>
+        </div>
       </div>
     </div>
   );
