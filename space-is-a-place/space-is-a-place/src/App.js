@@ -8,9 +8,6 @@ import NavBar from "./components/NavBar"
 import Home from "./components/Home"
 import Canvas from "./components/Canvas"
 
-
-
-
 const App = () => {
   const location = useLocation();
 

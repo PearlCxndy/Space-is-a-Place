@@ -1,27 +1,9 @@
 import Sketch from "react-p5"
-import transition from "../transition";
-import ReactDOM from "react-dom";
-import styled from "styled-components";
-// import "./App.css"
 
-export const Header = styled.div`
-position: absolute;
-height: 100vh;
-margin: 0;
-padding: 0;
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-width: 100px;
-height: 100px;
-border: none;
-margin: 10px;
-cursor: pointer;
-`;
+
 const Paint = () => {
-	const WIDTH = 400
-	const HEIGHT = 400
+	const WIDTH = 1200
+	const HEIGHT = 900
 	const BG_COLOR = "black"
 
 	// data arrays
@@ -33,29 +15,30 @@ const Paint = () => {
 	let size
 	let saveButton
 
+
 	const setup = (p, parentRef) => {
-		p.createCanvas(WIDTH, HEIGHT).parent(parentRef)
+		p.createCanvas(WIDTH, HEIGHT).parent(parentRef).position(1,150)
 		p.pixelDensity(1)
 		// hide cursor from canvas
-		// p.noCursor()
+		p.noCursor()
 
 		// slider for stroke size
-		size = p.createSlider(1, 20, 8, 1)
-		// size.position(0, 0, "relative");
+		size = p.createSlider(1, 100, 20, 1);
+		size.position(300,110);
+		size.style('width', '180px');
 
 		// color picker
-		colorPicker = p.createColorPicker("#ed225d")
-		colorPicker.class("picker")
-		colorPicker.position(0, 0, "relative")
-		colorPicker.style("border: none")
+		colorPicker = p.createColorPicker('#000000');
+  		colorPicker.position(50, 105);
 
-		// save button
-		saveButton = p.createButton("SAVE")
-		saveButton.style("border: none")
-		saveButton.style("padding-top: 10px")
-		saveButton.style("padding-bottom: 10px")
-		saveButton.style("padding-left: 20px")
-		saveButton.style("padding-right: 20px")
+	  // save button
+		saveButton = p.createButton("SAVE").parent(parentRef).center()
+		// saveButton.style("border: none")
+		// saveButton.style("padding-top: 10px")
+		// saveButton.style("padding-bottom: 10px")
+		// saveButton.style("padding-left: 20px")
+		// saveButton.style("padding-right: 20px")
+		saveButton.position(180, 110);
 
 		// save canvas function
 		const save = () => {
@@ -108,22 +91,20 @@ const Paint = () => {
 		lines.push(currentLine)
 	}
 
-	const windowResized = (p5) => {
-		p5.resizeCanvas(window.innerWidth * 0.8, window.innerHeight * 0.8)
-	}
+	// const windowResized = (p5) => {
+	// 	p5.resizeCanvas(window.innerWidth * 0.8, window.innerHeight * 0.8)
+	// }
 
 	return (
-		<div><Header>
+		<div>
 			<Sketch
 				setup={setup}
 				draw={draw}
 				mousePressed={mousePressed}
-				windowResized={windowResized}
+				// windowResized={windowResized}
 			/>
-         </Header>
 		</div>
 	)
 }
-const rootElement = document.getElementById("title");
-ReactDOM.render(<Paint/>, rootElement);
-export default transition(Paint)
+
+export default Paint
