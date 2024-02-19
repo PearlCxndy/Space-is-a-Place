@@ -14,6 +14,8 @@ const Paint = () => {
 	let colorPicker
 	let size
 	let saveButton
+	let sel
+	let eraser
 
 
 	const setup = (p, parentRef) => {
@@ -26,19 +28,25 @@ const Paint = () => {
 		size = p.createSlider(1, 100, 20, 1);
 		size.position(300,110);
 		size.style('width', '180px');
-
+		//selector	
+		  sel = p.createSelect();
+		  sel.position(500, 110);
+		  sel.option("Normal Paint Brush (press 'N')");
+		  sel.option("Splatter Brush (press 'S')");
+		  sel.option("Eraser (press 'E')");
+		  sel.option("Draw Rectangle (press 'Q')");
+		  sel.option("Draw Triangle (press 'T')");
 		// color picker
 		colorPicker = p.createColorPicker('#000000');
   		colorPicker.position(50, 105);
+		//eraser
+		eraser = p.createButton("ERASER").parent(parentRef).center().style("border: none");
+		eraser.position(125, 110);
+		eraser.mousePressed(p.clearBG);
 
-	  // save button
-		saveButton = p.createButton("SAVE").parent(parentRef).center()
-		// saveButton.style("border: none")
-		// saveButton.style("padding-top: 10px")
-		// saveButton.style("padding-bottom: 10px")
-		// saveButton.style("padding-left: 20px")
-		// saveButton.style("padding-right: 20px")
-		saveButton.position(180, 110);
+	  	// save button
+		saveButton = p.createButton("SAVE").parent(parentRef).center().style("border: none")
+		saveButton.position(200, 110);
 
 		// save canvas function
 		const save = () => {
