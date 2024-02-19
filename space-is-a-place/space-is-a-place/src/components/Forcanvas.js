@@ -2,8 +2,8 @@ import React from 'react';
 import Sketch from 'react-p5';
 
 const Paint = () => {
-    const WIDTH = 1098;
-    const HEIGHT = 900;
+    const WIDTH = 950;
+    const HEIGHT = 650;
     const BG_COLOR = "black";
 
     // data arrays
@@ -17,16 +17,18 @@ const Paint = () => {
     let sel;
     let eraser;
 	
+	
     const setup = (p, parentRef) => {
-        p.createCanvas(WIDTH, HEIGHT).parent(parentRef).position(1, 150);
+        p.createCanvas(WIDTH, HEIGHT).parent(parentRef).position(3, 150);
         p.pixelDensity(1);
         // hide cursor from canvas
         p.noCursor();
 
         // Slider for stroke size
-        size = p.createSlider(1, 100, 20, 1).parent(parentRef);
+        size = p.createSlider(0,100,10).parent(parentRef);
         size.position(300, 110);
         size.style('width', '180px');
+		p.createP('Brush size!').position(300,90);
 
         // Selector for brush type
         sel = p.createSelect().parent(parentRef);
@@ -54,34 +56,34 @@ const Paint = () => {
 
 	const draw = (p) => {
 		p.background(BG_COLOR);
-	
 		p.strokeJoin(p.ROUND);
 	
-		if (p.mouseIsPressed && p.mouseY > 100) { // Ensure drawing only happens below the control panel
+		if (p.mouseIsPressed && p.mouseY > 100) {
+			// Convert color value to p5 color object for consistency
+			let p5Color = p.color(colorPicker.value());
 			const point = {
 				x: p.mouseX,
 				y: p.mouseY,
-				color: colorPicker.value(), // Assuming colorPicker is accessible
-				weight: size.value(), // Assuming size is accessible
-				type: sel.value() // Assuming sel is accessible
+				color: p5Color, // Use p5 color object for consistency
+				weight: size.value(),
+				type: sel.value()
 			};
 			currentLine.push(point);
 		}
 	
 		lines.forEach((path) => {
 			path.forEach((point, index) => {
+				// Use p.fill() and p.stroke() with the p5 color object
 				p.stroke(point.color);
 				p.strokeWeight(point.weight);
 	
-				// Handle normal paint brush
 				if (point.type === "Normal Paint Brush (press 'N')" || point.type === "brush1") {
 					if (index > 0) {
 						const previousPoint = path[index - 1];
 						p.line(previousPoint.x, previousPoint.y, point.x, point.y);
 					}
 				} else if (point.type === "Splatter Brush (press 'S')" || point.type === "brush2") {
-					// Handle random line brush
-					// This logic needs to be adjusted if you want to mimic the behavior of "brush2" exactly as described
+					// Splatter effect as specified
 					for (let i = 0; i < p.random(1, 10); i++) {
 						p.noStroke();
 						p.fill(point.color);
@@ -92,8 +94,7 @@ const Paint = () => {
 						);
 					}
 				} else if (point.type === "brush3") {
-					// Handle dot brush
-					// Dot brush logic as described, integrating it into the forEach loop for each point
+					// Dot brush effect as specified
 					p.strokeWeight(p.random(1, point.weight));
 					p.ellipse(point.x, point.y, p.random(0, point.weight), p.random(0, point.weight - 10));
 					p.ellipse(point.x, point.y, p.random(0, 30), p.random(0, 20));
@@ -104,39 +105,26 @@ const Paint = () => {
 					p.ellipse(point.x, point.y, p.random(0, point.weight), p.random(0, point.weight - 10));
 					p.rect(point.x, point.y, p.random(15, point.weight), p.random(-10, point.weight - 10));
 				}
-				// Add more conditions for other brushes as needed
+				// Additional brush types can be added here
 			});
 		});
 	
-		// Draw the current brush preview at the cursor
+		// Drawing the brush preview at the cursor
 		if (p.mouseY > 100) {
-			p.stroke(colorPicker.color());
-			p.fill(colorPicker.color());
+			let previewColor = p.color(colorPicker.value()); // Convert to p5 color object
+			p.stroke(previewColor);
+			p.fill(previewColor);
 			p.circle(p.mouseX, p.mouseY, size.value());
 		}
-		// Draw the current brush preview at the cursor
-		if (p.mouseY > 100) { // Only show brush preview below the control panel
-			p.stroke(colorPicker.color());
-			p.fill(colorPicker.color());
-			p.circle(p.mouseX, p.mouseY, size.value());
+	};
+	
+	const mousePressed = (p) => {
+		if (p.mouseY > 100) { // Only start a new line if the click is below the control panel
+			currentLine = [];
+			lines.push(currentLine);
 		}
-
-
-        // Draw the current brush preview at the cursor
-        if (p.mouseY > 50) { // Only show brush preview below the control panel
-            p.stroke(colorPicker.color());
-            p.fill(colorPicker.color());
-            p.circle(p.mouseX, p.mouseY, size.value());
-        }
-    };
-
-    const mousePressed = (p) => {
-        if (p.mouseY > 150) { // Start a new line only if the click is below the control panel
-            currentLine = [];
-            lines.push(currentLine);
-        }
-    };
-
+	};
+	
     return (
         <div>
             <Sketch setup={setup} draw={draw} mousePressed={mousePressed} />
