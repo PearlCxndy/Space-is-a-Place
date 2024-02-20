@@ -16,9 +16,10 @@ const Paint = () => {
     let saveButton;
     let sel;
     let eraser;
-	
+
 	
     const setup = (p, parentRef) => {
+
         p.createCanvas(WIDTH, HEIGHT).parent(parentRef).position(3, 150);
         p.pixelDensity(1);
         // hide cursor from canvas
@@ -28,7 +29,7 @@ const Paint = () => {
         size = p.createSlider(0,100,10).parent(parentRef);
         size.position(300, 110);
         size.style('width', '180px');
-		p.createP('Brush size!').position(300,90);
+
 
         // Selector for brush type
         sel = p.createSelect().parent(parentRef);
@@ -42,6 +43,7 @@ const Paint = () => {
         // Color picker
         colorPicker = p.createColorPicker('#ffffff').parent(parentRef);
         colorPicker.position(50, 105);
+		
 
         // Eraser button
         eraser = p.createButton("ERASER").parent(parentRef);
@@ -52,11 +54,19 @@ const Paint = () => {
         saveButton = p.createButton("SAVE").parent(parentRef);
         saveButton.position(200, 110);
         saveButton.mousePressed(() => p.saveCanvas('canvas', 'png'));
+
     };
 
 	const draw = (p) => {
+
 		p.background(BG_COLOR);
 		p.strokeJoin(p.ROUND);
+
+		p.fill(255); // White text color
+		p.noStroke();
+		p.textSize(16); // Set text size
+		p.text(`Brush Size: ${size.value()}`, 10, HEIGHT - 20); 
+
 	
 		if (p.mouseIsPressed && p.mouseY > 100) {
 			// Convert color value to p5 color object for consistency
@@ -97,15 +107,14 @@ const Paint = () => {
 					// Dot brush effect as specified
 					p.strokeWeight(p.random(1, point.weight));
 					p.ellipse(point.x, point.y, p.random(0, point.weight), p.random(0, point.weight - 10));
-					p.ellipse(point.x, point.y, p.random(0, 30), p.random(0, 20));
-					p.ellipse(point.x + p.random(-20, 25), point.y + p.random(-20, 25), p.random(0, 5), p.random(0, 5));
+					p.ellipse(point.x, point.y, p.random(0, 10), p.random(0, 10));
+					p.ellipse(point.x + p.random(-10, 15), point.y + p.random(-10, 10), p.random(0, 5), p.random(0, 5));
 					p.stroke(255, 255, 255, 5);
-					p.strokeWeight(30);
+					p.strokeWeight(20);
 					p.fill(255, 255, 255, 30);
 					p.ellipse(point.x, point.y, p.random(0, point.weight), p.random(0, point.weight - 10));
 					p.rect(point.x, point.y, p.random(15, point.weight), p.random(-10, point.weight - 10));
 				}
-				// Additional brush types can be added here
 			});
 		});
 	
@@ -123,11 +132,14 @@ const Paint = () => {
 			currentLine = [];
 			lines.push(currentLine);
 		}
+
+		
 	};
 	
     return (
         <div>
             <Sketch setup={setup} draw={draw} mousePressed={mousePressed} />
+			
         </div>
     );
 };
