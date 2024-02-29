@@ -2,7 +2,7 @@ import transition from "../transition";
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import { ReactSketchCanvas } from "react-sketch-canvas";
-const Canvas = () => {
+const Paint2 = () => {
   const [state, setState] = useState({
     some: " ",
     color: "white",
@@ -29,7 +29,7 @@ const Canvas = () => {
     <div>
       <ReactSketchCanvas
         style={{
-          border: "0.0625rem solid #000"
+          // border: "0.055rem solid #000"
         }}
         ref={canvas}
         strokeWidth={state.penSize}
@@ -108,5 +108,5 @@ const Canvas = () => {
   );
 };
 const rootElement = document.getElementById("title");
-ReactDOM.render(<Canvas />, rootElement);
-export default transition(Canvas);
+ReactDOM.render(<Paint2 />, rootElement);
+export default transition(Paint2);

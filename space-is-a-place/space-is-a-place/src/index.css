@@ -3,18 +3,21 @@
   padding: 0;
   box-sizing: border-box;
   cursor: none;
+  
 }
 
 .App {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  height: 70vh;
   background-color: rgb(255, 255, 255);
 }
 
 .title {
-  font-size: 10rem;
+  font-size: 8rem;
+  letter-spacing: 1.03px;
+  background-size: 100% 100% !important;
 }
 
 .cursor {
@@ -34,8 +37,11 @@
 
 html,
 body {
-  width: 100vw;
-  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   overflow: hidden;
   background-color: rgb(255, 255, 255);
 }
@@ -69,10 +75,6 @@ canvas {
   padding: 2em;
 }
 
-.footer {
-  position: absolute;
-  bottom: 0;
-}
 
 .links {
   display: flex;
@@ -114,7 +116,7 @@ a {
   margin: 0.5em 0;
 }
 
-slide-in {
+.slide-in {
   position: fixed;
   top: 0;
   left: 0;

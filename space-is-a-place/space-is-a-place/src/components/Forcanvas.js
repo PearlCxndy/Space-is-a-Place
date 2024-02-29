@@ -1,5 +1,6 @@
 import React from 'react';
 import Sketch from 'react-p5';
+import transition from "../transition";
 
 const Paint = () => {
     const WIDTH = 950;
@@ -105,7 +106,7 @@ const Paint = () => {
 					}
 				} else if (point.type === "brush3") {
 					// Dot brush effect as specified
-					p.strokeWeight(p.random(1, point.weight));
+					p.strokeWeight(p.random(1, point.weight-5));
 					p.ellipse(point.x, point.y, p.random(0, point.weight), p.random(0, point.weight - 10));
 					p.ellipse(point.x, point.y, p.random(0, 10), p.random(0, 10));
 					p.ellipse(point.x + p.random(-10, 15), point.y + p.random(-10, 10), p.random(0, 5), p.random(0, 5));
@@ -144,4 +145,4 @@ const Paint = () => {
     );
 };
 
-export default Paint;
+export default transition(Paint);
