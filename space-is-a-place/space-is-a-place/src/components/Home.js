@@ -1,71 +1,68 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
-import { Canvas, useThree } from '@react-three/fiber';
-import { RoundedBox } from '@react-three/drei';
-import { motion } from 'framer-motion';
-import { useDrag } from 'react-use-gesture';
-import { a, useSpring } from '@react-spring/three';
+import {  ScrollControls, Scroll } from '@react-three/drei';
+import { Canvas} from '@react-three/fiber';
 import transition from "../transition";
+import DraggableRoundedBox from './line';
+import { motion, useMotionValue, useSpring } from 'framer-motion';
 
 function Home() {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [cursorVariant, setCursorVariant] = useState("default");
-  // Define a state for the color
   const [color] = useState("royalblue");
 
+  // Motion values for the cursor
+  const cursorX = useMotionValue(-100);
+  const cursorY = useMotionValue(-100);
+
+  // Spring animations for the cursor
+  const cursorXSpring = useSpring(cursorX, { stiffness: 700, damping: 30 });
+  const cursorYSpring = useSpring(cursorY, { stiffness: 700, damping: 30 });
+
   useEffect(() => {
-    const mouseMove = e => {
-      setMousePosition({
-        x: e.clientX,
-        y: e.clientY
-      });
+    const moveCursor = e => {
+      cursorX.set(e.clientX - 16); // Center the cursor
+      cursorY.set(e.clientY - 16);
     };
 
-    window.addEventListener("mousemove", mouseMove);
+    window.addEventListener("mousemove", moveCursor);
 
-    // Cleanup function to remove the event listener
-    return () => window.removeEventListener("mousemove", mouseMove);
-  }, []);
-
-  const variants = {
-    default: { x: mousePosition.x - 16, y: mousePosition.y - 16 },
-    text: { height: 150, width: 150, x: mousePosition.x - 75, y: mousePosition.y - 75, backgroundColor: "red", mixBlendMode: "difference" }
-  };
-
-  const textEnter = () => setCursorVariant("text");
-  const textLeave = () => setCursorVariant("default");
+    return () => {
+      window.removeEventListener("mousemove", moveCursor);
+    };
+  }, [cursorX, cursorY]);
 
   return (
     <div className="App">
-      <h1 onMouseEnter={textEnter} onMouseLeave={textLeave} className='title'>Space is a place</h1>
-      <motion.div className='cursor' variants={variants} animate={cursorVariant} />
       <Canvas>
         <ambientLight intensity={0.1} />
-        <DraggableRoundedBox color={color}/>
+        <ScrollControls pages={3} damping={0.1}>
+          <Scroll>
+            <DraggableRoundedBox color={color} />
+          </Scroll>
+          <Scroll html>
+            {/* DOM contents here will scroll along */}
+            <motion.div className='title' initial={{ y: -20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ type: 'spring', damping: 5, stiffness: 40, duration: 0.3 }}>
+              <h1 className="title">Space<br/>is a<br/>Place</h1>
+            </motion.div>
+            <h1 style={{ top: '100vh' }}>html in here (optional)</h1>
+            <h1 style={{ top: '200vh' }}>second page</h1>
+            <h1 style={{ top: '300vh' }}>third page</h1>
+          </Scroll>
+        </ScrollControls>
       </Canvas>
+      <motion.div className="cursor" style={{
+        translateX: cursorXSpring,
+        translateY: cursorYSpring,
+        position: 'fixed', top: 0, left: 0, zIndex: 9999,
+        width: '32px', height: '32px', borderRadius: '50%',
+        backgroundColor: 'yellow', mixBlendMode: 'difference'
+      }} />
     </div>
   );
 }
 
-function DraggableRoundedBox({ color }) {
-  const { size } = useThree();
-  const [spring, set] = useSpring(() => ({
-    position: [0, 0, 0],
-    config: { mass: 1, tension: 180, friction: 12 },
-  }));
 
-  const bind = useDrag(({ offset: [x, y] }) => {
-    set({ position: [x / size.width * 2, -y / size.height * 2, 0] });
-  });
-
-  return (
-    <a.mesh {...bind()} {...spring}>
-      <RoundedBox args={[3, 3, 3]} radius={0.05} smoothness={4}>
-        <meshPhongMaterial attach="material" color={color} />
-      </RoundedBox>
-    </a.mesh>
-  );
-}
 
 const rootElement = document.getElementById("title");
 ReactDOM.render(<Home />, rootElement);

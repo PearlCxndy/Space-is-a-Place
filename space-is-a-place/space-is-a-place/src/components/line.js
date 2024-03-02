@@ -1,43 +1,25 @@
 import React from 'react';
-import { P5Wrapper } from 'react-p5-wrapper';
-import Sketch from "react-p5"
+import { useThree } from '@react-three/fiber';
+import { useDrag } from 'react-use-gesture';
+import { RoundedBox } from '@react-three/drei';
+import { useSpring, a } from '@react-spring/three';
 
-function sketch(p) {
-  // Define the MyLine class within the sketch function
-  class MyLine {
-    constructor(px, py, x, y) {
-      this.px = px;
-      this.py = py;
-      this.x = x;
-      this.y = y;
-    }
 
-    show() {
-      p.stroke(255); // Use 'p' to call p5 methods
-      p.line(this.px, this.py, this.x, this.y);
-    }
-  }
+function DraggableRoundedBox({ color }) {
+  const { size } = useThree();
+  const [spring, set] = useSpring(() => ({
+    position: [0, 0, 0],
+    config: { mass: 1, tension: 180, friction: 12 },
+  }));
+  const bind = useDrag(({ offset: [x, y] }) => {
+    set({ position: [x / size.width * 2, -y / size.height * 2, 0] });
+  });
+  return (
+    <a.mesh {...bind()} {...spring}>
+      <RoundedBox args={[3, 3, 3]} radius={0.05} smoothness={4}>
+        <meshPhongMaterial attach="material" color={color} />
+      </RoundedBox>
+    </a.mesh>
+  );
 }
-//   let myLine = null;
-
-//   // p5.js setup function
-//   p.setup = () => {
-//     p.createCanvas(p.windowWidth, p.windowHeight);
-//     p.background(0);
-//   };
-
-//   // p5.js draw function
-//   p.draw = () => {
-//     // Update the myLine object with current and previous mouse positions
-//     if (p.mouseIsPressed) {
-//       myLine = new MyLine(p.pmouseX, p.pmouseY, p.mouseX, p.mouseY);
-//       myLine.show();
-//     }
-//   };
-// }
-
-// function MyP5Component() {
-//   return <P5Wrapper sketch={sketch} />;
-// }
-
-// export default MyP5Component;
+export default DraggableRoundedBox;
