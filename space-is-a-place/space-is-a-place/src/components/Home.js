@@ -6,16 +6,17 @@ import transition from "../transition";
 import DraggableRoundedBox from './line';
 import { motion, useMotionValue, useSpring } from 'framer-motion';
 
+
 function Home() {
-  const [color] = useState("royalblue");
+  const [color] = useState("black");
 
   // Motion values for the cursor
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
 
   // Spring animations for the cursor
-  const cursorXSpring = useSpring(cursorX, { stiffness: 700, damping: 30 });
-  const cursorYSpring = useSpring(cursorY, { stiffness: 700, damping: 30 });
+  const cursorXSpring = useSpring(cursorX, { stiffness: 800, damping: 30 });
+  const cursorYSpring = useSpring(cursorY, { stiffness: 800, damping: 30 });
 
   useEffect(() => {
     const moveCursor = e => {
@@ -31,9 +32,10 @@ function Home() {
   }, [cursorX, cursorY]);
 
   return (
-    <div className="App">
+    <>
+
+    <div className="App" >
       <Canvas>
-        <ambientLight intensity={0.1} />
         <ScrollControls pages={3} damping={0.1}>
           <Scroll html>
             {/* DOM contents here will scroll along */}
@@ -42,11 +44,13 @@ function Home() {
               transition={{ type: 'spring', damping: 5, stiffness: 40, duration: 0.3 }}>
               <h1 className="title">Space is a<br/>Place</h1>
             </motion.div>
-            <h1 style={{ top: '100vh' }}>from painting to performance</h1>
-            <h1 style={{ top: '400vh' }}> It is easy to overlook space in art: we can view a painting <br/> of an interior without noticing how the artist has created the illusion of dept </h1>
-            <h1 style={{ top: '300vh' }}>third page</h1>
+            <h1 style={{ top: '100vh', marginBottom: '50px' }}>from painting to performance</h1>
+            <h1 style={{ top: '1000vh', marginBottom: '60px'  }}> It is easy to overlook space in art: we can view a painting <br/> of an interior without noticing how the artist has created the illusion of dept </h1>
+            <h1 style={{ top: '1500vh', marginBottom: '60px' }}>The artists in this gallery have looked at space in various ways. Space can be a room in a house, a stroke of paint on canvas, a three-dimensional form protruding 
+            from a flat surface or the gallery itself. It can be the space inside the artist’s head, the space taken up by the artist’s (and the viewer’s) body or a space beyond the gallery</h1>
           </Scroll>
           <Scroll>
+          <ambientLight intensity={0.5} />
             <DraggableRoundedBox color={color} />
           </Scroll>
         </ScrollControls>
@@ -55,10 +59,12 @@ function Home() {
         translateX: cursorXSpring,
         translateY: cursorYSpring,
         position: 'fixed', top: 0, left: 0, zIndex: 9999,
-        width: '32px', height: '32px', borderRadius: '50%',
-        backgroundColor: 'yellow', mixBlendMode: 'difference'
+        width: '42px', height: '42px', borderRadius: '50%',
+        backgroundColor: 'white', mixBlendMode: 'difference'
       }} />
     </div>
+    </>
+    
   );
 }
 

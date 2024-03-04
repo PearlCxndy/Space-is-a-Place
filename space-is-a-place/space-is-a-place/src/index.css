@@ -10,8 +10,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 70vh;
   background-color: rgb(255, 255, 255);
+  width: 100vw;
+  height: 100vh;
 }
 
 .title {
@@ -134,4 +135,15 @@ a {
   width: 100%;
   background: #0f0f0f;
   transform-origin: top;
+}
+.titleMargin {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.canvas-container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 50%; /* or any width you prefer */
+  height: 100vh; /* full height of the viewport */
 }

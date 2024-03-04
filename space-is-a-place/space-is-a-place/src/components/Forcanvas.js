@@ -1,6 +1,8 @@
 import React from 'react';
 import Sketch from 'react-p5';
 import transition from "../transition";
+import ReactDOM from "react-dom";
+
 
 const Paint = () => {
     const WIDTH = 950;
@@ -144,5 +146,8 @@ const Paint = () => {
         </div>
     );
 };
+
+const rootElement = document.getElementById("title");
+ReactDOM.render(<test1/>, rootElement);
 
 export default transition(Paint);
