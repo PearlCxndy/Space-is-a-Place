@@ -2,9 +2,6 @@
   "name": "space-is-a-place",
   "version": "0.1.0",
   "private": true,
-  "engines": {
-    "node": "16.x"
-  },
   "dependencies": {
     "@react-spring/three": "^9.7.3",
     "@react-three/drei": "^9.99.5",
