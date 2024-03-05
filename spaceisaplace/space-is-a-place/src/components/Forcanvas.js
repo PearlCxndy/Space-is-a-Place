@@ -135,14 +135,19 @@ const Paint = () => {
 			currentLine = [];
 			lines.push(currentLine);
 		}
-
 		
 	};
 	
     return (
         <div>
-            <Sketch setup={setup} draw={draw} mousePressed={mousePressed} />
-			
+        <Sketch setup={setup} draw={draw} mousePressed={mousePressed} />
+		<motion.div className="cursor" style={{
+        translateX: cursorXSpring,
+        translateY: cursorYSpring,
+        position: 'fixed', top: 0, left: 0, zIndex: 9999,
+        width: '42px', height: '42px', borderRadius: '50%',
+        backgroundColor: 'white', mixBlendMode: 'difference'
+      }} />
         </div>
     );
 };
