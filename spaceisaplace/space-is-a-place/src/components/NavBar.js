@@ -13,12 +13,12 @@ const NavBar = () => {
       </div>
       <div className="nav-links">
         <div className="nav-item">
-          <Link className="nav-link" to="/canvas">
+          <Link className="nav-link" to="/test1">
             Draw Here!
           </Link>
         </div>
         <div className="nav-item">
-          <Link className="nav-link" to="/test1">
+          <Link className="nav-link" to="/canvas">
             Another!
           </Link>
         </div>

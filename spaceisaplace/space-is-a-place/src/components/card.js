@@ -6,25 +6,27 @@ function Card(props) {
             ...styles.card,
             ...styles[props.size]
         }}>
+            {props.children} {/* Add this line to render children */}
         </div>
-    )
+    );
 }
 
 const styles = {
     card: {
         margin: '15px 10px',
-        padding: 0,
+        padding: '20px', // Added some padding for content inside the card
         borderRadius: '16px',
-        backgroundColor: 'red'
+        color: 'white', // Assuming you want white text on a black background
+        backgroundColor: 'black'
     },
     small: {
-        gridRowEnd: 'span 26'
+        gridRowEnd: 'span 26',
     },
     medium: {
-        gridRowEnd: 'span 33'
+        gridRowEnd: 'span 33',
     },
     large: {
-        gridRowEnd: 'span 45'
+        gridRowEnd: 'span 45',
     }
 }
 

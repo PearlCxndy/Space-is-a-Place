@@ -31,6 +31,14 @@
   width: 100%; /* You might need to adjust this */
 
 }
+.canvas-container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 50%; /* or any width you prefer */
+  height: 100vh; /* full height of the viewport */
+}
+
 .cursor {
   background-color: #111;
   height: 32px;
@@ -94,7 +102,7 @@ canvas {
 
 a {
   text-decoration: none;
-  color: #3a3737;
+  color: #0f0f0f;
   font-family: "Neue Montreal";
   pointer-events: auto;
 }
@@ -149,11 +157,4 @@ a {
 .titleMargin {
   margin-top: 20px;
   margin-bottom: 20px;
-}
-.canvas-container {
-  position: fixed;
-  top: 0;
-  right: 0;
-  width: 50%; /* or any width you prefer */
-  height: 100vh; /* full height of the viewport */
 }

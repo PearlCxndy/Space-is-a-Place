@@ -5,10 +5,29 @@ import { Canvas } from '@react-three/fiber';
 import transition from "../transition";
 import DraggableRoundedBox from './line';
 import { motion, useMotionValue, useSpring } from 'framer-motion';
+import Card from './card.js';
 
 
 function Home() {
   const [color] = useState("black");
+  const styles = {
+    pin_container: {
+      margin: 0,
+      padding: 0,
+      width: '100vw', // Increased width
+      display: 'grid',
+      gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))', // Adjust for flexibility
+      gridGap: '16px', // Added gap for aesthetics
+      gridAutoRows: 'auto', // Adjusted for content
+      position: 'relative', // Changed to relative for centering within its parent
+      transform: 'translateX(-50%)',
+      left: '50%', // Keep for centering if using absolute positioning
+      justifyContent: 'center',
+      backgroundColor: 'white',
+      top: '100vh', // Keep if you need it offscreen initially
+      marginBottom: '280px', // Adjust as needed
+    }
+  };
 
   // Motion values for the cursor
   const cursorX = useMotionValue(-100);
@@ -36,7 +55,7 @@ function Home() {
     <>
       <div className="App" >
         <Canvas>
-          <ScrollControls pages={3} damping={0.1}>
+          <ScrollControls pages={4} damping={0.1}>
             <Scroll html style={{ width: '100%' }}>
               <motion.div
                 style={{
@@ -67,9 +86,26 @@ function Home() {
                 transition={{ type: 'spring', damping: 5, stiffness: 40, duration: 0.3 }}>
                 <h1 className="scrollhere">-scroll here to explore-</h1>
               </motion.div>
-              <h1 style={{ top: '100vh', marginBottom: '10px', position: 'absolute' ,maxWidth: '300px'}}> It is easy to overlook space in art: we can view a painting <br /> of an interior without noticing how the artist has created the illusion of dept </h1>
+              <h1 style={{ top: '100vh', marginBottom: '10px', position: 'absolute', maxWidth: '300px' }}> It is easy to overlook space in art: we can view a painting <br /> of an interior without noticing how the artist has created the illusion of dept </h1>
               <h1 style={{ top: '150vh', marginBottom: '20px', position: 'absolute' }}>The artists in this gallery have looked at space in various ways. Space can be a room in a house, a stroke of paint on canvas, a three-dimensional form protruding
                 from a flat surface or the gallery itself. It can be the space inside the artist’s head, the space taken up by the artist’s (and the viewer’s) body or a space beyond the gallery</h1>
+              <div style={styles.pin_container}>
+                <Card size="small"><h2 className="a">Abstraction<span className="a"> <br /> /Abstract art</span></h2> Art which does not seek to represent a recognisable visual reality. </Card>
+                <Card size="medium" />
+                <Card size="large" />
+                <Card size="small" />
+                <Card size="medium" />
+                <Card size="large" />
+                <Card size="small" />
+                <Card size="medium" />
+                <Card size="large" />
+                <Card size="medium" />
+                <Card size="large" />
+                <Card size="small" />
+                <Card size="large" />
+                <Card size="medium" />
+                <Card size="small" />
+              </div>
             </Scroll>
             <Scroll>
               <ambientLight intensity={0.5} />
