@@ -1,7 +1,9 @@
-import React from 'react';
+
+import React, { useEffect } from 'react';
 import Sketch from 'react-p5';
 import transition from "../transition";
 import ReactDOM from "react-dom";
+import { motion, useMotionValue, useSpring } from 'framer-motion';
 
 
 const Paint = () => {
@@ -19,6 +21,30 @@ const Paint = () => {
     let saveButton;
     let sel;
     let eraser;
+
+	// const [color] = useState("black");
+
+  // Motion values for the cursor
+  const cursorX = useMotionValue(-100);
+  const cursorY = useMotionValue(-100);
+
+  // Spring animations for the cursor
+  const cursorXSpring = useSpring(cursorX, { stiffness: 800, damping: 30 });
+  const cursorYSpring = useSpring(cursorY, { stiffness: 800, damping: 30 });
+
+  useEffect(() => {
+    const moveCursor = e => {
+      cursorX.set(e.clientX - 16); // Center the cursor
+      cursorY.set(e.clientY - 16);
+    };
+
+    window.addEventListener("mousemove", moveCursor);
+
+    return () => {
+      window.removeEventListener("mousemove", moveCursor);
+    };
+  }, [cursorX, cursorY]);
+
 
 	
     const setup = (p, parentRef) => {
@@ -145,7 +171,7 @@ const Paint = () => {
         translateX: cursorXSpring,
         translateY: cursorYSpring,
         position: 'fixed', top: 0, left: 0, zIndex: 9999,
-        width: '42px', height: '42px', borderRadius: '50%',
+        width: '20px', height: '20px', borderRadius: '30%',
         backgroundColor: 'white', mixBlendMode: 'difference'
       }} />
         </div>

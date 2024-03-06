@@ -20,7 +20,17 @@
   letter-spacing: 1.03px;
   background-size: 100% 100% !important;
 }
+.scrollhere {
+  display: flex; /* Make the container a flexbox container */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  font-size: 2rem;
+  letter-spacing: 1.03px;
+  background-size: 100% 100% !important;
+  height: 100%; /* You might need to adjust this */
+  width: 100%; /* You might need to adjust this */
 
+}
 .cursor {
   background-color: #111;
   height: 32px;
