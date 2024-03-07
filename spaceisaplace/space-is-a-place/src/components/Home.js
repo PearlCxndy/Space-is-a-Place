@@ -5,11 +5,22 @@ import { Canvas } from '@react-three/fiber';
 import transition from "../transition";
 import DraggableRoundedBox from './line';
 import { motion, useMotionValue, useSpring } from 'framer-motion';
+import { InfoContent, HelpContent } from './popupinfo';
 import Card from './card.js';
+import Popup from "./popup";
 
 
 function Home() {
   const [color] = useState("black");
+  const [isOpenPopup, setIsOpenPopup] = useState(false);
+  // Define popupContent state here
+  const [popupContent, setPopupContent] = useState(null); // This was missing in your original code
+
+  const openPopupWithContent = (contentComponent) => {
+    setPopupContent(contentComponent);
+    setIsOpenPopup(true);
+  };
+
   const styles = {
     pin_container: {
       margin: 0,
@@ -90,7 +101,10 @@ function Home() {
               <h1 style={{ top: '150vh', marginBottom: '20px', position: 'absolute' }}>The artists in this gallery have looked at space in various ways. Space can be a room in a house, a stroke of paint on canvas, a three-dimensional form protruding
                 from a flat surface or the gallery itself. It can be the space inside the artist’s head, the space taken up by the artist’s (and the viewer’s) body or a space beyond the gallery</h1>
               <div style={styles.pin_container}>
-                <Card size="small"><h2 className="a">Abstraction<span className="a"> <br /> /Abstract art</span></h2> Art which does not seek to represent a recognisable visual reality. </Card>
+              <Card size="small" onClick={() => openPopupWithContent(<InfoContent />)}>
+                        <h2>Abstraction / Abstract art</h2>
+                        <p>Art which does not seek to represent a recognisable visual reality.</p>
+                    </Card>
                 <Card size="medium" />
                 <Card size="large" />
                 <Card size="small" />
@@ -106,6 +120,7 @@ function Home() {
                 <Card size="medium" />
                 <Card size="small" />
               </div>
+              
             </Scroll>
             <Scroll>
               <ambientLight intensity={0.5} />
@@ -113,6 +128,11 @@ function Home() {
             </Scroll>
           </ScrollControls>
         </Canvas>
+        {isOpenPopup && (
+                    <Popup setIsOpenPopup={setIsOpenPopup}>
+                        {popupContent}
+                    </Popup>
+                )}
         <motion.div className="cursor" style={{
           translateX: cursorXSpring,
           translateY: cursorYSpring,
