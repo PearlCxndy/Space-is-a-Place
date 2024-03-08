@@ -32,7 +32,7 @@ const Paint = () => {
 
 
 	const setup = (p, parentRef) => {
-
+		
 		p.createCanvas(WIDTH, HEIGHT).parent(parentRef).position(3, 115);
 		p.pixelDensity(1);
 		// hide cursor from canvas

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import ReactDOM from 'react-dom';
 import { ScrollControls, Scroll } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
@@ -8,6 +8,9 @@ import { motion, useMotionValue, useSpring } from 'framer-motion';
 import { InfoContent, HelpContent } from './popupinfo';
 import Card from './card.js';
 import Popup from "./popup";
+import AnimatedText from './animated';
+import { Link,useNavigate  } from "react-router-dom";
+
 
 
 function Home() {
@@ -28,7 +31,7 @@ function Home() {
       width: '100vw', // Increased width
       display: 'grid',
       gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))', // Adjust for flexibility
-      gridGap: '16px', // Added gap for aesthetics
+      gridGap: '10px', // Added gap for aesthetics
       gridAutoRows: 'auto', // Adjusted for content
       position: 'relative', // Changed to relative for centering within its parent
       transform: 'translateX(-50%)',
@@ -39,6 +42,7 @@ function Home() {
       marginBottom: '280px', // Adjust as needed
     }
   };
+
 
   // Motion values for the cursor
   const cursorX = useMotionValue(-100);
@@ -101,10 +105,14 @@ function Home() {
               <h1 style={{ top: '150vh', marginBottom: '20px', position: 'absolute' }}>The artists in this gallery have looked at space in various ways. Space can be a room in a house, a stroke of paint on canvas, a three-dimensional form protruding
                 from a flat surface or the gallery itself. It can be the space inside the artist’s head, the space taken up by the artist’s (and the viewer’s) body or a space beyond the gallery</h1>
               <div style={styles.pin_container}>
-              <Card size="small" onClick={() => openPopupWithContent(<InfoContent />)}>
-                        <h2>Abstraction / Abstract art</h2>
-                        <p>Art which does not seek to represent a recognisable visual reality.</p>
-                    </Card>
+                <Card
+                  size="small"
+                  onClick={() => openPopupWithContent(<InfoContent />)}
+                  className="custom-class-for-specific-card" // You can now pass custom classes
+                >
+                  <h2>Abstraction / Abstract art</h2>
+                  <p>Art which does not seek to represent a recognisable visual reality.</p>
+                </Card>
                 <Card size="medium" />
                 <Card size="large" />
                 <Card size="small" />
@@ -120,7 +128,42 @@ function Home() {
                 <Card size="medium" />
                 <Card size="small" />
               </div>
-              
+              <AnimatedText style={{ top: '305vh', marginBottom: '10px', position: 'absolute' }}
+                phrases={[
+                  { text: "YC Startups" },
+                  { text: "Fortune 500" },
+                  { text: "Indie Hackers" },
+                  { text: "Marketing Teams" },
+                  { text: "Small Businesses" }
+                ]}
+              />
+              <motion.div
+                style={{
+                  display: 'inline-block', // Ensure the div fits the content size for better control
+                  cursor: "pointer",
+                  backgroundColor: "transparent" // Assuming you want the floating effect without a visible background
+                  , top: '325vh', marginBottom: '10px', position: 'absolute'
+                }}
+                initial="initial" // Starting animation state
+                animate="float"
+                variants={{
+                  initial: { opacity: [0], y: [-10] },
+                  float: {
+                    y: [-10, 10], opacity: [1],
+                    // Adjust the values for greater or lesser vertical movement
+                    transition: {
+                      type: 'spring', damping: 5, stiffness: 50, duration: 0.2, ease: "easeInOut", // This eases the animation for a smoother effect
+                      repeat: Infinity,
+                      repeatType: "reverse"
+                    }
+                  }
+                }}
+              >
+                <Link to="/test1"> {/* Use the 'to' prop to specify the path */}
+                  <h1 className="title2">Draw your<br />own space</h1>
+                </Link>
+              </motion.div>
+
             </Scroll>
             <Scroll>
               <ambientLight intensity={0.5} />
@@ -129,10 +172,10 @@ function Home() {
           </ScrollControls>
         </Canvas>
         {isOpenPopup && (
-                    <Popup setIsOpenPopup={setIsOpenPopup}>
-                        {popupContent}
-                    </Popup>
-                )}
+          <Popup setIsOpenPopup={setIsOpenPopup}>
+            {popupContent}
+          </Popup>
+        )}
         <motion.div className="cursor" style={{
           translateX: cursorXSpring,
           translateY: cursorYSpring,
@@ -147,8 +190,6 @@ function Home() {
 }
 
 
-
 const rootElement = document.getElementById("title");
 ReactDOM.render(<Home />, rootElement);
-
 export default transition(Home);

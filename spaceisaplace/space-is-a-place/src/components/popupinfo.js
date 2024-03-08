@@ -1,11 +1,10 @@
-// InfoContent.js
+
 export const InfoContent = () => (
-    <div>
-      <h1>Info Popup</h1>
-      <p>This is some info.</p>
-    </div>
+      <div className="text-content">
+        <h1>Abstraction/Abstract art</h1>
+        <p>Art which does not seek to represent a recognisable visual reality.</p>
+      </div>
   );
-  
   // HelpContent.js
   export const HelpContent = () => (
     <div>
@@ -13,4 +12,3 @@ export const InfoContent = () => (
       <p>Here is how you can get help.</p>
     </div>
   );
-  
