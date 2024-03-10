@@ -13,7 +13,7 @@ const AnimatedText = ({ phrases }) => {
     }, [phrases.length]); // Dependency on the number of phrases
 
     return (
-        <div className="title">
+        <div className="title2">
             <AnimatePresence>
                 {phrases.map((phrase, index) => (
                     <motion.span
@@ -23,7 +23,7 @@ const AnimatedText = ({ phrases }) => {
                         exit={{ opacity: 0, y: -20 }}
                         transition={{ duration: 0.5 }}
                         className={phrase.className} // Using the className passed with each phrase
-                        style={{ top: '350vh', marginBottom: '20px', position: 'absolute' }}
+                        style={{ top: '355vh', marginBottom: '20px', position: 'absolute' }}
                     >
                         {phrase.text}
                     </motion.span>
