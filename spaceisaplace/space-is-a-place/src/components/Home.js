@@ -9,8 +9,7 @@ import { Artgloss1,Artgloss2,Artgloss3,Artgloss4,Artgloss5,Artgloss6,Artgloss7,A
 import Card from './card.js';
 import Popup from "./popup";
 import AnimatedText from './animated';
-import { Link, useNavigate } from "react-router-dom";
-
+import {Space} from './Space';
 
 
 function Home() {
@@ -237,8 +236,9 @@ function Home() {
 
             </Scroll>
             <Scroll>
-              <ambientLight intensity={0.5} />
-              <DraggableRoundedBox color={color} />
+              <ambientLight intensity={1} />
+              <Space />
+              {/* <DraggableRoundedBox color={color} /> */}
             </Scroll>
           </ScrollControls>
         </Canvas>
