@@ -3,17 +3,16 @@ import ReactDOM from 'react-dom';
 import { ScrollControls, Scroll } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import transition from "../transition";
-import DraggableRoundedBox from './line';
+import DraggableSpace from './line';
 import { motion, useMotionValue, useSpring } from 'framer-motion';
-import { Artgloss1,Artgloss2,Artgloss3,Artgloss4,Artgloss5,Artgloss6,Artgloss7,Artgloss8,Artgloss9,Artgloss10,Artgloss11,Artgloss12,Artgloss13,Artgloss14,Artgloss15} from './popupinfo';
+import { Artgloss1, Artgloss2, Artgloss3, Artgloss4, Artgloss5, Artgloss6, Artgloss7, Artgloss8, Artgloss9, Artgloss10, Artgloss11, Artgloss12, Artgloss13, Artgloss14, Artgloss15 } from './popupinfo';
 import Card from './card.js';
 import Popup from "./popup";
 import AnimatedText from './animated';
-import {Space} from './Space';
+// import { Space } from './Space';
 
 
 function Home() {
-  const [color] = useState("black");
   const [isOpenPopup, setIsOpenPopup] = useState(false);
   // Define popupContent state here
   const [popupContent, setPopupContent] = useState(null); // This was missing in your original code
@@ -64,6 +63,7 @@ function Home() {
     };
   }, [cursorX, cursorY]);
 
+  
 
   return (
     <>
@@ -103,89 +103,89 @@ function Home() {
               <h1 style={{ top: '100vh', marginBottom: '10px', position: 'absolute', maxWidth: '300px' }}> It is easy to overlook space in art: we can view a painting <br /> of an interior without noticing how the artist has created the illusion of dept </h1>
               <h1 style={{ top: '150vh', marginBottom: '20px', position: 'absolute' }}>The artists in this gallery have looked at space in various ways. Space can be a room in a house, a stroke of paint on canvas, a three-dimensional form protruding
                 from a flat surface or the gallery itself. It can be the space inside the artist’s head, the space taken up by the artist’s (and the viewer’s) body or a space beyond the gallery</h1>
-                <h1 className="title2" style={{ top: '175vh', marginBottom: '280px',position: 'absolute'  }}>Art Glossary</h1>
+              <h1 className="title2" style={{ top: '175vh', marginBottom: '280px', position: 'absolute' }}>Art Glossary</h1>
               <div style={styles.pin_container}>
                 <Card
                   size="small"
-                  onClick={() => openPopupWithContent(< Artgloss1/>)}
+                  onClick={() => openPopupWithContent(< Artgloss1 />)}
                   className="custom-class-for-specific-card" // You can now pass custom classes
                 >
                   <h2>Abstraction / Abstract art</h2>
                   <p>Art which does not seek to represent a recognisable visual reality.</p>
                 </Card>
-                <Card size="medium" onClick={() => openPopupWithContent(<Artgloss2/>)}
+                <Card size="medium" onClick={() => openPopupWithContent(<Artgloss2 />)}
                   className="custom-class-for-specific-card" >
-                      <h2>Abstraction / Abstract art</h2>
+                  <h2>Abstraction / Abstract art</h2>
                   <p>Art which does not seek to represent a recognisable visual reality.</p>
                 </Card>
-                <Card size="large" onClick={() => openPopupWithContent(<Artgloss3/>)}
+                <Card size="large" onClick={() => openPopupWithContent(<Artgloss3 />)}
                   className="custom-class-for-specific-card" >
-                      <h2>Abstraction / Abstract art</h2>
+                  <h2>Abstraction / Abstract art</h2>
                   <p>Art which does not seek to represent a recognisable visual reality.</p>
                 </Card>
-                <Card size="small" onClick={() => openPopupWithContent(<Artgloss4/>)}
+                <Card size="small" onClick={() => openPopupWithContent(<Artgloss4 />)}
                   className="custom-class-for-specific-card" >
-                      <h2>Abstraction / Abstract art</h2>
+                  <h2>Abstraction / Abstract art</h2>
                   <p>Art which does not seek to represent a recognisable visual reality.</p>
                 </Card>
-                <Card size="medium" onClick={() => openPopupWithContent(<Artgloss5/>)}
+                <Card size="medium" onClick={() => openPopupWithContent(<Artgloss5 />)}
                   className="custom-class-for-specific-card" >
-                      <h2>Abstraction / Abstract art</h2>
+                  <h2>Abstraction / Abstract art</h2>
                   <p>Art which does not seek to represent a recognisable visual reality.</p>
                 </Card>
-                <Card size="large" onClick={() => openPopupWithContent(<Artgloss6/>)}
+                <Card size="large" onClick={() => openPopupWithContent(<Artgloss6 />)}
                   className="custom-class-for-specific-card" >
-                      <h2>Abstraction / Abstract art</h2>
+                  <h2>Abstraction / Abstract art</h2>
                   <p>Art which does not seek to represent a recognisable visual reality.</p>
                 </Card>
-                <Card size="small" onClick={() => openPopupWithContent(<Artgloss6/>)}
+                <Card size="small" onClick={() => openPopupWithContent(<Artgloss6 />)}
                   className="custom-class-for-specific-card" >
-                      <h2>Abstraction / Abstract art</h2>
+                  <h2>Abstraction / Abstract art</h2>
                   <p>Art which does not seek to represent a recognisable visual reality.</p>
                 </Card>
-                <Card size="medium" onClick={() => openPopupWithContent(<Artgloss7/>)}
+                <Card size="medium" onClick={() => openPopupWithContent(<Artgloss7 />)}
                   className="custom-class-for-specific-card" >
-                      <h2>Abstraction / Abstract art</h2>
+                  <h2>Abstraction / Abstract art</h2>
                   <p>Art which does not seek to represent a recognisable visual reality.</p>
                 </Card>
-                <Card size="large" onClick={() => openPopupWithContent(<Artgloss8/>)}
+                <Card size="large" onClick={() => openPopupWithContent(<Artgloss8 />)}
                   className="custom-class-for-specific-card" >
-                      <h2>Abstraction / Abstract art</h2>
+                  <h2>Abstraction / Abstract art</h2>
                   <p>Art which does not seek to represent a recognisable visual reality.</p>
                 </Card>
-                <Card size="medium" onClick={() => openPopupWithContent(<Artgloss9/>)}
+                <Card size="medium" onClick={() => openPopupWithContent(<Artgloss9 />)}
                   className="custom-class-for-specific-card" >
-                      <h2>Abstraction / Abstract art</h2>
+                  <h2>Abstraction / Abstract art</h2>
                   <p>Art which does not seek to represent a recognisable visual reality.</p>
                 </Card>
-                <Card size="large" onClick={() => openPopupWithContent(<Artgloss10/>)}
+                <Card size="large" onClick={() => openPopupWithContent(<Artgloss10 />)}
                   className="custom-class-for-specific-card" >
-                      <h2>Abstraction / Abstract art</h2>
+                  <h2>Abstraction / Abstract art</h2>
                   <p>Art which does not seek to represent a recognisable visual reality.</p>
                 </Card>
-                <Card size="small" onClick={() => openPopupWithContent(<Artgloss11/>)}
+                <Card size="small" onClick={() => openPopupWithContent(<Artgloss11 />)}
                   className="custom-class-for-specific-card" >
-                      <h2>Abstraction / Abstract art</h2>
+                  <h2>Abstraction / Abstract art</h2>
                   <p>Art which does not seek to represent a recognisable visual reality.</p>
                 </Card>
-                <Card size="large" onClick={() => openPopupWithContent(<Artgloss12/>)}
+                <Card size="large" onClick={() => openPopupWithContent(<Artgloss12 />)}
                   className="custom-class-for-specific-card" >
-                      <h2>Abstraction / Abstract art</h2>
+                  <h2>Abstraction / Abstract art</h2>
                   <p>Art which does not seek to represent a recognisable visual reality.</p>
                 </Card>
-                <Card size="medium" onClick={() => openPopupWithContent(<Artgloss13/>)}
+                <Card size="medium" onClick={() => openPopupWithContent(<Artgloss13 />)}
                   className="custom-class-for-specific-card" >
-                      <h2>Abstraction / Abstract art</h2>
+                  <h2>Abstraction / Abstract art</h2>
                   <p>Art which does not seek to represent a recognisable visual reality.</p>
                 </Card>
-                <Card size="small" onClick={() => openPopupWithContent(<Artgloss14/>)}
+                <Card size="small" onClick={() => openPopupWithContent(<Artgloss14 />)}
                   className="custom-class-for-specific-card" >
-                      <h2>Abstraction / Abstract art</h2>
+                  <h2>Abstraction / Abstract art</h2>
                   <p>Art which does not seek to represent a recognisable visual reality.</p>
                 </Card>
-                <Card size="small" onClick={() => openPopupWithContent(<Artgloss15/>)}
+                <Card size="small" onClick={() => openPopupWithContent(<Artgloss15 />)}
                   className="custom-class-for-specific-card" >
-                      <h2>Abstraction / Abstract art</h2>
+                  <h2>Abstraction / Abstract art</h2>
                   <p>Art which does not seek to represent a recognisable visual reality.</p>
                 </Card>
               </div>
@@ -236,9 +236,9 @@ function Home() {
 
             </Scroll>
             <Scroll>
-              <ambientLight intensity={1} />
-              <Space />
-              {/* <DraggableRoundedBox color={color} /> */}
+            <spotLight position={[10, 15, 10]} angle={0.3} />
+            <ambientLight intensity={5} />
+              <DraggableSpace />
             </Scroll>
           </ScrollControls>
         </Canvas>
