@@ -4,17 +4,82 @@ Command: npx gltfjsx@6.2.16 spaceisaplace.glb --transform
 Files: spaceisaplace.glb [746.38KB] > /Users/PearlCxndie_1/Documents/GitHub/Space-is-a-Place/spaceisaplace/space-is-a-place/public/model/spaceisaplace-transformed.glb [34.27KB] (95%)
 */
 
-import React, { useRef } from 'react'
-import { useGLTF, PerspectiveCamera } from '@react-three/drei'
+import React, { useRef,useLayoutEffect} from 'react'
+import { useGLTF, PerspectiveCamera ,useScroll} from '@react-three/drei'
+import {useFrame} from '@react-three/fiber'
+import gsap from 'gsap'
 
 export function Space(props) {
   const { nodes, materials } = useGLTF('./model/spaceisaplace-transformed.glb')
+  const space = useRef()
+  const scroll = useScroll()
+  const tl = useRef()
+
+  useFrame((state, delta)=>{
+    tl.current.seek(scroll.offset * tl.current.duration())
+  })
+  useLayoutEffect(()=> {
+    tl.current = gsap.timeline({defaults: {duration: 2, ease: 'power1.inOut'}})
+
+    tl.current
+    .to(space.current.rotation, {y: -1}, 2)
+    .to(space.current.position, {x: 1}, 2)
+
+    .to(space.current.rotation, {y: 1}, 6)   
+    .to(space.current.position, {x: -1}, 6)
+
+    .to(space.current.rotation, {y: 0}, 11)
+    .to(space.current.rotation, {x: 1}, 11)
+    .to(space.current.position, {x: 0}, 11)
+
+    .to(space.current.rotation, {y: 0}, 13)
+    .to(space.current.rotation, {x: -1}, 13)    
+    .to(space.current.position, {x: 0}, 13)
+
+    .to(space.current.rotation, {y: 0}, 16)   
+    .to(space.current.rotation, {x: 0}, 16) 
+    .to(space.current.position, {x: 0}, 16)    
+
+    .to(space.current.rotation, {y: 0}, 20)   
+    .to(space.current.rotation, {x: 0}, 20) 
+    .to(space.current.position, {x: 0}, 20)   
+
+  },[])
   return (
-    <group {...props} dispose={null}>
-      <PerspectiveCamera makeDefault={false} far={100} near={0.1} fov={22.895} position={[7.359, 4.958, 6.926]} rotation={[-0.627, 0.71, 0.441]} />
-      <mesh geometry={nodes.Cube.geometry} material={materials.PaletteMaterial001} position={[0, 1.26, 0]} scale={[2.25, 1.2, 2.1]} />
-      <instancedMesh args={[nodes.Cube023.geometry, materials.PaletteMaterial001, 46]} instanceMatrix={nodes.Cube023.instanceMatrix} />
-      <instancedMesh args={[nodes.Cube035.geometry, materials.PaletteMaterial001, 31]} instanceMatrix={nodes.Cube035.instanceMatrix} />
+
+    
+
+    <group {...props} dispose={null} ref={space}>     
+    <PerspectiveCamera makeDefault={false} far={100} near={0.1} fov={22.895} position={[7.359, 4.958, 6.926]} rotation={[-0.627, 0.71, 0.441]} />
+    <mesh geometry={nodes.Cube.geometry} material={materials.PaletteMaterial001} position={[0, 1.26, 0]} scale={[2.25, 1.2, 2.1]} />
+    <instancedMesh args={[nodes.Cube023.geometry, materials.PaletteMaterial001, 46]} instanceMatrix={nodes.Cube023.instanceMatrix} />
+    <instancedMesh args={[nodes.Cube035.geometry, materials.PaletteMaterial001, 31]} instanceMatrix={nodes.Cube035.instanceMatrix} />
+      <group position={[-0.21, 0.16, 0.37]} rotation={[0, 0, 0]} scale={0.15}>
+        <mesh>
+          <meshPhysicalMaterial 
+            color="#aaa"  
+            roughness={0.2}
+            metalness={1}
+            reflectivity={0.5}
+            iridescence={0.3}
+            iridescenceIOR={1}
+            iridescenceThicknessRange={[100,1000]}           
+          />
+        </mesh>
+        <mesh>
+          <meshPhysicalMaterial 
+            color="#000000"  
+            roughness={1}
+            emissive={'#000'}
+            clearcoat={1}
+            reflectivity={0.2}
+            metalness={0}
+            iridescence={0.1}
+            iridescenceIOR={1}
+            iridescenceThicknessRange={[100,1000]}         
+          />
+        </mesh>
+      </group>
     </group>
   )
 }

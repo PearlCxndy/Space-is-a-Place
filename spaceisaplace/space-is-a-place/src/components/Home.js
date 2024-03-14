@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import ReactDOM from 'react-dom';
-import { ScrollControls, Scroll } from '@react-three/drei';
+import { ScrollControls, Scroll, Sparkles, Backdrop, Float, Ring } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import transition from "../transition";
 import DraggableSpace from './line';
@@ -29,14 +29,14 @@ function Home() {
       width: '100vw', // Increased width
       display: 'grid',
       gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))', // Adjust for flexibility
-      gridGap: '10px', // Added gap for aesthetics
+      gridGap: '8px', // Added gap for aesthetics
       gridAutoRows: 'auto', // Adjusted for content
       position: 'relative', // Changed to relative for centering within its parent
       transform: 'translateX(-50%)',
       left: '50%', // Keep for centering if using absolute positioning
       justifyContent: 'center',
       backgroundColor: 'white',
-      top: '110vh', // Keep if you need it offscreen initially
+      top: '230vh', // Keep if you need it offscreen initially
       marginBottom: '280px', // Adjust as needed
     }
   };
@@ -70,22 +70,66 @@ function Home() {
       <div className="App" >
         <Canvas>
           <ScrollControls pages={4} damping={0.1}>
+          <spotLight position={[10, 15, 10]} angle={0.3} />
+              <ambientLight intensity={5} />
+              <DraggableSpace />
+              <Sparkles size={5} color={"#ffff"} scale={[10, 10, 10]}></Sparkles>
+              <Backdrop
+                receiveShadow
+                floor={0.25} // Stretches the floor segment, 0.25 by default
+                segments={50} // Mesh-resolution, 20 by default
+                scale={[40, 30, 10]}
+                position={[4, -10, 0]}
+              >
+                <meshStandardMaterial color="grey" />
+              </Backdrop>
+
+              <Float
+                speed={4} // Animation speed, defaults to 1
+                rotationIntensity={0.5} // XYZ rotation intensity, defaults to 1
+                floatIntensity={1} // Up/down float intensity, works like a multiplier with floatingRange,defaults to 1
+                floatingRange={[1, 1]} // Range of y-axis values the object will float within, defaults to [-0.1,0.1]
+              >
+                <Ring
+                  scale={1.0} // Smaller scale
+                  position-z={2} // Adjust z-position to bring closer to the camera or into view
+                  position-y={-5}
+                  args={[0, 0.95, 60]}
+                  opacity= {5}
+                  receiveShadow
+                >
+                  <meshStandardMaterial
+                    attach="material"
+                    color="#FFD4D4" // base color for the material
+                  // Additional material properties...
+                  />
+                </Ring>
+              </Float>
             <Scroll html style={{ width: '100%' }}>
               <motion.div
                 style={{
-                  display: 'inline-block', // Ensure the div fits the content size for better control
+                  display: 'inline-block',
                   cursor: "pointer",
-                  backgroundColor: "transparent" // Assuming you want the floating effect without a visible background
+                  backgroundColor: "transparent",
                 }}
-                initial="initial" // Starting animation state
+                initial="initial"
                 animate="float"
                 variants={{
-                  initial: { opacity: [0], y: [-10] },
+                  initial: {
+                    opacity: [0],
+                    y: [-10],
+                    x: 20 // Start from the original x position
+                  },
                   float: {
-                    y: [-10, 10], opacity: [1],
-                    // Adjust the values for greater or lesser vertical movement
+                    y: [-10, 20],
+                    x: 20, // Move 20 pixels to the right
+                    opacity: [1],
                     transition: {
-                      type: 'spring', damping: 5, stiffness: 50, duration: 0.2, ease: "easeInOut", // This eases the animation for a smoother effect
+                      type: 'spring',
+                      damping: 5,
+                      stiffness: 50,
+                      duration: 0.2,
+                      ease: "easeInOut",
                       repeat: Infinity,
                       repeatType: "reverse"
                     }
@@ -94,16 +138,17 @@ function Home() {
               >
                 <h1 className="title">Space is a<br />Place</h1>
               </motion.div>
-              <h1 style={{ top: '110vh', marginBottom: '280px' }}>from painting to performance</h1>
+
+              <h1 style={{ top: '200vh', marginBottom: '280px', marginLeft: '20px' ,marginTop:'50px'}}>from painting to performance</h1>
               <motion.div className='title' initial={{ y: -20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ type: 'spring', damping: 5, stiffness: 40, duration: 0.3 }}>
                 <h1 className="scrollhere">-scroll here to explore-</h1>
               </motion.div>
-              <h1 style={{ top: '100vh', marginBottom: '10px', position: 'absolute', maxWidth: '300px' }}> It is easy to overlook space in art: we can view a painting <br /> of an interior without noticing how the artist has created the illusion of dept </h1>
-              <h1 style={{ top: '150vh', marginBottom: '20px', position: 'absolute' }}>The artists in this gallery have looked at space in various ways. Space can be a room in a house, a stroke of paint on canvas, a three-dimensional form protruding
+              <h1 style={{ top: '100vh', marginBottom: '10px', position: 'absolute', maxWidth: '300px', marginLeft: '20px' }}> It is easy to overlook space in art: we can view a painting <br /> of an interior without noticing how the artist has created the illusion of dept </h1>
+              <h1 style={{ top: '130vh', marginBottom: '20px', position: 'absolute' , marginLeft: '900px',maxWidth: '500px'}}>The artists in this gallery have looked at space in various ways. Space can be a room in a house, a stroke of paint on canvas, a three-dimensional form protruding
                 from a flat surface or the gallery itself. It can be the space inside the artist’s head, the space taken up by the artist’s (and the viewer’s) body or a space beyond the gallery</h1>
-              <h1 className="title2" style={{ top: '175vh', marginBottom: '280px', position: 'absolute' }}>Art Glossary</h1>
+          <h1 className="title2" style={{ top: '175vh', marginBottom: '280px', position: 'absolute', marginLeft: '20px' }}>Art Glossary</h1>
               <div style={styles.pin_container}>
                 <Card
                   size="small"
@@ -114,15 +159,15 @@ function Home() {
                 </Card>
                 <Card size="medium" onClick={() => openPopupWithContent(<Artgloss2 />)}
                   className="custom-class-for-specific-card" >
-                  <h2>Abstract Expressionism </h2>
+                  <h2>Abstract Expressionism </h2>
                 </Card>
                 <Card size="large" onClick={() => openPopupWithContent(<Artgloss3 />)}
                   className="custom-class-for-specific-card" >
-                  <h2>Colour Field painting </h2>
+                  <h2>Colour Field painting </h2>
                 </Card>
                 <Card size="small" onClick={() => openPopupWithContent(<Artgloss4 />)}
                   className="custom-class-for-specific-card" >
-                  <h2>Conceptual art </h2>
+                  <h2>Conceptual art </h2>
                 </Card>
                 <Card size="medium" onClick={() => openPopupWithContent(<Artgloss5 />)}
                   className="custom-class-for-specific-card" >
@@ -173,19 +218,19 @@ function Home() {
                   <h2>Abstraction / Abstract art</h2>
                 </Card>
               </div>
-              <AnimatedText style={{ top: '310vh', marginBottom: '10px', position: 'absolute' }}
+              <AnimatedText style={{ top: '400vh', marginBottom: '10px', position: 'absolute' }}
                 phrases={[
                   { text: "Abstraction/Abstract art" },
-                  { text: "Abstract Expressionism " },
-                  { text: "Colour Field painting " },
+                  { text: "Abstract Expressionism " },
+                  { text: "Colour Field painting " },
                   { text: "Expressionism" },
-                  { text: "Cubism " },
-                  { text: "Conceptual art " },
-                  { text: "Installation art " },
+                  { text: "Cubism " },
+                  { text: "Conceptual art " },
+                  { text: "Installation art " },
                   { text: "Minimalism" },
-                  { text: "Modernism " },
+                  { text: "Modernism " },
                   { text: "Post-Impressionism" },
-                  { text: "Pop Art " },
+                  { text: "Pop Art " },
                   { text: "Romanticism" },
                   { text: "Modernism" },
                   { text: "Impressionism" },
@@ -196,7 +241,7 @@ function Home() {
                   display: 'inline-block', // Ensure the div fits the content size for better control
                   cursor: "pointer",
                   backgroundColor: "transparent" // Assuming you want the floating effect without a visible background
-                  , top: '330vh', marginBottom: '10px', position: 'absolute'
+                  , top: '430vh', marginBottom: '10px', position: 'absolute'
                 }}
                 initial="initial" // Starting animation state
                 animate="float"
@@ -217,13 +262,7 @@ function Home() {
                   <h1 className="title2">Draw your<br />own space</h1>
                 </a>
               </motion.div>
-
-            </Scroll>
-            <Scroll>
-              <spotLight position={[10, 15, 10]} angle={0.3} />
-              <ambientLight intensity={5} />
-              <DraggableSpace />
-            </Scroll>
+              </Scroll>
           </ScrollControls>
         </Canvas>
         {isOpenPopup && (
