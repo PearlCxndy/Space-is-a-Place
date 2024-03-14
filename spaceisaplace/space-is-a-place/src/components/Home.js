@@ -63,7 +63,7 @@ function Home() {
     };
   }, [cursorX, cursorY]);
 
-  
+
 
   return (
     <>
@@ -107,86 +107,70 @@ function Home() {
               <div style={styles.pin_container}>
                 <Card
                   size="small"
-                  onClick={() => openPopupWithContent(< Artgloss1 />)}
-                  className="custom-class-for-specific-card" // You can now pass custom classes
+                  onClick={() => openPopupWithContent(<Artgloss1 />)}
+                  backgroundColor="#ff6347" // Example background color
                 >
-                  <h2>Abstraction / Abstract art</h2>
-                  <p>Art which does not seek to represent a recognisable visual reality.</p>
+                  <h2>Abstraction/Abstract Art</h2>
                 </Card>
                 <Card size="medium" onClick={() => openPopupWithContent(<Artgloss2 />)}
                   className="custom-class-for-specific-card" >
-                  <h2>Abstraction / Abstract art</h2>
-                  <p>Art which does not seek to represent a recognisable visual reality.</p>
+                  <h2>Abstract Expressionism </h2>
                 </Card>
                 <Card size="large" onClick={() => openPopupWithContent(<Artgloss3 />)}
                   className="custom-class-for-specific-card" >
-                  <h2>Abstraction / Abstract art</h2>
-                  <p>Art which does not seek to represent a recognisable visual reality.</p>
+                  <h2>Colour Field painting </h2>
                 </Card>
                 <Card size="small" onClick={() => openPopupWithContent(<Artgloss4 />)}
                   className="custom-class-for-specific-card" >
-                  <h2>Abstraction / Abstract art</h2>
-                  <p>Art which does not seek to represent a recognisable visual reality.</p>
+                  <h2>Conceptual art </h2>
                 </Card>
                 <Card size="medium" onClick={() => openPopupWithContent(<Artgloss5 />)}
                   className="custom-class-for-specific-card" >
                   <h2>Abstraction / Abstract art</h2>
-                  <p>Art which does not seek to represent a recognisable visual reality.</p>
                 </Card>
                 <Card size="large" onClick={() => openPopupWithContent(<Artgloss6 />)}
                   className="custom-class-for-specific-card" >
                   <h2>Abstraction / Abstract art</h2>
-                  <p>Art which does not seek to represent a recognisable visual reality.</p>
                 </Card>
                 <Card size="small" onClick={() => openPopupWithContent(<Artgloss6 />)}
                   className="custom-class-for-specific-card" >
                   <h2>Abstraction / Abstract art</h2>
-                  <p>Art which does not seek to represent a recognisable visual reality.</p>
                 </Card>
                 <Card size="medium" onClick={() => openPopupWithContent(<Artgloss7 />)}
                   className="custom-class-for-specific-card" >
                   <h2>Abstraction / Abstract art</h2>
-                  <p>Art which does not seek to represent a recognisable visual reality.</p>
                 </Card>
                 <Card size="large" onClick={() => openPopupWithContent(<Artgloss8 />)}
                   className="custom-class-for-specific-card" >
                   <h2>Abstraction / Abstract art</h2>
-                  <p>Art which does not seek to represent a recognisable visual reality.</p>
                 </Card>
                 <Card size="medium" onClick={() => openPopupWithContent(<Artgloss9 />)}
                   className="custom-class-for-specific-card" >
                   <h2>Abstraction / Abstract art</h2>
-                  <p>Art which does not seek to represent a recognisable visual reality.</p>
                 </Card>
                 <Card size="large" onClick={() => openPopupWithContent(<Artgloss10 />)}
                   className="custom-class-for-specific-card" >
                   <h2>Abstraction / Abstract art</h2>
-                  <p>Art which does not seek to represent a recognisable visual reality.</p>
                 </Card>
                 <Card size="small" onClick={() => openPopupWithContent(<Artgloss11 />)}
                   className="custom-class-for-specific-card" >
                   <h2>Abstraction / Abstract art</h2>
-                  <p>Art which does not seek to represent a recognisable visual reality.</p>
                 </Card>
                 <Card size="large" onClick={() => openPopupWithContent(<Artgloss12 />)}
                   className="custom-class-for-specific-card" >
                   <h2>Abstraction / Abstract art</h2>
-                  <p>Art which does not seek to represent a recognisable visual reality.</p>
                 </Card>
                 <Card size="medium" onClick={() => openPopupWithContent(<Artgloss13 />)}
                   className="custom-class-for-specific-card" >
                   <h2>Abstraction / Abstract art</h2>
-                  <p>Art which does not seek to represent a recognisable visual reality.</p>
                 </Card>
                 <Card size="small" onClick={() => openPopupWithContent(<Artgloss14 />)}
                   className="custom-class-for-specific-card" >
                   <h2>Abstraction / Abstract art</h2>
-                  <p>Art which does not seek to represent a recognisable visual reality.</p>
                 </Card>
                 <Card size="small" onClick={() => openPopupWithContent(<Artgloss15 />)}
                   className="custom-class-for-specific-card" >
                   <h2>Abstraction / Abstract art</h2>
-                  <p>Art which does not seek to represent a recognisable visual reality.</p>
                 </Card>
               </div>
               <AnimatedText style={{ top: '310vh', marginBottom: '10px', position: 'absolute' }}
@@ -236,8 +220,8 @@ function Home() {
 
             </Scroll>
             <Scroll>
-            <spotLight position={[10, 15, 10]} angle={0.3} />
-            <ambientLight intensity={5} />
+              <spotLight position={[10, 15, 10]} angle={0.3} />
+              <ambientLight intensity={5} />
               <DraggableSpace />
             </Scroll>
           </ScrollControls>

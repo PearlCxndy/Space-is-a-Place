@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 
-const Card = ({ size, children, onClick }) => {
+const Card = ({ size, children, onClick, className, backgroundColor }) => { // Added backgroundColor prop
     const ROTATION_RANGE = 32.5;
     const HALF_ROTATION_RANGE = ROTATION_RANGE / 2;
 
@@ -58,25 +58,28 @@ const Card = ({ size, children, onClick }) => {
                 ...styles.card,
                 ...styles[size],
                 transformStyle: "preserve-3d", // Necessary for 3D tilt effect
+                backgroundColor: backgroundColor || 'black', // Use backgroundColor prop with fallback to black
             }}
             onClick={onClick}
-            className="a"
+            className={`a ${onClick ? 'cursor-pointer' : ''}`} // Add any other default classes here
         >
             <div
                 style={{
-                    transform: "translateZ(75px)", // Brings the content closer
-                    transformStyle: "preserve-3d",
-                }}
-                className="absolute inset-4 grid place-content-center rounded-xl bg-white shadow-lg"
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0, // Added for horizontal centering
+        bottom: 0, // Added for vertical centering
+        display: 'flex', // Use flex to utilize justifyContent and alignItems
+        alignItems: 'center', // Vertical centering
+        justifyContent: 'center', // Horizontal centering
+        padding: '10px', // Optional: Adds some space around the text
+        zIndex: 20, // Higher z-index for text, to be above the drawing
+        pointerEvents: 'none', // Ensures the drawing can be seen/interacted with through the text
+    }}
+                className={className} // Use the className prop for dynamic classes
             >
-                <p
-                    style={{
-                        transform: "translateZ(50px)", // Further brings the text closer for a 3D effect
-                    }}
-                    className="a"
-                >
-                    {children}
-                </p>
+                {children}
             </div>
         </motion.div>
     );
@@ -87,15 +90,14 @@ const styles = {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        margin: '15px 10px',
-        padding: '20px',
-        borderRadius: '16px',
+        margin: '15px',
+        padding: '30px',
+        borderRadius: '20px',
         color: 'white',
-        backgroundColor: 'black',
         cursor: 'pointer',
-        // width: '300px', // Specify width for consistency
-        // height: '200px', // Specify height for consistency
-        perspective: '1000px', // Adjust as needed for the 3D effect
+        perspective: '1000px',
+        width: '600px', // Set your desired width
+        maxWidth: '100%', // Ensure it doesn't overflow its container
     },
     small: {
         gridRowEnd: 'span 26',
@@ -106,9 +108,6 @@ const styles = {
     large: {
         gridRowEnd: 'span 45',
     }
-
-    
 };
-
 
 export default Card;
