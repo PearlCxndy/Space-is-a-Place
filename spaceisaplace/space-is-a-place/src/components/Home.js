@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect} from 'react';
 import ReactDOM from 'react-dom';
 import { ScrollControls, Scroll, Sparkles, Backdrop, Float, Ring } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
@@ -9,7 +9,6 @@ import { Artgloss1, Artgloss2, Artgloss3, Artgloss4, Artgloss5, Artgloss6, Artgl
 import Card from './card.js';
 import Popup from "./popup";
 import AnimatedText from './animated';
-// import { Space } from './Space';
 
 
 function Home() {
@@ -69,7 +68,7 @@ function Home() {
     <>
       <div className="App" >
         <Canvas>
-          <ScrollControls pages={4} damping={0.1}>
+          <ScrollControls pages={5} damping={0.1}>
           <spotLight position={[10, 15, 10]} angle={0.3} />
               <ambientLight intensity={5} />
               <DraggableSpace />
