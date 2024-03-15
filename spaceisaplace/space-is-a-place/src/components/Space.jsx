@@ -13,43 +13,38 @@ export function Space(props) {
   const tl = useRef();
 
   useFrame((state, delta)=>{
-    tl.current.seek(scroll.offset * 6 * tl.current.duration());
+    tl.current.seek(scroll.offset * 7 * tl.current.duration());
   })
   useLayoutEffect(() => {
-    if (cameraRef.current) {
-    // Set up the timeline with specific durations for each animation
-    tl.current = gsap.timeline({ paused: true, defaults: { ease: 'power1.inOut' } });
-    // Start by moving to the right
-    tl.current.to(space.current.position, {
-      x: 2, // Adjust as necessary for the distance you want to move to the right
-      duration: 1 // Duration for the move to the right
-    });
-    tl.current.to(space.current.position, {
-      x: 2,
-      duration: 1
-    });
-
-    // Finally, move to the left
-    tl.current.to(space.current.position, {
-      x: -3, // Adjust as necessary for the distance you want to move to the left
-      duration: 1 // Duration for the move to the left
-    });
-    tl.current.to(space.current.rotation, {
-      y: "+=" + Math.PI / 2, // Rotate 90 degrees to the left
-      duration: 4 // Adjust duration to control the speed of the rotation
-    });
-    tl.current.to(space.current.position, {
-      y: "+=" + Math.PI / 4,
-      x: -1, // Adjust as necessary for the distance you want to move to the right
-      duration: 1 // Duration for the move to the right
-    });
-    tl.current.to(space.current.position, {
-      x: -2, // Adjust as necessary for the distance you want to move to the left
-      duration: 1 // Duration for the move to the left
-    });
-    // If needed, adjust the position more dramatically for visibility
-  }
-}, [cameraRef]);
+    if (cameraRef.current && space.current) {
+      tl.current = gsap.timeline({ paused: true, defaults: { ease: 'power1.inOut' } });
+  
+      // Extending the duration for more gradual movements
+      tl.current.to(space.current.position, { x: 2, duration: 8 }) // Slower movement to the right
+                .to(space.current.position, { x: -9, duration: 20 }, "+=2") // Start 2 seconds after the previous animation ends, longer duration for a smoother transition
+                .to(space.current.position, { x: -3, duration: 40 }, "<+1"); // Start 1 second after the second animation starts, significantly longer duration for a very gradual movement
+  
+      // Slowing down rotation animations as well
+      tl.current.to(space.current.rotation, { y: "+=" + Math.PI / 2, duration: 16 }) // Slower rotation
+                .to(space.current.rotation, { y: "-=" + Math.PI / 4, duration: 20 });
+  
+      // Adjusting camera movements for a smoother zoom in effect
+      tl.current.to(cameraRef.current.position, { z: cameraRef.current.position.z - 5, duration: 40 }) // Slower approach towards the object
+                .to(cameraRef.current, {
+                    fov: 40,
+                    onUpdate: () => cameraRef.current.updateProjectionMatrix(),
+                    duration: 8 // Slower FOV change for a gradual zoom effect
+                })
+                .to(space.current.rotation, {y: 0}, 20)   
+                .to(space.current.rotation, {x: 0}, 20) 
+                .to(space.current.position, {x: 0}, 20)   
+                
+                tl.current.to(space.current.rotation, { y: "+=" + Math.PI / 2, duration: 16 }) // Slower rotation
+                .to(space.current.rotation, { y: "-=" + Math.PI / 4, duration: 20 });
+  
+                
+    }
+  }, [cameraRef]);
   return (
 
     <group {...props} dispose={null} ref={space}>     

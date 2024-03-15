@@ -13,7 +13,7 @@ const AnimatedText = ({ phrases }) => {
     }, [phrases.length]); // Dependency on the number of phrases
 
     return (
-        <div className="title2">
+        <div className="title2" style={{ backgroundColor: '#EFEEEE', padding: '800px', margin: '0 auto', width: '100%' }}>
             <AnimatePresence>
                 {phrases.map((phrase, index) => (
                     <motion.span

@@ -26,16 +26,17 @@ function Home() {
       margin: 0,
       padding: 0,
       width: '100vw', // Increased width
+      height:'60vw',
       display: 'grid',
       gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))', // Adjust for flexibility
-      gridGap: '8px', // Added gap for aesthetics
+      gridGap: '20px', // Added gap for aesthetics
       gridAutoRows: 'auto', // Adjusted for content
       position: 'relative', // Changed to relative for centering within its parent
       transform: 'translateX(-50%)',
       left: '50%', // Keep for centering if using absolute positioning
       justifyContent: 'center',
       backgroundColor: 'white',
-      top: '230vh', // Keep if you need it offscreen initially
+      top: '280vh', // Keep if you need it offscreen initially
       marginBottom: '280px', // Adjust as needed
     }
   };
@@ -68,7 +69,7 @@ function Home() {
     <>
       <div className="App" >
         <Canvas>
-          <ScrollControls pages={5} damping={0.1}>
+          <ScrollControls pages={8} damping={0.1}>
           <spotLight position={[10, 15, 10]} angle={0.3} />
               <ambientLight intensity={5} />
               <DraggableSpace />
@@ -110,6 +111,7 @@ function Home() {
                   display: 'inline-block',
                   cursor: "pointer",
                   backgroundColor: "transparent",
+                  marginTop:'150px' // Adjusted to make the top margin lower
                 }}
                 initial="initial"
                 animate="float"
@@ -145,9 +147,13 @@ function Home() {
                 <h1 className="scrollhere">-scroll here to explore-</h1>
               </motion.div>
               <h1 style={{ top: '100vh', marginBottom: '10px', position: 'absolute', maxWidth: '300px', marginLeft: '20px' }}> It is easy to overlook space in art: we can view a painting <br /> of an interior without noticing how the artist has created the illusion of dept </h1>
-              <h1 style={{ top: '130vh', marginBottom: '20px', position: 'absolute' , marginLeft: '900px',maxWidth: '500px'}}>The artists in this gallery have looked at space in various ways. Space can be a room in a house, a stroke of paint on canvas, a three-dimensional form protruding
+              <h1 style={{ top: '130vh', marginBottom: '20px', position: 'absolute' , marginLeft: '1000px',maxWidth: '500px'}}>The artists in this gallery have looked at space in various ways. Space can be a room in a house, a stroke of paint on canvas, a three-dimensional form protruding
                 from a flat surface or the gallery itself. It can be the space inside the artist’s head, the space taken up by the artist’s (and the viewer’s) body or a space beyond the gallery</h1>
-          <h1 className="title2" style={{ top: '175vh', marginBottom: '280px', position: 'absolute', marginLeft: '20px' }}>Art Glossary</h1>
+                <h1 style={{ top: '190vh', marginBottom: '300px', position: 'absolute', marginLeft: '20px' ,maxWidth: '500px'}}>Art doesn’t happen in a vacuum. New patrons began to support art in the 19th century, taking over from the church and the aristocracy.The new middle classes built galleries to share their collections with the public.</h1>
+                <h1 style={{ top: '250vh', marginBottom: '280px', position: 'absolute', marginLeft: '1000px' ,maxWidth: '500px'}}>Art was seen by a wider audience and art education meant that artists came from more diverse background the changes of the 20th century from the end of empire and two world wars to widening democracy and consumerism, affected the way art is made and how it is received</h1>
+                <h1  style={{ top: '300vh', marginBottom: '400px', position: 'absolute', marginLeft: '20px',maxWidth: '500px' }}>Art becomes free to define its own boundaries. No longer in the service of religion, morality  , ideology or even realism ,art has carved a space for itself.</h1>
+          <h1 className="title2" style={{ top: '320vh', marginBottom: '500px', position: 'absolute', marginLeft: '20px' }}>Art Glossary</h1>
+
               <div style={styles.pin_container}>
                 <Card
                   size="small"
@@ -217,7 +223,7 @@ function Home() {
                   <h2>Abstraction / Abstract art</h2>
                 </Card>
               </div>
-              <AnimatedText style={{ top: '400vh', marginBottom: '10px', position: 'absolute' }}
+              <AnimatedText style={{ top: '800vh', marginBottom: '1500px', position: 'absolute' }}
                 phrases={[
                   { text: "Abstraction/Abstract art" },
                   { text: "Abstract Expressionism " },
@@ -240,7 +246,7 @@ function Home() {
                   display: 'inline-block', // Ensure the div fits the content size for better control
                   cursor: "pointer",
                   backgroundColor: "transparent" // Assuming you want the floating effect without a visible background
-                  , top: '430vh', marginBottom: '10px', position: 'absolute'
+                  , top: '730vh', marginBottom: '10px', position: 'absolute'
                 }}
                 initial="initial" // Starting animation state
                 animate="float"

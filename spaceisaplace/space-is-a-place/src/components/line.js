@@ -2,14 +2,13 @@ import React, { useRef } from 'react';
 import { useThree } from '@react-three/fiber';
 import { useSpring, a } from '@react-spring/three';
 import { useDrag } from 'react-use-gesture';
-import * as THREE from 'three';
 import { Space } from './Space'; // Make sure this is your 3D model component
 
 export default function DraggableSpace() {
   const groupRef = useRef();
   const { size } = useThree();
 
-  const initialRotationY = -Math.PI / 4; // Rotate a bit left (45 degrees) initially
+  const initialRotationY = -Math.PI / 3.5; // Rotate a bit left (45 degrees) initially
 
   const [{ rotation }, api] = useSpring(() => ({
     rotation: [0, initialRotationY, 0], // Initial rotation
@@ -21,10 +20,7 @@ export default function DraggableSpace() {
       rotation: [0, yRotation, 0],
     });
   });
-
-  // Adjust the initial position of the group/model slightly down and to the right
-  // The values here (e.g., 0.2 and -0.2) are just examples; adjust them as needed for your scene
-  const initialPosition = [1.5, -0.5, 0];
+  const initialPosition = [1.7, -1.1, 0.15]; //[right,up,fov]
 
   return (
     <a.group ref={groupRef} {...bind()} rotation={rotation} position={initialPosition}>
