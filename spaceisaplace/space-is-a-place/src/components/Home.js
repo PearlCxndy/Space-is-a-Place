@@ -1,15 +1,47 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
-import { ScrollControls, Scroll, Sparkles, Backdrop, Float, Ring,useScroll} from '@react-three/drei';
-import { Canvas,useFrame } from '@react-three/fiber';
+import { ScrollControls, Scroll, Sparkles, Backdrop, Float, Ring, useScroll } from '@react-three/drei';
+import { Canvas, useFrame } from '@react-three/fiber';
 import transition from "../transition";
 import DraggableSpace from './line';
-import { motion, useMotionValue, useSpring } from 'framer-motion';
+import { motion, useMotionValue, useSpring, AnimatePresence } from 'framer-motion';
 import { Artgloss1, Artgloss2, Artgloss3, Artgloss4, Artgloss5, Artgloss6, Artgloss7, Artgloss8, Artgloss9, Artgloss10, Artgloss11, Artgloss12, Artgloss13, Artgloss14, Artgloss15 } from './popupinfo';
 import Card from './card.js';
 import Popup from "./popup";
 import AnimatedText from './animated';
+import { useInView } from 'react-intersection-observer';
 
+const Section = ({ id, children }) => {
+  const { ref, inView } = useInView({
+    threshold: 0.1,
+    triggerOnce: id <= 2 ? false : true, // Sections 1 and 2 will trigger every time; sections 3, 4, and 5 only once
+  });
+
+  const variants = {
+    visible: { 
+      opacity: 1, 
+      y: 0, 
+      transition: { duration: 1, delay: id * 0.2 } 
+    },
+    hidden: { 
+      opacity: 0, 
+      y: 50 
+    },
+  };
+
+  return (
+    <motion.div
+      ref={ref}
+      initial="hidden"
+      animate={inView ? 'visible' : 'hidden'}
+      exit={{ opacity: 0 }} // Ensure sections fade out on exit if needed
+      variants={variants}
+      style={{ marginBottom: '100px' }}
+    >
+      {children}
+    </motion.div>
+  );
+};
 
 function Home() {
   const [isOpenPopup, setIsOpenPopup] = useState(false);
@@ -21,40 +53,13 @@ function Home() {
     setIsOpenPopup(true);
   };
 
-  const [visibleSections, setVisibleSections] = useState({
-    section1: false,
-    section2: false,
-    section3: false,
-  });
 
-  function ScrollAnimation({ setVisibleSections }) {
-    const scroll = useScroll();
-  
-    useFrame(() => {
-      const scrollY = scroll.offset; // scroll.offset is a value between 0 (top) and 1 (bottom)
-  
-      const newVisibility = {
-        section1: scrollY > 0.05 && scrollY < 20, // Adjust these values based on your sections
-        section2: scrollY > 0.1 && scrollY < 20,
-        section3: scrollY > 0.25 && scrollY < 20,
-        // Add more sections if needed
-      };
-  
-      setVisibleSections(newVisibility);
-    });
-  
-    return null; // This component doesn't render anything
-  }
-  const sectionVariants = {
-    hidden: { opacity: 0, y: 40 },
-    visible: { opacity: 4, y: 0 },
-  };
   const styles = {
     pin_container: {
       margin: 0,
       padding: 0,
       width: '100vw', // Increased width
-      height:'60vw',
+      height: '60vw',
       display: 'grid',
       gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))', // Adjust for flexibility
       gridGap: '20px', // Added gap for aesthetics
@@ -98,48 +103,48 @@ function Home() {
       <div className="App" >
         <Canvas>
           <ScrollControls pages={8} damping={0.1}>
-          <spotLight position={[10, 15, 10]} angle={0.3} />
-              <ambientLight intensity={5} />
-              <DraggableSpace />
-              <Sparkles size={5} color={"#ffff"} scale={[10, 10, 10]}></Sparkles>
-              <Backdrop
-                receiveShadow
-                floor={0.25} // Stretches the floor segment, 0.25 by default
-                segments={50} // Mesh-resolution, 20 by default
-                scale={[40, 30, 10]}
-                position={[4, -10, 0]}
-              >
-                <meshStandardMaterial color="grey" />
-              </Backdrop>
+            <spotLight position={[10, 15, 10]} angle={0.3} />
+            <ambientLight intensity={5} />
+            <DraggableSpace />
+            <Sparkles size={5} color={"#ffff"} scale={[10, 10, 10]}></Sparkles>
+            <Backdrop
+              receiveShadow
+              floor={0.25} // Stretches the floor segment, 0.25 by default
+              segments={50} // Mesh-resolution, 20 by default
+              scale={[40, 30, 10]}
+              position={[4, -10, 0]}
+            >
+              <meshStandardMaterial color="grey" />
+            </Backdrop>
 
-              <Float
-                speed={4} // Animation speed, defaults to 1
-                rotationIntensity={0.5} // XYZ rotation intensity, defaults to 1
-                floatIntensity={1} // Up/down float intensity, works like a multiplier with floatingRange,defaults to 1
-                floatingRange={[1, 1]} // Range of y-axis values the object will float within, defaults to [-0.1,0.1]
+            <Float
+              speed={4} // Animation speed, defaults to 1
+              rotationIntensity={0.5} // XYZ rotation intensity, defaults to 1
+              floatIntensity={1} // Up/down float intensity, works like a multiplier with floatingRange,defaults to 1
+              floatingRange={[1, 1]} // Range of y-axis values the object will float within, defaults to [-0.1,0.1]
+            >
+              <Ring
+                scale={1.0} // Smaller scale
+                position-z={2} // Adjust z-position to bring closer to the camera or into view
+                position-y={-5}
+                args={[0, 0.95, 60]}
+                opacity={5}
+                receiveShadow
               >
-                <Ring
-                  scale={1.0} // Smaller scale
-                  position-z={2} // Adjust z-position to bring closer to the camera or into view
-                  position-y={-5}
-                  args={[0, 0.95, 60]}
-                  opacity= {5}
-                  receiveShadow
-                >
-                  <meshStandardMaterial
-                    attach="material"
-                    color="#FFD4D4" // base color for the material
-                  // Additional material properties...
-                  />
-                </Ring>
-              </Float>
+                <meshStandardMaterial
+                  attach="material"
+                  color="#FFD4D4" // base color for the material
+                // Additional material properties...
+                />
+              </Ring>
+            </Float>
             <Scroll html style={{ width: '100%' }}>
               <motion.div
                 style={{
                   display: 'inline-block',
                   cursor: "pointer",
                   backgroundColor: "transparent",
-                  marginTop:'150px' // Adjusted to make the top margin lower
+                  marginTop: '150px' // Adjusted to make the top margin lower
                 }}
                 initial="initial"
                 animate="float"
@@ -168,52 +173,32 @@ function Home() {
                 <h1 className="title">Space is a<br />Place</h1>
               </motion.div>
 
-              <h1 style={{ top: '200vh', marginBottom: '100px', marginLeft: '20px' ,marginTop:'50px'}}>from painting to performance</h1>
-              <motion.div  initial={{ y: -20, opacity: 0 }}
+              <h1 style={{ top: '200vh', marginBottom: '100px', marginLeft: '20px', marginTop: '50px' }}>from painting to performance</h1>
+              <motion.div initial={{ y: -20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ type: 'spring', damping: 5, stiffness: 40, duration: 0.3 }}>
-                <h1 className="scrollhere" style={{ top: '200vh', marginBottom: '100px', marginRight: '100px' ,marginTop:'10px'}}>-scroll here to explore-</h1>
+                <h1 className="scrollhere" style={{ top: '200vh', marginBottom: '100px', marginRight: '100px', marginTop: '10px' }}>-scroll here to explore-</h1>
               </motion.div>
-              <ScrollAnimation setVisibleSections={setVisibleSections} />
               <div style={{ position: 'absolute', width: '100%' }}>
-        {visibleSections.section1 && (
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={sectionVariants}
-            transition={{ duration: 1 }}
-            style={{top: '1vh', marginBottom: '10px', position: 'absolute', maxWidth: '450px', marginLeft: '30px' }}
-          >
-            <h1>It is easy to overlook space in art: we can view a painting of an interior without noticing how the artist has created the illusion of depth.</h1>
-          </motion.div>
-        )}
-        {visibleSections.section2 && (
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={sectionVariants}
-            transition={{ duration: 1 }}
-            style={{ top: '19vh', marginBottom: '20px', position: 'absolute' , marginLeft: '1000px',maxWidth: '500px' }}
-          >
-            <h1>The artists in this gallery have looked at space in various ways. Space can be a room in a house, a stroke of paint on canvas, a three-dimensional form protruding from a flat surface or the gallery itself. It can be the space inside the artist’s head, the space taken up by the artist’s (and the viewer’s) body or a space beyond the gallery.</h1>
-          </motion.div>
-        )}
-        {visibleSections.section3 && (
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={sectionVariants}
-            transition={{ duration: 1 }}
-            style={{ top: '25vh', marginBottom: '300px', position: 'absolute', marginLeft: '20px' ,maxWidth: '500px' }}
-          >
-            <h1>Art doesn’t happen in a vacuum. New patrons began to support art in the 19th century, taking over from the church and the aristocracy. The new middle classes built galleries to share their collections with the public.</h1>
-          </motion.div>
-        )}
-        {/* Add more sections as needed */}
-      </div>
-                <h1 style={{ top: '250vh', marginBottom: '280px', position: 'absolute', marginLeft: '1000px' ,maxWidth: '500px'}}>Art was seen by a wider audience and art education meant that artists came from more diverse background the changes of the 20th century from the end of empire and two world wars to widening democracy and consumerism, affected the way art is made and how it is received</h1>
-                <h1  style={{ top: '300vh', marginBottom: '400px', position: 'absolute', marginLeft: '20px',maxWidth: '500px' }}>Art becomes free to define its own boundaries. No longer in the service of religion, morality  , ideology or even realism ,art has carved a space for itself.</h1>
-                <h1 className="title2" style={{ top: '320vh', marginBottom: '500px', position: 'absolute', marginLeft: '20px' }}>Art Glossary</h1>
+              <Section id={1}>
+                  <h1 style={{ top: '1vh', marginBottom: '10px', position: 'absolute', maxWidth: '450px', marginLeft: '30px' }}>Art doesn’t happen in a vacuum. New patrons began to support art in the 19th century, taking over from the church and the aristocracy. The new middle classes built galleries to share their collections with the public.</h1>
+                </Section>
+              <Section id={2}>
+                  <h1 style={{ top: '19vh', marginBottom: '20px', position: 'absolute', marginLeft: '1000px', maxWidth: '500px' }}>Art was seen by a wider audience and art education meant that artists came from more diverse backgrounds. The changes of the 20th century from the end of empire and two world wars to widening democracy and consumerism, affected the way art is made and how it is received.</h1>
+                </Section>
+                <Section id={3}>
+                  <h1 style={{ top: '110vh', marginBottom: '40px', position: 'absolute', marginLeft: '20px', maxWidth: '400px' }}>It is easy to overlook space in art: we can view a painting of an interior without noticing how the artist has created the illusion of depth.</h1>
+                </Section>
+                <Section id={4}>
+                  <h1 style={{ top: '140vh', marginBottom: '40px', position: 'absolute', marginLeft: '500x', maxWidth: '1000px' }}>Art was seen by a wider audience and art education meant that artists came from more diverse backgrounds. The changes of the 20th century from the end of empire and two world wars to widening democracy and consumerism, affected the way art is made and how it is received.</h1>
+                </Section>
+                <Section id={5}>
+                  <h1 style={{ top: '170vh', marginBottom: '40px', position: 'absolute', marginLeft: '800px', maxWidth: '1000px' }}>Art becomes free to define its own boundaries. No longer in the service of religion, morality  , ideology or even realism ,art has carved a space for itself.</h1>
+                </Section>
+              </div>
+
+
+              <h1 className="title2" style={{ top: '320vh', marginBottom: '500px', position: 'absolute', marginLeft: '20px' }}>Art Glossary</h1>
 
               <div style={styles.pin_container}>
                 <Card
@@ -328,7 +313,7 @@ function Home() {
                   <h1 className="title2">Draw your<br />own space</h1>
                 </a>
               </motion.div>
-              </Scroll>
+            </Scroll>
           </ScrollControls>
         </Canvas>
 
