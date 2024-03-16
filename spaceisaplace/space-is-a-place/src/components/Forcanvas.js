@@ -54,7 +54,7 @@ const Paint = () => {
 		sel.option("Draw Triangle (press 'T')");
 
 		// Color picker
-		colorPicker = p.createColorPicker('#00000').parent(parentRef);
+		colorPicker = p.createColorPicker('black').parent(parentRef);
 		colorPicker.position(50, 105);
 
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect} from 'react';
 import ReactDOM from 'react-dom';
-import { ScrollControls, Scroll, Sparkles, Backdrop, Float, Ring } from '@react-three/drei';
-import { Canvas } from '@react-three/fiber';
+import { ScrollControls, Scroll, Sparkles, Backdrop, Float, Ring,useScroll} from '@react-three/drei';
+import { Canvas,useFrame } from '@react-three/fiber';
 import transition from "../transition";
 import DraggableSpace from './line';
 import { motion, useMotionValue, useSpring } from 'framer-motion';
@@ -21,6 +21,34 @@ function Home() {
     setIsOpenPopup(true);
   };
 
+  const [visibleSections, setVisibleSections] = useState({
+    section1: false,
+    section2: false,
+    section3: false,
+  });
+
+  function ScrollAnimation({ setVisibleSections }) {
+    const scroll = useScroll();
+  
+    useFrame(() => {
+      const scrollY = scroll.offset; // scroll.offset is a value between 0 (top) and 1 (bottom)
+  
+      const newVisibility = {
+        section1: scrollY > 0.05 && scrollY < 20, // Adjust these values based on your sections
+        section2: scrollY > 0.1 && scrollY < 20,
+        section3: scrollY > 0.25 && scrollY < 20,
+        // Add more sections if needed
+      };
+  
+      setVisibleSections(newVisibility);
+    });
+  
+    return null; // This component doesn't render anything
+  }
+  const sectionVariants = {
+    hidden: { opacity: 0, y: 40 },
+    visible: { opacity: 4, y: 0 },
+  };
   const styles = {
     pin_container: {
       margin: 0,
@@ -140,19 +168,52 @@ function Home() {
                 <h1 className="title">Space is a<br />Place</h1>
               </motion.div>
 
-              <h1 style={{ top: '200vh', marginBottom: '280px', marginLeft: '20px' ,marginTop:'50px'}}>from painting to performance</h1>
-              <motion.div className='title' initial={{ y: -20, opacity: 0 }}
+              <h1 style={{ top: '200vh', marginBottom: '100px', marginLeft: '20px' ,marginTop:'50px'}}>from painting to performance</h1>
+              <motion.div  initial={{ y: -20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ type: 'spring', damping: 5, stiffness: 40, duration: 0.3 }}>
-                <h1 className="scrollhere">-scroll here to explore-</h1>
+                <h1 className="scrollhere" style={{ top: '200vh', marginBottom: '100px', marginRight: '100px' ,marginTop:'10px'}}>-scroll here to explore-</h1>
               </motion.div>
-              <h1 style={{ top: '100vh', marginBottom: '10px', position: 'absolute', maxWidth: '300px', marginLeft: '20px' }}> It is easy to overlook space in art: we can view a painting <br /> of an interior without noticing how the artist has created the illusion of dept </h1>
-              <h1 style={{ top: '130vh', marginBottom: '20px', position: 'absolute' , marginLeft: '1000px',maxWidth: '500px'}}>The artists in this gallery have looked at space in various ways. Space can be a room in a house, a stroke of paint on canvas, a three-dimensional form protruding
-                from a flat surface or the gallery itself. It can be the space inside the artist’s head, the space taken up by the artist’s (and the viewer’s) body or a space beyond the gallery</h1>
-                <h1 style={{ top: '190vh', marginBottom: '300px', position: 'absolute', marginLeft: '20px' ,maxWidth: '500px'}}>Art doesn’t happen in a vacuum. New patrons began to support art in the 19th century, taking over from the church and the aristocracy.The new middle classes built galleries to share their collections with the public.</h1>
+              <ScrollAnimation setVisibleSections={setVisibleSections} />
+              <div style={{ position: 'absolute', width: '100%' }}>
+        {visibleSections.section1 && (
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={sectionVariants}
+            transition={{ duration: 1 }}
+            style={{top: '1vh', marginBottom: '10px', position: 'absolute', maxWidth: '450px', marginLeft: '30px' }}
+          >
+            <h1>It is easy to overlook space in art: we can view a painting of an interior without noticing how the artist has created the illusion of depth.</h1>
+          </motion.div>
+        )}
+        {visibleSections.section2 && (
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={sectionVariants}
+            transition={{ duration: 1 }}
+            style={{ top: '19vh', marginBottom: '20px', position: 'absolute' , marginLeft: '1000px',maxWidth: '500px' }}
+          >
+            <h1>The artists in this gallery have looked at space in various ways. Space can be a room in a house, a stroke of paint on canvas, a three-dimensional form protruding from a flat surface or the gallery itself. It can be the space inside the artist’s head, the space taken up by the artist’s (and the viewer’s) body or a space beyond the gallery.</h1>
+          </motion.div>
+        )}
+        {visibleSections.section3 && (
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={sectionVariants}
+            transition={{ duration: 1 }}
+            style={{ top: '25vh', marginBottom: '300px', position: 'absolute', marginLeft: '20px' ,maxWidth: '500px' }}
+          >
+            <h1>Art doesn’t happen in a vacuum. New patrons began to support art in the 19th century, taking over from the church and the aristocracy. The new middle classes built galleries to share their collections with the public.</h1>
+          </motion.div>
+        )}
+        {/* Add more sections as needed */}
+      </div>
                 <h1 style={{ top: '250vh', marginBottom: '280px', position: 'absolute', marginLeft: '1000px' ,maxWidth: '500px'}}>Art was seen by a wider audience and art education meant that artists came from more diverse background the changes of the 20th century from the end of empire and two world wars to widening democracy and consumerism, affected the way art is made and how it is received</h1>
                 <h1  style={{ top: '300vh', marginBottom: '400px', position: 'absolute', marginLeft: '20px',maxWidth: '500px' }}>Art becomes free to define its own boundaries. No longer in the service of religion, morality  , ideology or even realism ,art has carved a space for itself.</h1>
-          <h1 className="title2" style={{ top: '320vh', marginBottom: '500px', position: 'absolute', marginLeft: '20px' }}>Art Glossary</h1>
+                <h1 className="title2" style={{ top: '320vh', marginBottom: '500px', position: 'absolute', marginLeft: '20px' }}>Art Glossary</h1>
 
               <div style={styles.pin_container}>
                 <Card
@@ -223,7 +284,7 @@ function Home() {
                   <h2>Abstraction / Abstract art</h2>
                 </Card>
               </div>
-              <AnimatedText style={{ top: '800vh', marginBottom: '1500px', position: 'absolute' }}
+              <AnimatedText style={{ top: '200vh', marginBottom: '500px', position: 'absolute' }}
                 phrases={[
                   { text: "Abstraction/Abstract art" },
                   { text: "Abstract Expressionism " },
@@ -270,6 +331,7 @@ function Home() {
               </Scroll>
           </ScrollControls>
         </Canvas>
+
         {isOpenPopup && (
           <Popup setIsOpenPopup={setIsOpenPopup}>
             {popupContent}
