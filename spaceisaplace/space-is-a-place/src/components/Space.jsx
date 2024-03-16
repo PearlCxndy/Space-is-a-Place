@@ -38,6 +38,7 @@ export function Space(props) {
         .to(space.current.position, { x: "-=1", duration: 20 }, "<"); // Move to the left
 
         tl.current.to(space.current.position, { z: 0.4, duration: 530});
+        
         tl.current.to(space.current.position, { z: "+=1.8", duration: 480}); // Replace 'originalZ' with the object's starting z-position
       // Step 5: Final zoom in
       tl.current.to(cameraRef.current.position, { z: "-=80", duration: 600 }); // Zoom in

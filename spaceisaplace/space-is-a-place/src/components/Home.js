@@ -11,38 +11,32 @@ import Popup from "./popup";
 import AnimatedText from './animated';
 import { useInView } from 'react-intersection-observer';
 
-const Section = ({ id, children }) => {
+const useSectionVisibility = (threshold = 0.5, triggerOnce = false) => {
   const { ref, inView } = useInView({
-    threshold: 0.1,
-    triggerOnce: id <= 2 ? false : true, // Sections 1 and 2 will trigger every time; sections 3, 4, and 5 only once
+    threshold,
+    triggerOnce,
   });
+  return { ref, inView };
+};
+
+const Section = ({ children, threshold, triggerOnce, hideDelay = 0 }) => {
+  const { ref, inView } = useSectionVisibility(threshold, triggerOnce);
 
   const variants = {
-    visible: { 
-      opacity: 1, 
-      y: 0, 
-      transition: { duration: 1, delay: id * 0.2 } 
-    },
-    hidden: { 
-      opacity: 0, 
-      y: 50 
-    },
+    visible: { opacity: 1, y: 0, transition: { duration: 1, delay: 0 } },
+    hidden: { opacity: 0, y: 50, transition: { duration: 1, delay: hideDelay } },
   };
 
+  // Adjust the animate property to control the visibility based on 'inView'
   return (
-    <motion.div
-      ref={ref}
-      initial="hidden"
-      animate={inView ? 'visible' : 'hidden'}
-      exit={{ opacity: 0 }} // Ensure sections fade out on exit if needed
-      variants={variants}
-      style={{ marginBottom: '100px' }}
-    >
+    <motion.div ref={ref} initial="hidden" animate={inView ? "visible" : "hidden"} variants={variants}>
       {children}
     </motion.div>
   );
-};
 
+
+
+}
 function Home() {
   const [isOpenPopup, setIsOpenPopup] = useState(false);
   // Define popupContent state here
@@ -51,6 +45,32 @@ function Home() {
   const openPopupWithContent = (contentComponent) => {
     setPopupContent(contentComponent);
     setIsOpenPopup(true);
+  };
+  const [visibleSections, setVisibleSections] = useState({
+    section1: false,
+    section2: false,
+  });
+
+  function ScrollAnimation({ setVisibleSections }) {
+    const scroll = useScroll();
+    useFrame(() => {
+      const scrollY = scroll.offset;
+      const newVisibility = {
+        section1: scrollY > 0.05 && scrollY < 0.2,
+        section2: scrollY > 0.2 && scrollY < 0.4,
+        section3: scrollY > 0.4 && scrollY < 0.6,
+        section4: scrollY > 0.6 && scrollY < 0.8,
+        section5: scrollY > 0.8 && scrollY <= 1.0,
+      };
+
+      setVisibleSections(newVisibility);
+    });
+    return null;
+  }
+
+  const sectionVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: { opacity: 1, y: 0, transition: { duration: 1.0 } },
   };
 
 
@@ -69,7 +89,7 @@ function Home() {
       left: '50%', // Keep for centering if using absolute positioning
       justifyContent: 'center',
       backgroundColor: 'white',
-      top: '280vh', // Keep if you need it offscreen initially
+      top: '460vh', // Keep if you need it offscreen initially
       marginBottom: '280px', // Adjust as needed
     }
   };
@@ -179,26 +199,56 @@ function Home() {
                 transition={{ type: 'spring', damping: 5, stiffness: 40, duration: 0.3 }}>
                 <h1 className="scrollhere" style={{ top: '200vh', marginBottom: '100px', marginRight: '100px', marginTop: '10px' }}>-scroll here to explore-</h1>
               </motion.div>
+              <ScrollAnimation setVisibleSections={setVisibleSections} />
+
               <div style={{ position: 'absolute', width: '100%' }}>
-              <Section id={1}>
-                  <h1 style={{ top: '1vh', marginBottom: '10px', position: 'absolute', maxWidth: '450px', marginLeft: '30px' }}>Art doesn’t happen in a vacuum. New patrons began to support art in the 19th century, taking over from the church and the aristocracy. The new middle classes built galleries to share their collections with the public.</h1>
+                <Section id={1} threshold={0.4} triggerOnce={false} >
+                  <h1 style={{ top: '1vh', position: 'absolute', maxWidth: '450px', marginLeft: '30px' }}>It is easy to overlook space in art: we can view a painting of an interior without noticing how the artist has created the illusion of dept .</h1>
                 </Section>
-              <Section id={2}>
-                  <h1 style={{ top: '19vh', marginBottom: '20px', position: 'absolute', marginLeft: '1000px', maxWidth: '500px' }}>Art was seen by a wider audience and art education meant that artists came from more diverse backgrounds. The changes of the 20th century from the end of empire and two world wars to widening democracy and consumerism, affected the way art is made and how it is received.</h1>
+                <Section id={2} threshold={0.8} triggerOnce={false} hideDelay={9}>
+                  <h1 style={{ top: '60vh', position: 'absolute', marginLeft: '1000px', maxWidth: '500px' }}>The artists in this gallery have looked at space in various ways. Space can be a room in a house, a stroke of paint on canvas, a three-dimensional form protruding from a flat surface or the gallery itself. It can be the space inside the artist’s head, the space taken up by the artist’s and the viewer’s body or a space beyond the gallery</h1>
                 </Section>
-                <Section id={3}>
-                  <h1 style={{ top: '110vh', marginBottom: '40px', position: 'absolute', marginLeft: '20px', maxWidth: '400px' }}>It is easy to overlook space in art: we can view a painting of an interior without noticing how the artist has created the illusion of depth.</h1>
+                <Section id={3} threshold={0.6} triggerOnce={false} hideDelay={14}>
+                  <h1 style={{ top: '130vh', position: 'absolute', marginLeft: '1000px', maxWidth: '400px' }}>Art doesn’t happen in a vacuum. New patrons began to support art in the 19th century, taking over from the church and the aristocracy.The new middle classes built galleries to share their collections with the public.</h1>
                 </Section>
-                <Section id={4}>
-                  <h1 style={{ top: '140vh', marginBottom: '40px', position: 'absolute', marginLeft: '500x', maxWidth: '1000px' }}>Art was seen by a wider audience and art education meant that artists came from more diverse backgrounds. The changes of the 20th century from the end of empire and two world wars to widening democracy and consumerism, affected the way art is made and how it is received.</h1>
+                <Section id={4} threshold={0.7} triggerOnce={false} hideDelay={80}>
+                  <h1 style={{
+                    top: '250vh',
+                    marginBottom: '40px',
+                    position: 'absolute',
+                    marginRight: '40px', // Fixed typo from '40x' to '40px'
+                    maxWidth: '760px',
+                    marginLeft: '400px',
+                    fontSize: '36px', // Bigger font size
+                    lineHeight: '1.5', // Adjusted line height for better readability
+                    color: '#333', // Example text color, adjust as needed
+                    textAlign: 'justify' // Example text alignment
+                  }}>
+                    Art was seen by a wider audience and art education meant that artists came from more diverse backgrounds. The changes of the 20th century from the end of empire and two world wars to widening democracy and consumerism, affected the way art is made and how it is received.
+                  </h1>
                 </Section>
-                <Section id={5}>
-                  <h1 style={{ top: '170vh', marginBottom: '40px', position: 'absolute', marginLeft: '800px', maxWidth: '1000px' }}>Art becomes free to define its own boundaries. No longer in the service of religion, morality  , ideology or even realism ,art has carved a space for itself.</h1>
+                <Section id={5} threshold={0.9} triggerOnce={false} hideDelay={80}>
+                  <h1 style={{
+                    position: 'fixed', // Use fixed to keep it in the viewport
+                    top: '370vh', // Center vertically
+                    left: '50%', // Center horizontally
+                    transform: 'translate(-50%, -50%)', // Adjust the element's position to truly center it
+                    fontSize: '36px', // Bigger font size
+                    lineHeight: '1.5', // Adjusted line height for better readability
+                    color: '#333', // Example text color, adjust as needed
+                    textAlign: 'center', // Center text alignment
+                    maxWidth: '80%', // Limit the width to avoid extremely wide text on large screens
+                    padding: '20px', // Add some padding around the text
+                    backgroundColor: 'rgba(255, 255, 255, 0.8)', // Semi-transparent background for readability
+                    borderRadius: '10px', // Rounded corners for the background
+                    boxShadow: '0 4px 6px rgba(0,0,0,0.1)', // Soft shadow for depth
+                    zIndex: 1000
+                  }}>Art becomes free to define its own boundaries. No longer in the service of religion, morality  , ideology or even realism ,art has carved a space for itself.</h1>
                 </Section>
               </div>
 
 
-              <h1 className="title2" style={{ top: '320vh', marginBottom: '500px', position: 'absolute', marginLeft: '20px' }}>Art Glossary</h1>
+              <h1 className="title2" style={{ top: '540vh', marginBottom: '500px', position: 'absolute', marginLeft: '20px' }}>Art Glossary</h1>
 
               <div style={styles.pin_container}>
                 <Card
