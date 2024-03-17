@@ -20,6 +20,7 @@ const Paint = () => {
 	let currentLine = [];
 
 	// p5 elements
+	let brushImage; // This will hold our image
 	let colorPicker;
 	let size;
 	let saveButton;
@@ -27,9 +28,13 @@ const Paint = () => {
 	let eraser;
 
 	// const [color] = useState("black");
+	const variableEllipse = (p, x, y, px, py) => {
+		let speed = p.abs(x - px) + p.abs(y - py);
+		p.stroke(speed);
+		p.ellipse(x, y, speed, speed);
+	};
 
-
-
+	
 
 	const setup = (p, parentRef) => {
 		
@@ -37,7 +42,9 @@ const Paint = () => {
 		p.pixelDensity(1);
 		// hide cursor from canvas
 		p.noCursor();
-
+		brushImage = p.loadImage('spaceisaplace/space-is-a-place/src/components/Brush2.png', img => {
+			console.log('Image loaded', img);
+		  });
 		// Slider for stroke size
 		size = p.createSlider(0, 100, 10).parent(parentRef);
 		size.position(300, 110);
@@ -51,7 +58,10 @@ const Paint = () => {
 		sel.option("Splatter Brush (press 'S')");
 		// sel.option("Eraser (press 'E')");
 		sel.option("brush3");
+		sel.option("Variable Ellipse" );
 		sel.option("Draw Triangle (press 'T')");
+		sel.option("Image");
+
 
 		// Color picker
 		colorPicker = p.createColorPicker('black').parent(parentRef);
@@ -71,8 +81,23 @@ const Paint = () => {
 			drawableArea.save('drawing', 'png');
 		});
 
+		brushImage = p.loadImage('/Users/PearlCxndie_1/Documents/GitHub/Space-is-a-Place/spaceisaplace/space-is-a-place/src/components/stroke/Brush2.png', img => {
+			console.log('Image loaded', img);
+		  }, err => {
+			console.error('Failed to load image', err);
+		  });
 	};
-
+	const variableImage = (p, x, y, px, py) => {
+		let speed = p.abs(x - px) + p.abs(y - py);
+		let imgSize = speed; // Calculate the size of the image based on speed
+		
+		if (!brushImage) {
+		  console.log('Brush image not loaded');
+		  return; // Exit the function if the image hasn't been loaded yet
+		}
+		
+		p.image(brushImage, x - imgSize / 2, y - imgSize / 2, imgSize, imgSize);
+	  };
 	const nonDrawableAreaHeight = 100;
 	const draw = (p) => {
 
@@ -115,13 +140,14 @@ const Paint = () => {
 					}
 				} else if (point.type === "Splatter Brush (press 'S')" || point.type === "brush2") {
 					// Splatter effect as specified
-					for (let i = 0; i < p.random(1, 10); i++) {
+					for (let i = 0; i < p.random(1, 9); i++) {
 						p.noStroke();
 						p.fill(point.color);
+						p.strokeWeight(20);
 						p.ellipse(
-							point.x + p.random(-100, 100),
-							point.y + p.random(-100, 100),
-							point.weight, point.weight
+							point.x + p.random(-80, 80,point.weight),
+							point.y + p.random(-80, 80,point.weight),
+							(point.weight/2 , point.weight/2)
 						);
 					}
 				} else if (point.type === "brush3") {
@@ -135,6 +161,20 @@ const Paint = () => {
 					p.fill(255, 255, 255, 30);
 					p.ellipse(point.x, point.y, p.random(0, point.weight), p.random(0, point.weight - 10));
 					p.rect(point.x, point.y, p.random(15, point.weight), p.random(-10, point.weight - 10));
+				}
+				else if (point.type === "Variable Ellipse" || point.type === "brush4") {
+					// Assuming index > 0 for drawing; adapt as needed
+					if (index > 0) {
+						const previousPoint = path[index - 1];
+						variableEllipse(p, point.x, point.y, previousPoint.x, previousPoint.y);
+					}
+				}
+				else if (point.type === "Image" || point.type === "brush5") {
+					// Draw using the point's coordinates
+					if (index > 0) {
+						const previousPoint = path[index - 1];
+						variableImage(p, point.x, point.y, previousPoint.x, previousPoint.y);
+					}
 				}
 			});
 		});

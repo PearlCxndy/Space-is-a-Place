@@ -19,24 +19,26 @@ const useSectionVisibility = (threshold = 0.5, triggerOnce = false) => {
   return { ref, inView };
 };
 
-const Section = ({ children, threshold, triggerOnce, hideDelay = 0 }) => {
+const Section = ({ children, threshold, triggerOnce, hideDelay = 0, id }) => {
   const { ref, inView } = useSectionVisibility(threshold, triggerOnce);
+
+  // Debugging
+  useEffect(() => {
+    console.log(`Section ${id} inView:`, inView);
+  }, [inView, id]);
 
   const variants = {
     visible: { opacity: 1, y: 0, transition: { duration: 1, delay: 0 } },
     hidden: { opacity: 0, y: 50, transition: { duration: 1, delay: hideDelay } },
   };
 
-  // Adjust the animate property to control the visibility based on 'inView'
   return (
     <motion.div ref={ref} initial="hidden" animate={inView ? "visible" : "hidden"} variants={variants}>
       {children}
     </motion.div>
   );
+};
 
-
-
-}
 function Home() {
   const [isOpenPopup, setIsOpenPopup] = useState(false);
   // Define popupContent state here
@@ -227,10 +229,10 @@ function Home() {
                     Art was seen by a wider audience and art education meant that artists came from more diverse backgrounds. The changes of the 20th century from the end of empire and two world wars to widening democracy and consumerism, affected the way art is made and how it is received.
                   </h1>
                 </Section>
-                <Section id={5} threshold={0.9} triggerOnce={false} hideDelay={80}>
+                <Section id={5} threshold={0.9} triggerOnce={false} hideDelay={1000}>
                   <h1 style={{
                     position: 'fixed', // Use fixed to keep it in the viewport
-                    top: '370vh', // Center vertically
+                    top: '375vh', // Center vertically
                     left: '50%', // Center horizontally
                     transform: 'translate(-50%, -50%)', // Adjust the element's position to truly center it
                     fontSize: '36px', // Bigger font size
@@ -242,8 +244,7 @@ function Home() {
                     backgroundColor: 'rgba(255, 255, 255, 0.8)', // Semi-transparent background for readability
                     borderRadius: '10px', // Rounded corners for the background
                     boxShadow: '0 4px 6px rgba(0,0,0,0.1)', // Soft shadow for depth
-                    zIndex: 1000
-                  }}>Art becomes free to define its own boundaries. No longer in the service of religion, morality  , ideology or even realism ,art has carved a space for itself.</h1>
+                  }}>Art becomes free to define its own boundaries. No longer in the service of religion, morality  , ideology or even realism , art has carved a space for itself.</h1>
                 </Section>
               </div>
 
