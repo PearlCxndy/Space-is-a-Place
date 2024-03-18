@@ -28,11 +28,6 @@ const Paint = () => {
 	let eraser;
 
 	// const [color] = useState("black");
-	const variableEllipse = (p, x, y, px, py) => {
-		let speed = p.abs(x - px) + p.abs(y - py);
-		p.stroke(speed);
-		p.ellipse(x, y, speed, speed);
-	};
 
 	
 
@@ -54,13 +49,13 @@ const Paint = () => {
 		// Selector for brush type
 		sel = p.createSelect().parent(parentRef);
 		sel.position(500, 110);
-		sel.option("Normal Paint Brush (press 'N')");
-		sel.option("Splatter Brush (press 'S')");
+		sel.option("Normal Paint Brush");
+		sel.option("Splatter Brush");
 		// sel.option("Eraser (press 'E')");
-		sel.option("brush3");
-		sel.option("Variable Ellipse" );
-		sel.option("Draw Triangle (press 'T')");
+		sel.option("Abstract");
+		sel.option("ColourField Painting" );
 		sel.option("Image");
+		sel.option("Cubism");
 
 
 		// Color picker
@@ -99,6 +94,13 @@ const Paint = () => {
 		p.image(brushImage, x - imgSize / 2, y - imgSize / 2, imgSize, imgSize);
 	  };
 	const nonDrawableAreaHeight = 100;
+	// const variableEllipse = (p, x, y, px, py) => {
+	// 	let speed = p.abs(x - px) + p.abs(y - py);
+	// 	p.stroke(speed);
+		
+	// 	p.ellipse(x, y, speed, speed);
+	// };
+
 	const draw = (p) => {
 
 		p.background(BG_COLOR);
@@ -133,24 +135,28 @@ const Paint = () => {
 				p.stroke(point.color);
 				p.strokeWeight(point.weight);
 
-				if (point.type === "Normal Paint Brush (press 'N')" || point.type === "brush1") {
+				if (point.type === "Normal Paint Brush" || point.type === "brush1") {
 					if (index > 0) {
 						const previousPoint = path[index - 1];
 						p.line(previousPoint.x, previousPoint.y, point.x, point.y);
 					}
-				} else if (point.type === "Splatter Brush (press 'S')" || point.type === "brush2") {
-					// Splatter effect as specified
+				} else if (point.type === "Splatter Brush" || point.type === "brush2") {
+					// Splatter effect with static position and smaller stroke
 					for (let i = 0; i < p.random(1, 9); i++) {
-						p.noStroke();
+						// Remove the stroke or set a smaller stroke weight as needed
+						p.strokeWeight(1); // Smaller stroke weight
+						p.stroke(point.color); // Optional: Add this line if you want the splatter to have an outline
 						p.fill(point.color);
-						p.strokeWeight(20);
+						
+						// Draw the ellipses at the static position of the point, with a reduced size
 						p.ellipse(
-							point.x + p.random(-80, 80,point.weight),
-							point.y + p.random(-80, 80,point.weight),
-							(point.weight/2 , point.weight/2)
+							point.x, 
+							point.y, 
+							point.weight / 4, // Adjusted size for smaller effect
+							point.weight / 4  // Adjusted size for smaller effect
 						);
 					}
-				} else if (point.type === "brush3") {
+				} else if (point.type === "Abstract") {
 					// Dot brush effect as specified
 					p.strokeWeight(p.random(1, point.weight - 5));
 					p.ellipse(point.x, point.y, p.random(0, point.weight), p.random(0, point.weight - 10));
@@ -162,11 +168,22 @@ const Paint = () => {
 					p.ellipse(point.x, point.y, p.random(0, point.weight), p.random(0, point.weight - 10));
 					p.rect(point.x, point.y, p.random(15, point.weight), p.random(-10, point.weight - 10));
 				}
-				else if (point.type === "Variable Ellipse" || point.type === "brush4") {
-					// Assuming index > 0 for drawing; adapt as needed
+				else if (point.type === "ColourField Painting" || point.type === "brush4") {
 					if (index > 0) {
 						const previousPoint = path[index - 1];
-						variableEllipse(p, point.x, point.y, previousPoint.x, previousPoint.y);
+						
+						// Use the stored color for each point for both filling and stroking
+						p.fill(point.color); // Use the color saved at the point of drawing
+						p.stroke(point.color); // Use the same color for the stroke
+						
+						const variableEllipse = (x, y, px, py) => {
+							let speed = p.abs(x - px) + p.abs(y - py);
+				
+							// Draw the ellipse with the previously defined stroke and fill colors
+							p.ellipse(x, y, speed, speed);
+						};
+				
+						variableEllipse(point.x, point.y, previousPoint.x, previousPoint.y);
 					}
 				}
 				else if (point.type === "Image" || point.type === "brush5") {
@@ -176,6 +193,23 @@ const Paint = () => {
 						variableImage(p, point.x, point.y, previousPoint.x, previousPoint.y);
 					}
 				}
+				else if (point.type === "Cubism") {
+					// Use the color from the color picker
+					let p5Color = p.color(colorPicker.value()); // Assuming colorPicker is accessible here
+					p.fill(p5Color);
+					p.stroke(p5Color); // Apply the same color for strok
+					// Dynamically adjust the rectangle's size based on the size slider
+					let rectSize = size.value(); // Use the size slider's value
+				
+					// Calculate width and height based on the size slider's value
+					let rectWidth = rectSize; // You can adjust this formula as needed
+					let rectHeight = rectSize * 1.33; // Keep a consistent aspect ratio or adjust as you prefer
+				
+					// Draw the rectangle centered on the mouse position
+					// Adjust starting position based on dynamic size
+					p.rect(point.x - rectWidth / 2, point.y - rectHeight / 2, rectWidth, rectHeight);
+				}
+				
 			});
 		});
 

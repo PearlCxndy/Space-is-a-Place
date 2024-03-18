@@ -13,7 +13,7 @@ export function Space(props) {
   const tl = useRef();
 
   useFrame((state, delta) => {
-    tl.current.seek(scroll.offset * 2.5 * tl.current.duration());
+    tl.current.seek(scroll.offset * 3 * tl.current.duration());
   })
   useLayoutEffect(() => {
     if (cameraRef.current && space.current) {

@@ -23,7 +23,7 @@ const AnimatedText = ({ phrases }) => {
                         exit={{ opacity: 0, y: -20 }}
                         transition={{ duration: 0.5 }}
                         className={phrase.className} // Using the className passed with each phrase
-                        style={{ top: '805vh', marginBottom: '20px', position: 'absolute' }}
+                        style={{ top: '870vh', marginBottom: '20px', position: 'absolute' , MarginRight:'120px'}}
                     >
                         {phrase.text}
                     </motion.span>

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { ScrollControls, Scroll, Sparkles, Backdrop, Float, Ring, useScroll } from '@react-three/drei';
-import { Canvas, useFrame } from '@react-three/fiber';
+import { Canvas} from '@react-three/fiber';
 import transition from "../transition";
 import DraggableSpace from './line';
-import { motion, useMotionValue, useSpring, AnimatePresence } from 'framer-motion';
+import { motion, useMotionValue, useSpring } from 'framer-motion';
 import { Artgloss1, Artgloss2, Artgloss3, Artgloss4, Artgloss5, Artgloss6, Artgloss7, Artgloss8, Artgloss9, Artgloss10, Artgloss11, Artgloss12, Artgloss13, Artgloss14, Artgloss15 } from './popupinfo';
 import Card from './card.js';
 import Popup from "./popup";
@@ -48,39 +48,12 @@ function Home() {
     setPopupContent(contentComponent);
     setIsOpenPopup(true);
   };
-  const [visibleSections, setVisibleSections] = useState({
-    section1: false,
-    section2: false,
-  });
-
-  function ScrollAnimation({ setVisibleSections }) {
-    const scroll = useScroll();
-    useFrame(() => {
-      const scrollY = scroll.offset;
-      const newVisibility = {
-        section1: scrollY > 0.05 && scrollY < 0.2,
-        section2: scrollY > 0.2 && scrollY < 0.4,
-        section3: scrollY > 0.4 && scrollY < 0.6,
-        section4: scrollY > 0.6 && scrollY < 0.8,
-        section5: scrollY > 0.8 && scrollY <= 1.0,
-      };
-
-      setVisibleSections(newVisibility);
-    });
-    return null;
-  }
-
-  const sectionVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: { opacity: 1, y: 0, transition: { duration: 1.0 } },
-  };
-
 
   const styles = {
     pin_container: {
       margin: 0,
       padding: 0,
-      width: '100vw', // Increased width
+      width: '98vw', // Increased width
       height: '60vw',
       display: 'grid',
       gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))', // Adjust for flexibility
@@ -88,7 +61,7 @@ function Home() {
       gridAutoRows: 'auto', // Adjusted for content
       position: 'relative', // Changed to relative for centering within its parent
       transform: 'translateX(-50%)',
-      left: '50%', // Keep for centering if using absolute positioning
+      left: '49%', // Keep for centering if using absolute positioning
       justifyContent: 'center',
       backgroundColor: 'white',
       top: '460vh', // Keep if you need it offscreen initially
@@ -124,7 +97,7 @@ function Home() {
     <>
       <div className="App" >
         <Canvas>
-          <ScrollControls pages={8} damping={0.1}>
+          <ScrollControls pages={10} damping={0.1}>
             <spotLight position={[10, 15, 10]} angle={0.3} />
             <ambientLight intensity={5} />
             <DraggableSpace />
@@ -201,7 +174,6 @@ function Home() {
                 transition={{ type: 'spring', damping: 5, stiffness: 40, duration: 0.3 }}>
                 <h1 className="scrollhere" style={{ top: '200vh', marginBottom: '100px', marginRight: '100px', marginTop: '10px' }}>-scroll here to explore-</h1>
               </motion.div>
-              <ScrollAnimation setVisibleSections={setVisibleSections} />
 
               <div style={{ position: 'absolute', width: '100%' }}>
                 <Section id={1} threshold={0.4} triggerOnce={false} >
@@ -231,8 +203,8 @@ function Home() {
                 </Section>
                 <Section id={5} threshold={0.9} triggerOnce={false} hideDelay={1000}>
                   <h1 style={{
-                    position: 'fixed', // Use fixed to keep it in the viewport
-                    top: '375vh', // Center vertically
+                    position: 'absolute', // Use fixed to keep it in the viewport
+                    top: '400vh', // Center vertically
                     left: '50%', // Center horizontally
                     transform: 'translate(-50%, -50%)', // Adjust the element's position to truly center it
                     fontSize: '36px', // Bigger font size
@@ -273,54 +245,50 @@ function Home() {
                 </Card>
                 <Card size="medium" onClick={() => openPopupWithContent(<Artgloss5 />)}
                   className="custom-class-for-specific-card" >
-                  <h2>Abstraction / Abstract art</h2>
+                  <h2>Indo-Persian  </h2>
                 </Card>
                 <Card size="large" onClick={() => openPopupWithContent(<Artgloss6 />)}
                   className="custom-class-for-specific-card" >
-                  <h2>Abstraction / Abstract art</h2>
-                </Card>
-                <Card size="small" onClick={() => openPopupWithContent(<Artgloss6 />)}
-                  className="custom-class-for-specific-card" >
-                  <h2>Abstraction / Abstract art</h2>
+                  <h2>Expressionism</h2>
                 </Card>
                 <Card size="medium" onClick={() => openPopupWithContent(<Artgloss7 />)}
                   className="custom-class-for-specific-card" >
-                  <h2>Abstraction / Abstract art</h2>
+                  <h2>Cubism</h2>
                 </Card>
                 <Card size="large" onClick={() => openPopupWithContent(<Artgloss8 />)}
                   className="custom-class-for-specific-card" >
-                  <h2>Abstraction / Abstract art</h2>
+                  <h2>Installation art</h2>
                 </Card>
                 <Card size="medium" onClick={() => openPopupWithContent(<Artgloss9 />)}
                   className="custom-class-for-specific-card" >
-                  <h2>Abstraction / Abstract art</h2>
+                  <h2>Constructivism</h2>
                 </Card>
                 <Card size="large" onClick={() => openPopupWithContent(<Artgloss10 />)}
                   className="custom-class-for-specific-card" >
-                  <h2>Abstraction / Abstract art</h2>
+                  <h2>Minimalism</h2>
                 </Card>
                 <Card size="small" onClick={() => openPopupWithContent(<Artgloss11 />)}
                   className="custom-class-for-specific-card" >
-                  <h2>Abstraction / Abstract art</h2>
+                  <h2>Modernism </h2>
                 </Card>
                 <Card size="large" onClick={() => openPopupWithContent(<Artgloss12 />)}
                   className="custom-class-for-specific-card" >
-                  <h2>Abstraction / Abstract art</h2>
+                  <h2>Post-Impressionism</h2>
                 </Card>
                 <Card size="medium" onClick={() => openPopupWithContent(<Artgloss13 />)}
                   className="custom-class-for-specific-card" >
-                  <h2>Abstraction / Abstract art</h2>
+                  <h2>Impressionism</h2>
                 </Card>
                 <Card size="small" onClick={() => openPopupWithContent(<Artgloss14 />)}
                   className="custom-class-for-specific-card" >
-                  <h2>Abstraction / Abstract art</h2>
+                  <h2>Pop Art</h2>
                 </Card>
                 <Card size="small" onClick={() => openPopupWithContent(<Artgloss15 />)}
                   className="custom-class-for-specific-card" >
-                  <h2>Abstraction / Abstract art</h2>
+                  <h2>Romanticism</h2>
                 </Card>
               </div>
-              <AnimatedText style={{ top: '200vh', marginBottom: '500px', position: 'absolute' }}
+              <AnimatedText
                 phrases={[
                   { text: "Abstraction/Abstract art" },
                   { text: "Abstract Expressionism " },
@@ -343,7 +311,7 @@ function Home() {
                   display: 'inline-block', // Ensure the div fits the content size for better control
                   cursor: "pointer",
                   backgroundColor: "transparent" // Assuming you want the floating effect without a visible background
-                  , top: '730vh', marginBottom: '10px', position: 'absolute'
+                  , top: '870vh', marginBottom: '10px', position: 'absolute', MarginLeft: '200vh'
                 }}
                 initial="initial" // Starting animation state
                 animate="float"

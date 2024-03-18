@@ -18,9 +18,9 @@ const NavBar = () => {
           </Link>
         </div>
         <div className="nav-item">
-          <Link className="nav-link" to="/canvas">
+          {/* <Link className="nav-link" to="/canvas">
             Another!
-          </Link>
+          </Link> */}
         </div>
       </div>
     </div>
