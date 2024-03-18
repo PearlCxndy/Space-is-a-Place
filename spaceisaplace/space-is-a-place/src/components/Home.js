@@ -64,7 +64,7 @@ function Home() {
       left: '49%', // Keep for centering if using absolute positioning
       justifyContent: 'center',
       backgroundColor: 'white',
-      top: '460vh', // Keep if you need it offscreen initially
+      top: '500vh', // Keep if you need it offscreen initially
       marginBottom: '280px', // Adjust as needed
     }
   };
@@ -221,7 +221,7 @@ function Home() {
               </div>
 
 
-              <h1 className="title2" style={{ top: '540vh', marginBottom: '500px', position: 'absolute', marginLeft: '20px' }}>Art Glossary</h1>
+              <h1 className="title2" style={{ top: '580vh', marginBottom: '500px', position: 'absolute', marginLeft: '20px' }}>Art Glossary</h1>
 
               <div style={styles.pin_container}>
                 <Card
@@ -311,7 +311,7 @@ function Home() {
                   display: 'inline-block', // Ensure the div fits the content size for better control
                   cursor: "pointer",
                   backgroundColor: "transparent" // Assuming you want the floating effect without a visible background
-                  , top: '870vh', marginBottom: '10px', position: 'absolute', MarginLeft: '200vh'
+                  , top: '870vh', marginBottom: '10px', position: 'absolute', marginLeft: '20vh'
                 }}
                 initial="initial" // Starting animation state
                 animate="float"
