@@ -172,12 +172,12 @@ function Home() {
               <motion.div initial={{ y: -20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ type: 'spring', damping: 5, stiffness: 40, duration: 0.3 }}>
-                <h1 className="scrollhere" style={{ top: '200vh', marginBottom: '100px', marginRight: '100px', marginTop: '10px' }}>-scroll here to explore-</h1>
+                <h1 className="scrollhere" style={{ top: '200vh', marginBottom: '150px', marginRight: '100px', marginTop: '10px' }}>-scroll here to explore-</h1>
               </motion.div>
 
               <div style={{ position: 'absolute', width: '100%' }}>
                 <Section id={1} threshold={0.4} triggerOnce={false} >
-                  <h1 style={{ top: '1vh', position: 'absolute', maxWidth: '450px', marginLeft: '30px' }}>It is easy to overlook space in art: we can view a painting of an interior without noticing how the artist has created the illusion of dept .</h1>
+                  <h1 style={{ top: '10vh', position: 'absolute', maxWidth: '450px', marginLeft: '30px' }}>It is easy to overlook space in art: we can view a painting of an interior without noticing how the artist has created the illusion of dept .</h1>
                 </Section>
                 <Section id={2} threshold={0.8} triggerOnce={false} hideDelay={9}>
                   <h1 style={{ top: '60vh', position: 'absolute', marginLeft: '1000px', maxWidth: '500px' }}>The artists in this gallery have looked at space in various ways. Space can be a room in a house, a stroke of paint on canvas, a three-dimensional form protruding from a flat surface or the gallery itself. It can be the space inside the artist’s head, the space taken up by the artist’s and the viewer’s body or a space beyond the gallery</h1>
