@@ -47,11 +47,15 @@ const Paint = () => {
 	let saveButton;
 	let sel;
 	let eraser;
-	let imgBrush;
+	let imgBrushes;
 
 	// const [color] = useState("black");
 
 
+	const preload = (p) => {
+		// Initialize imgBrushes as an array
+		imgBrushes = brushes.map(brush => p.loadImage(brush));
+	  };
 
 	const setup = (p, parentRef) => {
 
@@ -79,6 +83,7 @@ const Paint = () => {
 		sel.option("Image Brush");
 		sel.option("Cubism");
 		sel.option("Dynamic Pattern");
+		sel.option("Combined Brush");
 
 
 
@@ -99,82 +104,15 @@ const Paint = () => {
 			let drawableArea = p.get(0, nonDrawableAreaHeight, WIDTH, HEIGHT - nonDrawableAreaHeight);
 			drawableArea.save('drawing', 'png');
 		});
-		imgBrush = p.loadImage(brush1, img => {
-			console.log('Image brush loaded', img);
-		}, err => {
-			console.error('Failed to load image brush', err);
-		});
-		imgBrush = p.loadImage(brush2, img => {
-			console.log('Image brush loaded', img);
-		}, err => {
-			console.error('Failed to load image brush', err);
-		});
-		imgBrush = p.loadImage(brush3, img => {
-			console.log('Image brush loaded', img);
-		}, err => {
-			console.error('Failed to load image brush', err);
-		});
-		imgBrush = p.loadImage(brush4, img => {
-			console.log('Image brush loaded', img);
-		}, err => {
-			console.error('Failed to load image brush', err);
-		});
-		imgBrush = p.loadImage(brush5, img => {
-			console.log('Image brush loaded', img);
-		}, err => {
-			console.error('Failed to load image brush', err);
-		});
-		imgBrush = p.loadImage(brush6, img => {
-			console.log('Image brush loaded', img);
-		}, err => {
-			console.error('Failed to load image brush', err);
-		});
-		imgBrush = p.loadImage(brush7, img => {
-			console.log('Image brush loaded', img);
-		}, err => {
-			console.error('Failed to load image brush', err);
-		});
-		imgBrush = p.loadImage(brush8, img => {
-			console.log('Image brush loaded', img);
-		}, err => {
-			console.error('Failed to load image brush', err);
-		});
-		imgBrush = p.loadImage(brush9, img => {
-			console.log('Image brush loaded', img);
-		}, err => {
-			console.error('Failed to load image brush', err);
-		});
-		imgBrush = p.loadImage(brush11, img => {
-			console.log('Image brush loaded', img);
-		}, err => {
-			console.error('Failed to load image brush', err);
-		});
-		imgBrush = p.loadImage(brush12, img => {
-			console.log('Image brush loaded', img);
-		}, err => {
-			console.error('Failed to load image brush', err);
-		});
-		imgBrush = p.loadImage(brush13, img => {
-			console.log('Image brush loaded', img);
-		}, err => {
-			console.error('Failed to load image brush', err);
-		});
-		imgBrush = p.loadImage(brush14, img => {
-			console.log('Image brush loaded', img);
-		}, err => {
-			console.error('Failed to load image brush', err);
-		});
-		imgBrush = p.loadImage(brush15, img => {
-			console.log('Image brush loaded', img);
-		}, err => {
-			console.error('Failed to load image brush', err);
-		});
-		imgBrush = p.loadImage(brush16, img => {
-			console.log('Image brush loaded', img);
-		}, err => {
-			console.error('Failed to load image brush', err);
-		});
-
+		imgBrushes[0] = p.loadImage(brush1);
+		imgBrushes[1] = p.loadImage(brush2);
+		imgBrushes[2] = p.loadImage(brush3);
+		imgBrushes[3] = p.loadImage(brush4);
+		imgBrushes[4] = p.loadImage(brush5);
+		imgBrushes[5] = p.loadImage(brush6);
+		imgBrushes[6] = p.loadImage(brush7);
+		imgBrushes[7] = p.loadImage(brush8);
+		
 	};
 
 
@@ -191,7 +129,9 @@ const Paint = () => {
 		p.stroke(0); // Black color for border
 		p.strokeWeight(2);
 		p.rect(0, nonDrawableAreaHeight, WIDTH, HEIGHT - nonDrawableAreaHeight);
+		
 
+	
 
 
 		if (p.mouseIsPressed) {
@@ -204,7 +144,9 @@ const Paint = () => {
 					weight: size.value(),
 					type: sel.value()
 				};
+				
 				currentLine.push(point);
+
 			}
 		}
 		lines.forEach((path) => {
@@ -290,9 +232,32 @@ const Paint = () => {
 					p.ellipse(point.x + xoff, point.y + yoff, point.weight, point.weight);
 				} // Ensure this closing bracket is present
 			  } else if (point.type === "Image Brush") {
-				if (imgBrush) {
+				if (imgBrushes[0]) {
 				  p.imageMode(p.CENTER);
-				  p.image(imgBrush, point.x, point.y, point.weight, point.weight);
+				  p.strokeWeight(20);
+				  p.image(imgBrushes[0], point.x, point.y, point.weight, point.weight);
+				}
+			  }
+			  else if (point.type === "Combined Brush") {
+				// Ensure the images are loaded before trying to draw them
+				if (imgBrushes[0] && imgBrushes[1]) {
+				  p.imageMode(p.CENTER);
+				  p.strokeWeight(20); // Set the stroke weight if you need a border
+			  
+				  // Calculate a small random offset for each image to spread them around the point
+				  let spread = point.weight / 4; // Adjust the spread factor based on the brush size or your preference
+			  
+				  // Randomly spread out the images around the point to create a textured stroke
+				  for (let i = 0; i < 5; i++) { // Draw multiple images to create the "spread" effect
+					let offsetX = p.random(-spread, spread);
+					let offsetY = p.random(-spread, spread);
+			  
+					// Draw the first brush image with random offset
+					p.image(imgBrushes[0], point.x + offsetX, point.y + offsetY, point.weight, point.weight);
+			  
+					// Draw the second brush image with random offset
+					p.image(imgBrushes[1], point.x + offsetX, point.y + offsetY, point.weight, point.weight);
+				  }
 				}
 			  }
 			  // No need for extra brackets after each if-else if statement
@@ -317,7 +282,7 @@ const Paint = () => {
 
 	return (
 		<div>
-			<Sketch setup={setup} draw={draw} mousePressed={mousePressed} />
+			<Sketch preload={preload}  setup={setup} draw={draw} mousePressed={mousePressed} />
 		</div>
 	);
 };
