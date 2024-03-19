@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { ScrollControls, Scroll, Sparkles, Backdrop, Float, Ring, useScroll } from '@react-three/drei';
-import { Canvas} from '@react-three/fiber';
+import { Canvas } from '@react-three/fiber';
 import transition from "../transition";
 import DraggableSpace from './line';
 import { motion, useMotionValue, useSpring } from 'framer-motion';
@@ -167,12 +167,30 @@ function Home() {
               >
                 <h1 className="title">Space is a<br />Place</h1>
               </motion.div>
-
-              <h1 style={{ top: '200vh', marginBottom: '100px', marginLeft: '20px', marginTop: '50px' }}>from painting to performance</h1>
+              <motion.div
+                className="icon-scroll"
+                style={{
+                  position: 'absolute', // Ensure positioning is applied
+                  left: '50%', // Center horizontally
+                  top: '75vh', // Adjusted top position
+                  transform: 'translateX(-50%)', // Center the div
+                }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+              >
+                <div className="mouse">
+                  <div className="wheel"></div>
+                </div>
+                <div className="icon-arrows">
+                  <span></span>
+                </div>
+              </motion.div>
+              <h1 style={{ top: '200vh', marginBottom: '150px', marginLeft: '20px', marginTop: '50px' }}>from painting to performance</h1>
               <motion.div initial={{ y: -20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ type: 'spring', damping: 5, stiffness: 40, duration: 0.3 }}>
-                <h1 className="scrollhere" style={{ top: '200vh', marginBottom: '150px', marginRight: '100px', marginTop: '10px' }}>-scroll here to explore-</h1>
+                <h1 className="scrollhere" >- scroll here to explore -</h1>
               </motion.div>
 
               <div style={{ position: 'absolute', width: '100%' }}>
@@ -221,7 +239,7 @@ function Home() {
               </div>
 
 
-              <h1 className="title2" style={{ top: '580vh', marginBottom: '500px', position: 'absolute', marginLeft: '20px' }}>Art Glossary</h1>
+              <h1 className="title2" style={{ top: '530vh', marginBottom: '500px', position: 'absolute', marginLeft: '20px' }}>Art Glossary</h1>
 
               <div style={styles.pin_container}>
                 <Card
@@ -232,59 +250,59 @@ function Home() {
                   <h2>Abstraction/Abstract Art</h2>
                 </Card>
                 <Card size="medium" onClick={() => openPopupWithContent(<Artgloss2 />)}
-                  className="custom-class-for-specific-card" >
+                  backgroundColor="#FA8072" >
                   <h2>Abstract Expressionism </h2>
                 </Card>
                 <Card size="large" onClick={() => openPopupWithContent(<Artgloss3 />)}
-                  className="custom-class-for-specific-card" >
-                  <h2>Colour Field painting </h2>
+                  backgroundColor="#ff6347" >
+                  <h2 style={{ color: '#000000' }}>Colour Field painting </h2>
                 </Card>
                 <Card size="small" onClick={() => openPopupWithContent(<Artgloss4 />)}
-                  className="custom-class-for-specific-card" >
+                  backgroundColor="#FFA07A" >
                   <h2>Conceptual art </h2>
                 </Card>
                 <Card size="medium" onClick={() => openPopupWithContent(<Artgloss5 />)}
-                  className="custom-class-for-specific-card" >
-                  <h2>Indo-Persian  </h2>
+                  backgroundColor="#FFBF00" >
+                  <h2 style={{ color: '#000000' }}>Indo-Persian  </h2>
                 </Card>
                 <Card size="large" onClick={() => openPopupWithContent(<Artgloss6 />)}
-                  className="custom-class-for-specific-card" >
+                  backgroundColor="#E9967A" >
                   <h2>Expressionism</h2>
                 </Card>
                 <Card size="medium" onClick={() => openPopupWithContent(<Artgloss7 />)}
-                  className="custom-class-for-specific-card" >
-                  <h2>Cubism</h2>
+                  backgroundColor="#E8E8E8" >
+                  <h2 style={{ color: '#000000' }}>Cubism</h2>
                 </Card>
                 <Card size="large" onClick={() => openPopupWithContent(<Artgloss8 />)}
-                  className="custom-class-for-specific-card" >
+                  backgroundColor="#FA8072" >
                   <h2>Installation art</h2>
                 </Card>
                 <Card size="medium" onClick={() => openPopupWithContent(<Artgloss9 />)}
-                  className="custom-class-for-specific-card" >
-                  <h2>Constructivism</h2>
+                  backgroundColor="#FA807A" >
+                  <h2 style={{ color: '#000000' }}>Constructivism</h2>
                 </Card>
                 <Card size="large" onClick={() => openPopupWithContent(<Artgloss10 />)}
-                  className="custom-class-for-specific-card" >
+                  backgroundColor="#BA4949" >
                   <h2>Minimalism</h2>
                 </Card>
                 <Card size="small" onClick={() => openPopupWithContent(<Artgloss11 />)}
-                  className="custom-class-for-specific-card" >
+                  backgroundColor="#F2B0B0" >
                   <h2>Modernism </h2>
                 </Card>
                 <Card size="large" onClick={() => openPopupWithContent(<Artgloss12 />)}
-                  className="custom-class-for-specific-card" >
+                  backgroundColor="#F2D5B0" >
                   <h2>Post-Impressionism</h2>
                 </Card>
                 <Card size="medium" onClick={() => openPopupWithContent(<Artgloss13 />)}
-                  className="custom-class-for-specific-card" >
+                  backgroundColor="#FF9436" >
                   <h2>Impressionism</h2>
                 </Card>
                 <Card size="small" onClick={() => openPopupWithContent(<Artgloss14 />)}
-                  className="custom-class-for-specific-card" >
-                  <h2>Pop Art</h2>
+                  backgroundColor="#FFBF00" >
+                  <h2 style={{ color: '#000000' }}>Pop Art</h2>
                 </Card>
                 <Card size="small" onClick={() => openPopupWithContent(<Artgloss15 />)}
-                  className="custom-class-for-specific-card" >
+                  backgroundColor="#E9967A" >
                   <h2>Romanticism</h2>
                 </Card>
               </div>
