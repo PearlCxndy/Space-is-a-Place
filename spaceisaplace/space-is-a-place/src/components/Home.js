@@ -306,7 +306,7 @@ function Home() {
                   <h2>Romanticism</h2>
                 </Card>
               </div>
-              <AnimatedText
+              <AnimatedText 
                 phrases={[
                   { text: "Abstraction/Abstract art" },
                   { text: "Abstract Expressionism " },
