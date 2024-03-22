@@ -70,8 +70,7 @@ const Paint = () => {
 	console.log(someObject instanceof SomeClass); // true
 
 	// data arrays
-	const [lines, setLines] = useState([]);
-	const [shouldReset, setShouldReset] = useState(false);
+	let lines = [];
 	let currentLine = [];
 
 	// p5 elements
@@ -86,19 +85,25 @@ const Paint = () => {
 
 	// const [color] = useState("black");
 
-	const resetSketch = () => {
-		setShouldReset(true); // Set the reset flag to true
-		setLines([]); // Clear the lines array
-	  };
+
 	const preload = (p) => {
 		// Initialize imgBrushes as an array
 		imgBrushes = brushes.map(brush => p.loadImage(brush));
 	};
 
+
 	const setup = (p, parentRef) => {
 
-		p.createCanvas(WIDTH, HEIGHT).parent(parentRef).position(40, 60);
+
+		p.createCanvas(WIDTH, HEIGHT).parent(parentRef).position(400, 60);
 		p.pixelDensity(1);
+				// Draw a border around the canvas to visualize the area better
+				p.noFill();
+				p.stroke(0); // Black color for border
+				p.strokeWeight(2);
+				p.rect(0, nonDrawableAreaHeight, WIDTH, HEIGHT - nonDrawableAreaHeight);
+		
+
 		// hide cursor from canvas
 		p.noCursor();
 		brushImage = p.loadImage('./stroke/Brush2.png', img => {
@@ -106,13 +111,13 @@ const Paint = () => {
 		});
 		// Slider for stroke size
 		size = p.createSlider(0, 100, 10).parent(parentRef);
-		size.position(300, 110);
+		size.position(180, 350);
 		size.style('width', '180px');
 
 
 		// Selector for brush type
 		sel = p.createSelect().parent(parentRef);
-		sel.position(500, 110);
+		sel.position(180, 400);
 		sel.option("Normal Paint Brush");
 		sel.option("Splatter Brush");
 		// sel.option("Eraser (press 'E')");
@@ -132,24 +137,25 @@ const Paint = () => {
 
 		//reset
 
-		resetButton = p.createButton('RESET').parent(parentRef);
-		resetButton.position(800, 105);
-		resetButton.mousePressed(resetSketch);
+		resetButton = p.createButton('RESET');
+		resetButton.parent(parentRef); // Make sure to parent the button if necessary
+		resetButton.position(180, 450);
+
 
 
 		// Color picker
 		colorPicker = p.createColorPicker('black').parent(parentRef);
-		colorPicker.position(50, 105);
+		colorPicker.position(180, 300);
 
 
 		// Eraser button
-		eraser = p.createButton("ERASER").parent(parentRef);
-		eraser.position(125, 110);
+		eraser = p.createButton("  ERASER ").parent(parentRef);
+		eraser.position(180, 500);
 		eraser.mousePressed(() => sel.selected("Eraser"));
 
 		// Save button
-		saveButton = p.createButton("SAVE").parent(parentRef);
-		saveButton.position(210, 110);
+		saveButton = p.createButton("  SAVE !  ").parent(parentRef);
+		saveButton.position(180, 550);
 		saveButton.mousePressed(() => {
 			let drawableArea = p.get(0, nonDrawableAreaHeight, WIDTH, HEIGHT - nonDrawableAreaHeight);
 			drawableArea.save('drawing', 'png');
@@ -173,19 +179,14 @@ const Paint = () => {
 
 		p.background(BG_COLOR);
 		p.strokeJoin(p.ROUND);
-		// Draw a border around the canvas to visualize the area better
-		p.noFill();
-		p.stroke(0); // Black color for border
-		p.strokeWeight(2);
-		p.rect(0, nonDrawableAreaHeight, WIDTH, HEIGHT - nonDrawableAreaHeight);
-		if (shouldReset) {
-			p.clear(); // Clear the canvas (use p.clear() instead of p.background(BG_COLOR) to avoid filling the canvas with a color)
-			setShouldReset(false); // Reset the flag after clearing the canvas
-		  }
-		  
+
+
 		if (p.mouseIsPressed) {
 			if (p.mouseY > nonDrawableAreaHeight && p.mouseY < HEIGHT && p.mouseX >= 0 && p.mouseX <= WIDTH) {
 				let p5Color = p.color(colorPicker.value());
+				p.fill(p5Color);
+				p.noStroke();
+				p.ellipse(p.mouseX, p.mouseY, size.value(), size.value());
 				// let type = sel.value(); // Assuming this is how you get the current tool/type
 				let abstractShapes = Array.from({ length: 5 }, () => {
 					let shapeType = p.random(["ellipse", "rect"]);
@@ -201,7 +202,11 @@ const Paint = () => {
 					};
 
 				});
-
+				if (p.mouseX >= 0 && p.mouseX <= WIDTH && p.mouseY >= 0 && p.mouseY <= HEIGHT) {
+					p.noCursor();
+				} else {
+					p.cursor(); // Default cursor outside the canvas area
+				}
 
 				const point = {
 					x: p.mouseX,
@@ -246,7 +251,6 @@ const Paint = () => {
 						alpha: p.random(15, 35),
 					})),
 
-					// ... other point properties ...
 				};
 
 				currentLine.push(point);
@@ -265,9 +269,11 @@ const Paint = () => {
 						p.line(previousPoint.x, previousPoint.y, point.x, point.y);
 					}
 				} else if (point.type === "Eraser") {
-					p.stroke(BG_COLOR);
-					p.fill(BG_COLOR);
-					p.ellipse(point.x, point.y, point.weight, point.weight);
+					// Assuming BG_COLOR is the background color you're using to erase
+					p.stroke(BG_COLOR); // Set the stroke color to the background color
+					p.fill(BG_COLOR); // Set the fill color to the same background color
+					p.strokeWeight(1); // Optionally, adjust the stroke weight to match your desired eraser border thickness
+					p.ellipse(point.x, point.y, point.weight, point.weight); 
 
 
 				} else if (point.type === "Splatter Brush" || point.type === "brush2") {
@@ -428,6 +434,10 @@ const Paint = () => {
 			});
 		});
 
+		p.stroke(0); // Black color for border
+		p.strokeWeight(2);
+		p.noFill();
+		p.rect(0, nonDrawableAreaHeight, WIDTH, HEIGHT - nonDrawableAreaHeight);
 		// Drawing the brush preview at the cursor
 		if (p.mouseY > 100) {
 			let previewColor = p.color(colorPicker.value()); // Convert to p5 color object
@@ -443,10 +453,28 @@ const Paint = () => {
 			lines.push(currentLine);
 		}
 	};
+	useEffect(() => {
+		const cursorElem = document.querySelector('.custom-cursor');
+
+		const updateCursorPosition = (e) => {
+			if (cursorElem) { // Check if the element exists
+				cursorElem.style.left = `${e.clientX}px`;
+				cursorElem.style.top = `${e.clientY}px`;
+			}
+		};
+
+		window.addEventListener('mousemove', updateCursorPosition);
+
+		// Clean up the event listener when the component unmounts
+		return () => {
+			window.removeEventListener('mousemove', updateCursorPosition);
+		};
+	}, []);
 
 	return (
 		<div >
-			<AnimatedText
+			<div className="custom-cursor" />
+			{/* <AnimatedText
 				phrases={[
 					{ text: "Abstraction/Abstract art" },
 					{ text: "Abstract Expressionism " },
@@ -463,7 +491,7 @@ const Paint = () => {
 					{ text: "Modernism" },
 					{ text: "Impressionism" },
 				]}
-			/>
+			/> */}
 			<Sketch preload={preload} setup={setup} draw={draw} mousePressed={mousePressed} />
 		</div>
 	);

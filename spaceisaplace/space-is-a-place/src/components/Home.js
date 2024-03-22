@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { ScrollControls, Scroll, Sparkles, Backdrop, Float, Ring, useScroll } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import transition from "../transition";
-import DraggableSpace from './line';
+import DraggableSpace from './line.js';
 import { motion, useMotionValue, useSpring } from 'framer-motion';
 import { Artgloss1, Artgloss2, Artgloss3, Artgloss4, Artgloss5, Artgloss6, Artgloss7, Artgloss8, Artgloss9, Artgloss10, Artgloss11, Artgloss12, Artgloss13, Artgloss14, Artgloss15 } from './popupinfo';
 import Card from './card.js';
@@ -97,7 +97,7 @@ function Home() {
     <>
       <div className="App" >
         <Canvas>
-          <ScrollControls pages={10} damping={0.1}>
+          <ScrollControls pages={10} damping={0.6}>
             <spotLight position={[10, 15, 10]} angle={0.3} />
             <ambientLight intensity={5} />
             <DraggableSpace />
@@ -205,7 +205,7 @@ function Home() {
                     boxShadow: '0 4px 6px rgba(0,0,0,0.1)' ,padding: '40px'}}>The artists in this gallery have looked at space in various ways. Space can be a room in a house, a stroke of paint on canvas, a three-dimensional form protruding from a flat surface or the gallery itself. It can be the space inside the artist’s head, the space taken up by the artist’s and the viewer’s body or a space beyond the gallery</h1>
                 </Section>
                 <Section id={3} threshold={0.6} triggerOnce={false} hideDelay={14}>
-                  <h1 style={{ top: '130vh', position: 'absolute', marginLeft: '1000px', maxWidth: '400px',backgroundColor: 'rgba(255, 255, 255, 0.8)', 
+                  <h1 style={{ top: '160vh', position: 'absolute', marginLeft: '1000px', maxWidth: '400px',backgroundColor: 'rgba(255, 255, 255, 0.8)', 
                     borderRadius: '40px', // Rounded corners for the background
                     boxShadow: '0 4px 6px rgba(0,0,0,0.1)',padding: '40px'}}>Art doesn’t happen in a vacuum. New patrons began to support art in the 19th century, taking over from the church and the aristocracy.The new middle classes built galleries to share their collections with the public.</h1>
                 </Section>
@@ -356,7 +356,7 @@ function Home() {
                 }}
               >
                 <a href="/test1" style={{ textDecoration: 'none', color: 'inherit' }}>
-                  <h1 className="title2">Draw your<br />own space</h1>
+                  <h1 className="title2"> click here <br />Draw your<br />own space</h1>
                 </a>
               </motion.div>
             </Scroll>
@@ -372,7 +372,7 @@ function Home() {
           translateX: cursorXSpring,
           translateY: cursorYSpring,
           position: 'fixed', top: 0, left: 0, zIndex: 9999,
-          width: '42px', height: '42px', borderRadius: '50%',
+          width: '30px', height: '30px', borderRadius: '50%',
           backgroundColor: 'white', mixBlendMode: 'difference'
         }} />
       </div>

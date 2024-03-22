@@ -205,7 +205,11 @@ a {
 	animation: mouse-wheel 1.2s ease infinite;
 	border-radius: 50%;
 }
-
+.custom-cursor {
+  position: fixed;
+  z-index: 9999; /* Make sure this is higher than other elements */
+  pointer-events: none; /* Ignore the cursor element when detecting mouse events */
+}
 @keyframes mouse-wheel {
 	0% {
 		opacity: 1;
