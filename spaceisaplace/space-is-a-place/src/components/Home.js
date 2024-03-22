@@ -195,13 +195,19 @@ function Home() {
 
               <div style={{ position: 'absolute', width: '100%' }}>
                 <Section id={1} threshold={0.4} triggerOnce={false} >
-                  <h1 style={{ top: '10vh', position: 'absolute', maxWidth: '450px', marginLeft: '30px' }}>It is easy to overlook space in art: we can view a painting of an interior without noticing how the artist has created the illusion of dept .</h1>
+                  <h1 style={{ top: '10vh', position: 'absolute', maxWidth: '450px', marginLeft: '30px' ,backgroundColor: 'rgba(255, 255, 255, 0.8)', // Semi-transparent background for readability
+                    borderRadius: '40px', // Rounded corners for the background
+                    boxShadow: '0 4px 6px rgba(0,0,0,0.1)',padding: '40px'}}>It is easy to overlook space in art: we can view a painting of an interior without noticing how the artist has created the illusion of dept .</h1>
                 </Section>
                 <Section id={2} threshold={0.8} triggerOnce={false} hideDelay={9}>
-                  <h1 style={{ top: '60vh', position: 'absolute', marginLeft: '1000px', maxWidth: '500px' }}>The artists in this gallery have looked at space in various ways. Space can be a room in a house, a stroke of paint on canvas, a three-dimensional form protruding from a flat surface or the gallery itself. It can be the space inside the artist’s head, the space taken up by the artist’s and the viewer’s body or a space beyond the gallery</h1>
+                  <h1 style={{ top: '60vh', position: 'absolute', marginLeft: '1000px', maxWidth: '500px',backgroundColor: 'rgba(255, 255, 255, 0.8)', // Semi-transparent background for readability
+                    borderRadius: '40px', // Rounded corners for the background
+                    boxShadow: '0 4px 6px rgba(0,0,0,0.1)' ,padding: '40px'}}>The artists in this gallery have looked at space in various ways. Space can be a room in a house, a stroke of paint on canvas, a three-dimensional form protruding from a flat surface or the gallery itself. It can be the space inside the artist’s head, the space taken up by the artist’s and the viewer’s body or a space beyond the gallery</h1>
                 </Section>
                 <Section id={3} threshold={0.6} triggerOnce={false} hideDelay={14}>
-                  <h1 style={{ top: '130vh', position: 'absolute', marginLeft: '1000px', maxWidth: '400px' }}>Art doesn’t happen in a vacuum. New patrons began to support art in the 19th century, taking over from the church and the aristocracy.The new middle classes built galleries to share their collections with the public.</h1>
+                  <h1 style={{ top: '130vh', position: 'absolute', marginLeft: '1000px', maxWidth: '400px',backgroundColor: 'rgba(255, 255, 255, 0.8)', 
+                    borderRadius: '40px', // Rounded corners for the background
+                    boxShadow: '0 4px 6px rgba(0,0,0,0.1)',padding: '40px'}}>Art doesn’t happen in a vacuum. New patrons began to support art in the 19th century, taking over from the church and the aristocracy.The new middle classes built galleries to share their collections with the public.</h1>
                 </Section>
                 <Section id={4} threshold={0.7} triggerOnce={false} hideDelay={80}>
                   <h1 style={{
@@ -214,7 +220,10 @@ function Home() {
                     fontSize: '36px', // Bigger font size
                     lineHeight: '1.5', // Adjusted line height for better readability
                     color: '#333', // Example text color, adjust as needed
-                    textAlign: 'justify' // Example text alignment
+                    textAlign: 'justify' ,backgroundColor: 'rgba(255, 255, 255, 0.8)', // Semi-transparent background for readability
+                    borderRadius: '40px', // Rounded corners for the background
+                    boxShadow: '0 4px 6px rgba(0,0,0,0.1)', // Soft shadow for depth// Example text alignment
+                    padding: '20px'
                   }}>
                     Art was seen by a wider audience and art education meant that artists came from more diverse backgrounds. The changes of the 20th century from the end of empire and two world wars to widening democracy and consumerism, affected the way art is made and how it is received.
                   </h1>

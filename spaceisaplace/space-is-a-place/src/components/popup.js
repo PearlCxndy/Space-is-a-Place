@@ -1,26 +1,30 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { AiOutlineCloseSquare } from "react-icons/ai";
 
 const MAX_POINTS = 150; // Match the max points if you want consistency
 
 const Popup = ({ setIsOpenPopup, children, enableDrawing = true }) => {
     const [points, setPoints] = useState([]);
+    const [popupSize, setPopupSize] = useState({ width: 500, height: 300 }); // Default size
     const popupRef = useRef(null);
 
-    // Integrated handleMouseMove logic
+    useEffect(() => {
+        if (popupRef.current) {
+            const { width, height } = popupRef.current.getBoundingClientRect();
+            setPopupSize({ width, height });
+        }
+    }, []);
+
     const handleMouseMove = enableDrawing ? (e) => {
+        if (!enableDrawing) return;
+
         const boundingBox = popupRef.current.getBoundingClientRect();
         const x = e.clientX - boundingBox.left;
         const y = e.clientY - boundingBox.top;
 
-        const newPoint = `${x},${y}`;
-
         setPoints((prevPoints) => {
-            const newPoints = [...prevPoints, newPoint];
-            if (newPoints.length > MAX_POINTS) {
-                newPoints.shift(); // Keep the points array at a fixed maximum length
-            }
-            return newPoints;
+            const newPoints = [...prevPoints, `${x},${y}`];
+            return newPoints.length <= MAX_POINTS ? newPoints : newPoints.slice(1);
         });
     } : null;
 
@@ -82,19 +86,24 @@ const Popup = ({ setIsOpenPopup, children, enableDrawing = true }) => {
                 </div>
                 {/* Draw area */}
                 {enableDrawing && (
-                    <svg
-                        className="pointer-events-none absolute top-0 left-0 h-full w-full"
-                        style={{ zIndex: 15 }} // z-index to be just below the text content but above the popup background
-                        viewBox="0 10 300 400" // Increased width and height
-                    >
-                        <polyline
-                            fill="none"
-                            stroke="black"
-                            strokeWidth="2.5"
-                            points={points.join(" ")}
-                        />
-                    </svg>
-                )}
+            <svg
+                style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                }}
+                viewBox={`0 0 ${popupSize.width} ${popupSize.height}`}
+            >
+                <polyline
+                    fill="none"
+                    stroke="black"
+                    strokeWidth="2"
+                    points={points.join(" ")}
+                />
+            </svg>
+        )}
             </div>
         </div>
     );

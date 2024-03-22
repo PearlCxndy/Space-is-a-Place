@@ -66,10 +66,12 @@ const Paint = () => {
 
 	const someObject = new SomeClass();
 
+
 	console.log(someObject instanceof SomeClass); // true
 
 	// data arrays
-	let lines = [];
+	const [lines, setLines] = useState([]);
+	const [shouldReset, setShouldReset] = useState(false);
 	let currentLine = [];
 
 	// p5 elements
@@ -80,10 +82,14 @@ const Paint = () => {
 	let sel;
 	let eraser;
 	let imgBrushes;
+	let resetButton;
 
 	// const [color] = useState("black");
 
-
+	const resetSketch = () => {
+		setShouldReset(true); // Set the reset flag to true
+		setLines([]); // Clear the lines array
+	  };
 	const preload = (p) => {
 		// Initialize imgBrushes as an array
 		imgBrushes = brushes.map(brush => p.loadImage(brush));
@@ -122,8 +128,13 @@ const Paint = () => {
 		sel.option("Colored Pencil");
 		sel.option("Hatching");
 		sel.option("Spray");
+		sel.option("Eraser");
 
+		//reset
 
+		resetButton = p.createButton('RESET').parent(parentRef);
+		resetButton.position(800, 105);
+		resetButton.mousePressed(resetSketch);
 
 
 		// Color picker
@@ -162,14 +173,16 @@ const Paint = () => {
 
 		p.background(BG_COLOR);
 		p.strokeJoin(p.ROUND);
-
-
 		// Draw a border around the canvas to visualize the area better
 		p.noFill();
 		p.stroke(0); // Black color for border
 		p.strokeWeight(2);
 		p.rect(0, nonDrawableAreaHeight, WIDTH, HEIGHT - nonDrawableAreaHeight);
-
+		if (shouldReset) {
+			p.clear(); // Clear the canvas (use p.clear() instead of p.background(BG_COLOR) to avoid filling the canvas with a color)
+			setShouldReset(false); // Reset the flag after clearing the canvas
+		  }
+		  
 		if (p.mouseIsPressed) {
 			if (p.mouseY > nonDrawableAreaHeight && p.mouseY < HEIGHT && p.mouseX >= 0 && p.mouseX <= WIDTH) {
 				let p5Color = p.color(colorPicker.value());
@@ -206,7 +219,7 @@ const Paint = () => {
 					})),
 					pencilOffsets: Array.from({ length: 3 }, () => ({
 						offsetX: p.random(-5, 5),
-						offsetY: p.random(-3,3)
+						offsetY: p.random(-3, 3)
 					})),
 					watercolorDroplets: Array.from({ length: 20 }, () => ({
 						offsetX: p.random(-size.value(), size.value()), // Random offset from the center point
@@ -255,6 +268,7 @@ const Paint = () => {
 					p.stroke(BG_COLOR);
 					p.fill(BG_COLOR);
 					p.ellipse(point.x, point.y, point.weight, point.weight);
+
 
 				} else if (point.type === "Splatter Brush" || point.type === "brush2") {
 					for (let i = 0; i < p.random(1, 9); i++) {
