@@ -47,7 +47,12 @@ const AnimatedText = ({ phrases }) => {
 						exit={{ opacity: 0, y: -20 }}
 						transition={{ duration: 0.5 }}
 						className={phrase.className} // Using the className passed with each phrase
-						style={{ top: '55vh', marginBottom: '20px', position: 'absolute', MarginRight: '120px' }}
+						style={{  position: 'absolute',
+						top: '20vh', // Adjust this value to align vertically after rotation
+						left: '20px', // Move text a bit to the right from the left-most side
+						transform: 'rotate(-90deg) translateX(-55%)', // Adjust the horizontal position after rotation
+						transformOrigin: 'left bottom', // Sets the pivot point of the rotation
+						marginBottom: '20px'}}
 					>
 						{phrase.text}
 					</motion.span>
@@ -66,6 +71,10 @@ const Paint = () => {
 
 	const someObject = new SomeClass();
 
+	const clearCanvas = (p) => {
+        lines = []; // Reset lines array
+        p.background(BG_COLOR); // Clear the canvas visually
+    };
 
 	console.log(someObject instanceof SomeClass); // true
 
@@ -126,24 +135,24 @@ const Paint = () => {
 		// sel.option("Eraser (press 'E')");
 		sel.option("Abstract");
 		sel.option("ColourField Painting");
-		sel.option("Image Brush");
+		sel.option("Square brush");
 		sel.option("Cubism");
-		sel.option("Dynamic Pattern");
+		sel.option("Impressionism");
 		sel.option("Charcoal")
 		sel.option("Combined Brush");
 		sel.option("Pencil");
 		sel.option("Watercolour");
 		sel.option("Colored Pencil");
-		sel.option("Hatching");
+		sel.option("Marker");
 		sel.option("Spray");
 		sel.option("Eraser");
 
 		//reset
 
-		resetButton = p.createButton('RESET');
-		resetButton.parent(parentRef); // Make sure to parent the button if necessary
-		resetButton.position(180, 450);
-
+		 resetButton = p.createButton('RESET');
+        resetButton.parent(parentRef);
+        resetButton.position(180, 450);
+        resetButton.mousePressed(() => clearCanvas(p)); 
 
 
 		// Color picker
@@ -334,7 +343,7 @@ const Paint = () => {
 					// Draw the rectangle based on the point's properties
 					p.rect(point.x - rectWidth / 2, point.y - rectHeight / 2, rectWidth, rectHeight);
 				}
-				else if (point.type === "Dynamic Pattern") {
+				else if (point.type === "Impressionism") {
 					let angle = p.map(point.x, 0, p.width, 0, 360) + p.map(point.y, 0, p.height, 0, 360);
 					let val = p.cos(p.radians(angle)) * 12.0;
 
@@ -344,7 +353,7 @@ const Paint = () => {
 						p.fill(point.color);
 						p.ellipse(point.x + xoff, point.y + yoff, point.weight, point.weight);
 					} // Ensure this closing bracket is present
-				} else if (point.type === "Image Brush") {
+				} else if (point.type === "Square brush") {
 					if (imgBrushes[0]) {
 						p.imageMode(p.CENTER);
 						p.strokeWeight(20);
@@ -378,7 +387,6 @@ const Paint = () => {
 						let ny = point.y + offset.nyOffset;
 						let npx = nx + offset.npxOffset;
 						let npy = ny + offset.npyOffset;
-
 						p.strokeWeight(point.weight / 5); // Adjust stroke weight based on the size
 						p.stroke(p.color(point.color)); // Use the stored color
 						p.line(nx, ny, npx, npy);
@@ -417,7 +425,7 @@ const Paint = () => {
 					});
 				}
 
-				else if (point.type === "Hatching") {
+				else if (point.type === "Marker") {
 					// Hatching logic
 					point.hatchingLines.forEach(line => {
 						p.stroke(0);
@@ -497,7 +505,7 @@ const Paint = () => {
       <p className="control-label">Save Drawing:</p>
     </div>
   </div>
-			{/* <AnimatedText
+			<AnimatedText
 				phrases={[
 					{ text: "Abstraction/Abstract art" },
 					{ text: "Abstract Expressionism " },
@@ -514,7 +522,7 @@ const Paint = () => {
 					{ text: "Modernism" },
 					{ text: "Impressionism" },
 				]}
-			/> */}
+			/>
 			<Sketch preload={preload} setup={setup} draw={draw} mousePressed={mousePressed} />
 		</div>
 		
