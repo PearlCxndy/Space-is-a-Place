@@ -208,7 +208,28 @@ a {
 .custom-cursor {
   position: fixed;
   z-index: 9999; /* Make sure this is higher than other elements */
-  pointer-events: none; /* Ignore the cursor element when detecting mouse events */
+  pointer-events: none; /* Igno
+  re the cursor element when detecting mouse events */
+}
+.nav-item {
+  margin-right: 20px; /* Adjust the value as needed */
+  display: inline-block; /* This will make each nav-item align horizontally */
+}
+
+.nav-links {
+  text-align: center; /* Center-align nav-items if desired */
+}
+
+/* Ensure that the last item doesn't have a margin to the right */
+.nav-item:last-child {
+  margin-right: 0;
+}
+
+/* Optional: Add a vertical separator line between links */
+.nav-item:not(:last-child)::after {
+  content: "|";
+  margin-left: 20px;
+  color: #ccc; /* Adjust color as needed */
 }
 @keyframes mouse-wheel {
 	0% {

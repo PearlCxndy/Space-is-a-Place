@@ -97,7 +97,7 @@ function Home() {
     <>
       <div className="App" >
         <Canvas>
-          <ScrollControls pages={10} damping={0.6}>
+          <ScrollControls pages={10} damping={0.65}>
             <spotLight position={[10, 15, 10]} angle={0.3} />
             <ambientLight intensity={5} />
             <DraggableSpace />
@@ -248,7 +248,7 @@ function Home() {
               </div>
 
 
-              <h1 className="title2" style={{ top: '530vh', marginBottom: '500px', position: 'absolute', marginLeft: '20px' }}>Art Glossary</h1>
+              <h1 className="title2" style={{ top: '550vh', marginBottom: '500px', position: 'absolute', marginLeft: '20px' }}>Art Glossary</h1>
 
               <div style={styles.pin_container}>
                 <Card
