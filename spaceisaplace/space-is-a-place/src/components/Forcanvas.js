@@ -65,7 +65,7 @@ const AnimatedText = ({ phrases }) => {
 
 const Paint = () => {
 	const WIDTH = 950;
-	const HEIGHT = 700;
+	const HEIGHT = 600;
 	const BG_COLOR = "white";
 	class SomeClass { }
 
@@ -103,7 +103,7 @@ const Paint = () => {
 	const setup = (p, parentRef) => {
 
 
-		p.createCanvas(WIDTH, HEIGHT).parent(parentRef).position(400, 50);
+		p.createCanvas(WIDTH, HEIGHT).parent(parentRef).position(460, 50);
 		p.pixelDensity(1);
 		// Draw a border around the canvas to visualize the area better
 		p.noFill();
