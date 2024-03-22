@@ -18,7 +18,7 @@ const App = () => {
     <Routes location={location} key={location.pathname}>
       <Route index element={<Home />} />
       <Route path ="/test1" element={<Paint />}/>
-      <Route path ="/canvas" element={<Paint2 />}/>
+      {/* <Route path ="/canvas" element={<Paint2 />}/> */}
     </Routes>
     </AnimatePresence>
     </>

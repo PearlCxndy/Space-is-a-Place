@@ -16,7 +16,7 @@ const NavBar = () => {
     <div className="nav">
       <div className="logo">
         <Link className="nav-link" to="/" style={navStyle}>
-          Pearl
+          Home
         </Link>
       </div>
       <div className="nav-links" style={navBarStyle}>

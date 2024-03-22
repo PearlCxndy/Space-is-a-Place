@@ -75,8 +75,8 @@ function Home() {
   const cursorY = useMotionValue(-100);
 
   // Spring animations for the cursor
-  const cursorXSpring = useSpring(cursorX, { stiffness: 800, damping: 30 });
-  const cursorYSpring = useSpring(cursorY, { stiffness: 800, damping: 30 });
+  const cursorXSpring = useSpring(cursorX, { stiffness: 200, damping: 20 });
+  const cursorYSpring = useSpring(cursorY, { stiffness: 200, damping: 20 });
 
   useEffect(() => {
     const moveCursor = e => {

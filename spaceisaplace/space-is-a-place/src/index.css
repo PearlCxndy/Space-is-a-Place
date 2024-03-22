@@ -1,9 +1,7 @@
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-  cursor: none;
-  
+  box-sizing: border-box; /* This ensures elements with padding don't end up larger than you expect */
 }
 
 .App {
@@ -231,6 +229,37 @@ a {
   margin-left: 20px;
   color: #ccc; /* Adjust color as needed */
 }
+.button {
+  cursor: pointer;
+}
+.clickable, button, .control-item {
+  cursor: pointer;
+}
+/* canvas */
+
+.paint-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.control-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Align items to the left */
+  margin-top: 200px;
+  width: 100%;
+  margin-left: 20px;
+  
+}
+
+.control-item {
+  margin-bottom: 10px; /* Space between control items */
+  padding-top: 20px;
+  padding-left: 40px; 
+}
+
 @keyframes mouse-wheel {
 	0% {
 		opacity: 1;

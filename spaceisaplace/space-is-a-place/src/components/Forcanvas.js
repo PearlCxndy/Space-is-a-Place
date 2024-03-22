@@ -74,7 +74,6 @@ const Paint = () => {
 	let currentLine = [];
 
 	// p5 elements
-	let brushImage; // This will hold our image
 	let colorPicker;
 	let size;
 	let saveButton;
@@ -95,24 +94,28 @@ const Paint = () => {
 	const setup = (p, parentRef) => {
 
 
-		p.createCanvas(WIDTH, HEIGHT).parent(parentRef).position(400, 60);
+		p.createCanvas(WIDTH, HEIGHT).parent(parentRef).position(400, 50);
 		p.pixelDensity(1);
-				// Draw a border around the canvas to visualize the area better
-				p.noFill();
-				p.stroke(0); // Black color for border
-				p.strokeWeight(2);
-				p.rect(0, nonDrawableAreaHeight, WIDTH, HEIGHT - nonDrawableAreaHeight);
-		
+		// Draw a border around the canvas to visualize the area better
+		p.noFill();
+		p.stroke(0); // Black color for border
+		p.strokeWeight(2);
+		p.rect(0, nonDrawableAreaHeight, WIDTH, HEIGHT - nonDrawableAreaHeight);
+		p.fill(0); // Set the text color to black
+		p.textSize(16); // Set the text size
+	
 
 		// hide cursor from canvas
-		p.noCursor();
-		brushImage = p.loadImage('./stroke/Brush2.png', img => {
-			console.log('Image loaded', img);
-		});
+		// p.noCursor();
+		// brushImage = p.loadImage('./stroke/Brush2.png', img => {
+		// 	console.log('Image loaded', img);
+		// });
 		// Slider for stroke size
+
 		size = p.createSlider(0, 100, 10).parent(parentRef);
 		size.position(180, 350);
 		size.style('width', '180px');
+	
 
 
 		// Selector for brush type
@@ -179,6 +182,7 @@ const Paint = () => {
 
 		p.background(BG_COLOR);
 		p.strokeJoin(p.ROUND);
+
 
 
 		if (p.mouseIsPressed) {
@@ -273,7 +277,7 @@ const Paint = () => {
 					p.stroke(BG_COLOR); // Set the stroke color to the background color
 					p.fill(BG_COLOR); // Set the fill color to the same background color
 					p.strokeWeight(1); // Optionally, adjust the stroke weight to match your desired eraser border thickness
-					p.ellipse(point.x, point.y, point.weight, point.weight); 
+					p.ellipse(point.x, point.y, point.weight, point.weight);
 
 
 				} else if (point.type === "Splatter Brush" || point.type === "brush2") {
@@ -472,8 +476,27 @@ const Paint = () => {
 	}, []);
 
 	return (
-		<div >
-			<div className="custom-cursor" />
+		<div className="paint-container">
+  <div className="control-panel">
+    <div className="control-item">
+      <label className="control-label" htmlFor="colorPicker">Color Picker:</label>
+    </div>
+    <div className="control-item">
+      <label className="control-label" htmlFor="sizeSlider">Size Slider:</label>
+    </div>
+    <div className="control-item">
+      <label className="control-label" htmlFor="brushType">Brush Type:</label>
+    </div>
+    <div className="control-item">
+      <p className="control-label">Reset Canvas:</p>
+    </div>
+    <div className="control-item">
+      <p className="control-label">Eraser Tool:</p>
+    </div>
+    <div className="control-item">
+      <p className="control-label">Save Drawing:</p>
+    </div>
+  </div>
 			{/* <AnimatedText
 				phrases={[
 					{ text: "Abstraction/Abstract art" },
@@ -494,6 +517,7 @@ const Paint = () => {
 			/> */}
 			<Sketch preload={preload} setup={setup} draw={draw} mousePressed={mousePressed} />
 		</div>
+		
 	);
 };
 
