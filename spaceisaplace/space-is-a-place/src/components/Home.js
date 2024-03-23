@@ -195,19 +195,25 @@ function Home() {
 
               <div style={{ position: 'absolute', width: '100%' }}>
                 <Section id={1} threshold={0.4} triggerOnce={false} >
-                  <h1 style={{ top: '10vh', position: 'absolute', maxWidth: '450px', marginLeft: '30px' ,backgroundColor: 'rgba(255, 255, 255, 0.8)', // Semi-transparent background for readability
+                  <h1 style={{
+                    top: '10vh', position: 'absolute', maxWidth: '450px', marginLeft: '30px', backgroundColor: 'rgba(255, 255, 255, 0.8)', // Semi-transparent background for readability
                     borderRadius: '40px', // Rounded corners for the background
-                    boxShadow: '0 4px 6px rgba(0,0,0,0.1)',padding: '40px'}}>It is easy to overlook space in art: we can view a painting of an interior without noticing how the artist has created the illusion of dept .</h1>
+                    boxShadow: '0 4px 6px rgba(0,0,0,0.1)', padding: '40px'
+                  }}>It is easy to overlook space in art: we can view a painting of an interior without noticing how the artist has created the illusion of dept .</h1>
                 </Section>
                 <Section id={2} threshold={0.8} triggerOnce={false} hideDelay={9}>
-                  <h1 style={{ top: '60vh', position: 'absolute', marginLeft: '1000px', maxWidth: '500px',backgroundColor: 'rgba(255, 255, 255, 0.8)', // Semi-transparent background for readability
+                  <h1 style={{
+                    top: '60vh', position: 'absolute', marginLeft: '1000px', maxWidth: '500px', backgroundColor: 'rgba(255, 255, 255, 0.8)', // Semi-transparent background for readability
                     borderRadius: '40px', // Rounded corners for the background
-                    boxShadow: '0 4px 6px rgba(0,0,0,0.1)' ,padding: '40px'}}>The artists in this gallery have looked at space in various ways. Space can be a room in a house, a stroke of paint on canvas, a three-dimensional form protruding from a flat surface or the gallery itself. It can be the space inside the artist’s head, the space taken up by the artist’s and the viewer’s body or a space beyond the gallery</h1>
+                    boxShadow: '0 4px 6px rgba(0,0,0,0.1)', padding: '40px'
+                  }}>The artists in this gallery have looked at space in various ways. Space can be a room in a house, a stroke of paint on canvas, a three-dimensional form protruding from a flat surface or the gallery itself. It can be the space inside the artist’s head, the space taken up by the artist’s and the viewer’s body or a space beyond the gallery</h1>
                 </Section>
                 <Section id={3} threshold={0.6} triggerOnce={false} hideDelay={14}>
-                  <h1 style={{ top: '160vh', position: 'absolute', marginLeft: '1000px', maxWidth: '400px',backgroundColor: 'rgba(255, 255, 255, 0.8)', 
+                  <h1 style={{
+                    top: '160vh', position: 'absolute', marginLeft: '1000px', maxWidth: '400px', backgroundColor: 'rgba(255, 255, 255, 0.8)',
                     borderRadius: '40px', // Rounded corners for the background
-                    boxShadow: '0 4px 6px rgba(0,0,0,0.1)',padding: '40px'}}>Art doesn’t happen in a vacuum. New patrons began to support art in the 19th century, taking over from the church and the aristocracy.The new middle classes built galleries to share their collections with the public.</h1>
+                    boxShadow: '0 4px 6px rgba(0,0,0,0.1)', padding: '40px'
+                  }}>Art doesn’t happen in a vacuum. New patrons began to support art in the 19th century, taking over from the church and the aristocracy.The new middle classes built galleries to share their collections with the public.</h1>
                 </Section>
                 <Section id={4} threshold={0.7} triggerOnce={false} hideDelay={80}>
                   <h1 style={{
@@ -220,12 +226,12 @@ function Home() {
                     fontSize: '36px', // Bigger font size
                     lineHeight: '1.5', // Adjusted line height for better readability
                     color: '#333', // Example text color, adjust as needed
-                    textAlign: 'justify' ,backgroundColor: 'rgba(255, 255, 255, 0.8)', // Semi-transparent background for readability
+                    textAlign: 'justify', backgroundColor: 'rgba(255, 255, 255, 0.8)', // Semi-transparent background for readability
                     borderRadius: '40px', // Rounded corners for the background
                     boxShadow: '0 4px 6px rgba(0,0,0,0.1)', // Soft shadow for depth// Example text alignment
                     padding: '20px'
                   }}>
-                    Art was seen by a wider audience and art education meant that artists came from more diverse backgrounds. The changes of the 20th century from the end of empire and two world wars to widening democracy and consumerism, affected the way art is made and how it is received.
+                    Art was seen by a wider audience and art education meant that artists came from more diverse backgrounds.The changes of the 20th century from the end of empire and two world wars to widening democracy and consumerism,affected the way art is made and how it is received.
                   </h1>
                 </Section>
                 <Section id={5} threshold={0.9} triggerOnce={false} hideDelay={1000}>
@@ -243,7 +249,7 @@ function Home() {
                     backgroundColor: 'rgba(255, 255, 255, 0.8)', // Semi-transparent background for readability
                     borderRadius: '10px', // Rounded corners for the background
                     boxShadow: '0 4px 6px rgba(0,0,0,0.1)', // Soft shadow for depth
-                  }}>Art becomes free to define its own boundaries. No longer in the service of religion, morality  , ideology or even realism , art has carved a space for itself.</h1>
+                  }}>Art becomes free to define its own boundaries. No longer in the service of religion,morality,ideology or even realism,art has carved a space for itself.</h1>
                 </Section>
               </div>
 
@@ -315,7 +321,7 @@ function Home() {
                   <h2>Romanticism</h2>
                 </Card>
               </div>
-              <AnimatedText 
+              <AnimatedText
                 phrases={[
                   { text: "Abstraction/Abstract art" },
                   { text: "Abstract Expressionism " },
@@ -333,12 +339,16 @@ function Home() {
                   { text: "Impressionism" },
                 ]}
               />
+              <div className='title2'>
               <motion.div
                 style={{
                   display: 'inline-block', // Ensure the div fits the content size for better control
                   cursor: "pointer",
-                  backgroundColor: "transparent" // Assuming you want the floating effect without a visible background
-                  , top: '870vh', marginBottom: '10px', position: 'absolute', marginLeft: '20vh'
+                  backgroundColor: "transparent", // Assuming you want the floating effect without a visible background
+                  top: '870vh',
+                  marginBottom: '10px',
+                  position: 'absolute',
+                  marginLeft: '20vh'
                 }}
                 initial="initial" // Starting animation state
                 animate="float"
@@ -346,9 +356,12 @@ function Home() {
                   initial: { opacity: [0], y: [-10] },
                   float: {
                     y: [-10, 10], opacity: [1],
-                    // Adjust the values for greater or lesser vertical movement
                     transition: {
-                      type: 'spring', damping: 5, stiffness: 50, duration: 0.2, ease: "easeInOut", // This eases the animation for a smoother effect
+                      type: 'spring',
+                      damping: 5,
+                      stiffness: 50,
+                      duration: 0.2,
+                      ease: "easeInOut", // This eases the animation for a smoother effect
                       repeat: Infinity,
                       repeatType: "reverse"
                     }
@@ -356,9 +369,12 @@ function Home() {
                 }}
               >
                 <a href="/test1" style={{ textDecoration: 'none', color: 'inherit' }}>
-                  <h1 className="title2"> click here <br />Draw your<br />own space</h1>
+                  <button className="rounded-2xl border-2 border-dashed border-black bg-white px-8 py-4 font-bold uppercase text-black transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:shadow-[4px_4px_0px_black] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none" style={{ fontSize: '80px' }}>
+                  <span className="title2">click here <br />Draw your<br />own space</span>
+                  </button>
                 </a>
               </motion.div>
+              </div>
             </Scroll>
           </ScrollControls>
         </Canvas>

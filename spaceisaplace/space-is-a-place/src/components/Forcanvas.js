@@ -49,7 +49,7 @@ const AnimatedText = ({ phrases }) => {
 						className={phrase.className} // Using the className passed with each phrase
 						style={{  position: 'absolute',
 						top: '20vh', // Adjust this value to align vertically after rotation
-						left: '20px', // Move text a bit to the right from the left-most side
+						left: '50px', // Move text a bit to the right from the left-most side
 						transform: 'rotate(-90deg) translateX(-55%)', // Adjust the horizontal position after rotation
 						transformOrigin: 'left bottom', // Sets the pivot point of the rotation
 						marginBottom: '20px'}}
@@ -121,7 +121,7 @@ const Paint = () => {
 		// });
 		// Slider for stroke size
 
-		size = p.createSlider(0, 100, 10).parent(parentRef);
+		size = p.createSlider(0, 100, 20).parent(parentRef);
 		size.position(180, 350);
 		size.style('width', '180px');
 	
@@ -230,10 +230,10 @@ const Paint = () => {
 					originalColor: p5Color.toString(),
 
 					charcoalOffsets: Array.from({ length: 5 }, () => ({
-						nxOffset: p.random(-7, 7),
-						nyOffset: p.random(-7, 7),
-						npxOffset: p.random(-7, 7),
-						npyOffset: p.random(-7, 7)
+						nxOffset: p.random(-10, 10),
+						nyOffset: p.random(-20, 20),
+						npxOffset: p.random(-10, 10),
+						npyOffset: p.random(-10, 10)
 					})),
 					pencilOffsets: Array.from({ length: 3 }, () => ({
 						offsetX: p.random(-5, 5),
@@ -256,7 +256,7 @@ const Paint = () => {
 					// Replace 5 with the actual number of lines you need for the hatching effect
 					hatchingLines: Array.from({ length: 8 }, (_, i) => ({
 						offsetX: i * 2 - 5, // This will create lines spread from -5 to 5 on the x-axis
-						offsetY: -10, // This sets the starting y-offset for the lines; adjust as needed
+						offsetY: -40, // This sets the starting y-offset for the lines; adjust as needed
 					})),
 					sprayDroplets: Array.from({ length: 90 }, () => ({
 						offsetX: p.random(-size.value(), size.value()),
@@ -285,7 +285,7 @@ const Paint = () => {
 					// Assuming BG_COLOR is the background color you're using to erase
 					p.stroke(BG_COLOR); // Set the stroke color to the background color
 					p.fill(BG_COLOR); // Set the fill color to the same background color
-					p.strokeWeight(1); // Optionally, adjust the stroke weight to match your desired eraser border thickness
+					p.strokeWeight(3); // Optionally, adjust the stroke weight to match your desired eraser border thickness
 					p.ellipse(point.x, point.y, point.weight, point.weight);
 
 
@@ -325,7 +325,7 @@ const Paint = () => {
 						p.stroke(point.color); // Use the same color for the stroke
 
 						const variableEllipse = (x, y, px, py) => {
-							let speed = p.abs(x - px) + p.abs(y - py);
+							let speed = (p.abs(x - px)/2) + (p.abs(y - py)/2);
 
 							p.ellipse(x, y, speed, speed);
 						};
@@ -345,7 +345,7 @@ const Paint = () => {
 				}
 				else if (point.type === "Impressionism") {
 					let angle = p.map(point.x, 0, p.width, 0, 360) + p.map(point.y, 0, p.height, 0, 360);
-					let val = p.cos(p.radians(angle)) * 12.0;
+					let val = p.cos(p.radians(angle)) * 20.0;
 
 					for (let a = 0; a < 360; a += 75) {
 						let xoff = p.cos(p.radians(a)) * val;
@@ -387,7 +387,7 @@ const Paint = () => {
 						let ny = point.y + offset.nyOffset;
 						let npx = nx + offset.npxOffset;
 						let npy = ny + offset.npyOffset;
-						p.strokeWeight(point.weight / 5); // Adjust stroke weight based on the size
+						p.strokeWeight(point.weight / 8); // Adjust stroke weight based on the size
 						p.stroke(p.color(point.color)); // Use the stored color
 						p.line(nx, ny, npx, npy);
 					});
@@ -430,7 +430,7 @@ const Paint = () => {
 					point.hatchingLines.forEach(line => {
 						p.stroke(0);
 						p.strokeWeight(1);
-						p.line(point.x + line.offsetX, point.y + line.offsetY, point.x + line.offsetX, point.y + line.offsetY + 10);
+						p.line(point.x + line.offsetX, point.y + line.offsetY, point.x + line.offsetX, point.y + line.offsetY + 20);
 					});
 				}
 				else if (point.type === "Spray") {
