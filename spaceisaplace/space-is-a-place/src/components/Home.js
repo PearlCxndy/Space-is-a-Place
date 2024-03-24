@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
-import { ScrollControls, Scroll, Sparkles, Backdrop, Float, Ring, useScroll } from '@react-three/drei';
+import { ScrollControls, Scroll, Sparkles, Backdrop, Float, Ring } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import transition from "../transition";
 import DraggableSpace from './line.js';
