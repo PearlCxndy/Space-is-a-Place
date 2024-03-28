@@ -131,7 +131,7 @@ const Paint = () => {
 		sel = p.createSelect().parent(parentRef);
 		sel.position(180, 400);
 		sel.option("Normal Paint Brush");
-		sel.option("Splatter Brush");
+		sel.option("Modernism");
 		// sel.option("Eraser (press 'E')");
 		sel.option("Abstract");
 		sel.option("ColourField Painting");
@@ -289,7 +289,7 @@ const Paint = () => {
 					p.ellipse(point.x, point.y, point.weight, point.weight);
 
 
-				} else if (point.type === "Splatter Brush" || point.type === "brush2") {
+				} else if (point.type === "Modernism") {
 					for (let i = 0; i < p.random(1, 9); i++) {
 						// Remove the stroke or set a smaller stroke weight as needed
 						p.strokeWeight(4); // Smaller stroke weight
@@ -484,6 +484,7 @@ const Paint = () => {
 	}, []);
 
 	return (
+		
 		<div className="paint-container">
   <div className="control-panel">
     <div className="control-item">

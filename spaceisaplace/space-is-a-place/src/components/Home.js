@@ -5,11 +5,16 @@ import { Canvas } from '@react-three/fiber';
 import transition from "../transition";
 import DraggableSpace from './line.js';
 import { motion, useMotionValue, useSpring } from 'framer-motion';
-import { Artgloss1, Artgloss2, Artgloss3, Artgloss4, Artgloss5, Artgloss6, Artgloss7, Artgloss8, Artgloss9, Artgloss10, Artgloss11, Artgloss12, Artgloss13, Artgloss14, Artgloss15 } from './popupinfo';
+import { Artgloss1, Artgloss2, Artgloss3, Artgloss4, Artgloss5, Artgloss6, Artgloss7, Artgloss8, Artgloss9, Artgloss10, Artgloss11, Artgloss12, Artgloss13, Artgloss14, Artgloss15 ,Artgloss16} from './popupinfo';
 import Card from './card.js';
 import Popup from "./popup";
 import AnimatedText from './animated';
 import { useInView } from 'react-intersection-observer';
+import backImage1 from './artpic/1.png';
+import backImage2 from './artpic/2.png';
+import backImage3 from './artpic/3.png';
+import backImage4 from './artpic/4.png';
+import backImage5 from './artpic/5.png';
 
 const useSectionVisibility = (threshold = 0.5, triggerOnce = false) => {
   const { ref, inView } = useInView({
@@ -64,7 +69,7 @@ function Home() {
       left: '49%', // Keep for centering if using absolute positioning
       justifyContent: 'center',
       backgroundColor: 'white',
-      top: '500vh', // Keep if you need it offscreen initially
+      top: '480vh', // Keep if you need it offscreen initially
       marginBottom: '280px', // Adjust as needed
     }
   };
@@ -261,23 +266,28 @@ function Home() {
                   size="small"
                   onClick={() => openPopupWithContent(<Artgloss1 />)}
                   backgroundColor="#ff6347" // Example background color
+                  backImage={backImage1}
                 >
                   <h2>Abstraction/Abstract Art</h2>
                 </Card>
                 <Card size="medium" onClick={() => openPopupWithContent(<Artgloss2 />)}
-                  backgroundColor="#FA8072" >
+                  backgroundColor="#FA8072" 
+                  backImage={backImage2}>
                   <h2>Abstract Expressionism </h2>
                 </Card>
                 <Card size="large" onClick={() => openPopupWithContent(<Artgloss3 />)}
-                  backgroundColor="#ff6347" >
+                  backgroundColor="#ff6347" 
+                  backImage={backImage3}>
                   <h2 style={{ color: '#000000' }}>Colour Field painting </h2>
                 </Card>
                 <Card size="small" onClick={() => openPopupWithContent(<Artgloss4 />)}
-                  backgroundColor="#FFA07A" >
+                  backgroundColor="#FFA07A"
+                  backImage={backImage4} >
                   <h2>Conceptual art </h2>
                 </Card>
                 <Card size="medium" onClick={() => openPopupWithContent(<Artgloss5 />)}
-                  backgroundColor="#FFBF00" >
+                  backgroundColor="#FFBF00" 
+                  backImage={backImage5}>
                   <h2 style={{ color: '#000000' }}>Indo-Persian  </h2>
                 </Card>
                 <Card size="large" onClick={() => openPopupWithContent(<Artgloss6 />)}
@@ -319,6 +329,10 @@ function Home() {
                 <Card size="small" onClick={() => openPopupWithContent(<Artgloss15 />)}
                   backgroundColor="#E9967A" >
                   <h2>Romanticism</h2>
+                </Card>
+                <Card size="small" onClick={() => openPopupWithContent(<Artgloss16 />)}
+                  backgroundColor="#E9967A" >
+                  <h2>Neo-Impressionism</h2>
                 </Card>
               </div>
               <AnimatedText

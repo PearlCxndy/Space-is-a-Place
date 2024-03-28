@@ -98,7 +98,7 @@ const Popup = ({ setIsOpenPopup, children, enableDrawing = true }) => {
             >
                 <polyline
                     fill="none"
-                    stroke="black"
+                    stroke="#ff9999"
                     strokeWidth="2"
                     points={points.join(" ")}
                 />
