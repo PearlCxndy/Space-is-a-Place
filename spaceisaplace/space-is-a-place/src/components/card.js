@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 const Card = ({
     size,
@@ -56,7 +57,7 @@ const Card = ({
         },
         flipped: {
             rotateY: 180, // Add rotateY for flipping
-            transition: { duration: 0.75} // Adjust duration to slow down the flip animation
+            transition: { duration: 0.75 } // Adjust duration to slow down the flip animation
         }
     };
 
@@ -67,7 +68,7 @@ const Card = ({
             onMouseEnter={handleMouseEnter} // Handle flip on hover
             onMouseLeave={handleMouseLeave}
             initial="initial"
-            animate={isHovering ? "flipped" : {rotateX, rotateY}} // Use "flipped" variant if hovering, otherwise use tilt
+            animate={isHovering ? "flipped" : { rotateX, rotateY }} // Use "flipped" variant if hovering, otherwise use tilt
             variants={cardVariants}
             onClick={onClick} // Keep onClick for additional functionality
             style={{
@@ -75,32 +76,12 @@ const Card = ({
                 ...styles[size],
                 transformStyle: "preserve-3d",
                 backgroundColor: backgroundColor || 'transparent', // Set to transparent or a desired default
-              }}
-              className={`a ${className}`}
-            >
-              {/* This div wraps the content that is always visible on the card front */}
-              <div
+            }}
+            className={`a ${className}`}
+        >
+            {/* This div wraps the content that is always visible on the card front */}
+            <div
                 style={{
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  backfaceVisibility: 'hidden',
-                  zIndex: isHovering ? '0' : '1', // When not hovering, this should be on top
-                }}
-                className={className}
-              >
-                {children}
-              </div>
-              
-              {/* This div contains the back image and is only visible when the card is flipped */}
-              {isHovering && (
-                <div 
-                  style={{
                     position: 'absolute',
                     top: 0,
                     left: 0,
@@ -110,21 +91,44 @@ const Card = ({
                     alignItems: 'center',
                     justifyContent: 'center',
                     backfaceVisibility: 'hidden',
-                    zIndex: '2', // This should be on top when the card is flipped
-                    transform: 'rotateY(180deg)', // Correct the orientation of the back content
-                  }}
-                >
-                  <img 
-                    src={backImage} 
+                    zIndex: isHovering ? '0' : '1', // When not hovering, this should be on top
+                }}
+                className={className}
+            >
+                {children}
+            </div>
+
+            {/* This div contains the back image and is only visible when the card is flipped */}
+            {isHovering && (
+                <div
                     style={{
-                      width: '100%',
-                      height: '100%',
-                      borderRadius: '20px',
-                    }} 
-                  />
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        backfaceVisibility: 'hidden',
+                        zIndex: '2', // This should be on top when the card is flipped
+                        transform: 'rotateY(180deg)', // Correct the orientation of the back content
+                    }}
+                >
+                    <LazyLoadImage
+                        src={backImage}
+                        alt="" // Remember to provide an alt attribute for accessibility
+                        effect="blur"
+                        style={{
+                            width: '100%',
+                            height: '100%',
+                            borderRadius: '20px',
+                            objectFit: 'cover', // This will make the image cover the container without stretching
+                        }}
+                    />
                 </div>
-              )}
-            </motion.div>
+            )}
+        </motion.div>
     );
 };
 

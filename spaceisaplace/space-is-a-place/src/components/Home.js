@@ -10,11 +10,11 @@ import Card from './card.js';
 import Popup from "./popup";
 import AnimatedText from './animated';
 import { useInView } from 'react-intersection-observer';
-import backImage1 from './artpic/1.png';
-import backImage2 from './artpic/2.png';
-import backImage3 from './artpic/3.png';
-import backImage4 from './artpic/4.png';
-import backImage5 from './artpic/5.png';
+import backImage1 from './artpic/1.jpg';
+import backImage2 from './artpic/2.jpg';
+import backImage3 from './artpic/3.jpg';
+import backImage4 from './artpic/4.jpg';
+import backImage5 from './artpic/5.jpg';
 
 const useSectionVisibility = (threshold = 0.5, triggerOnce = false) => {
   const { ref, inView } = useInView({
