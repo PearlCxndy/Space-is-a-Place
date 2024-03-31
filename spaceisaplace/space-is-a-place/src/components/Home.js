@@ -5,7 +5,7 @@ import { Canvas } from '@react-three/fiber';
 import transition from "../transition";
 import DraggableSpace from './line.js';
 import { motion, useMotionValue, useSpring } from 'framer-motion';
-import { Artgloss1, Artgloss2, Artgloss3, Artgloss4, Artgloss5, Artgloss6, Artgloss7, Artgloss8, Artgloss9, Artgloss10, Artgloss11, Artgloss12, Artgloss13, Artgloss14, Artgloss15 ,Artgloss16} from './popupinfo';
+import { Artgloss1, Artgloss2, Artgloss3, Artgloss4, Artgloss5, Artgloss6, Artgloss7, Artgloss8, Artgloss9, Artgloss10, Artgloss11, Artgloss12, Artgloss13, Artgloss14, Artgloss15 ,Artgloss16,Artgloss17,Artgloss18} from './popupinfo';
 import Card from './card.js';
 import Popup from "./popup";
 import AnimatedText from './animated';
@@ -15,6 +15,21 @@ import backImage2 from './artpic/2.jpg';
 import backImage3 from './artpic/3.jpg';
 import backImage4 from './artpic/4.jpg';
 import backImage5 from './artpic/5.jpg';
+import backImage6 from './artpic/6.jpg';
+import backImage7 from './artpic/7.jpg';
+import backImage8 from './artpic/8.jpg';
+import backImage9 from './artpic/9.jpg';
+import backImage10 from './artpic/10.jpg';
+import backImage11 from './artpic/11.jpg';
+import backImage12 from './artpic/12.jpg';
+import backImage13 from './artpic/13.jpg';
+import backImage14 from './artpic/14.jpg';
+import backImage15 from './artpic/15.jpg';
+import backImage16 from './artpic/16.jpg';
+import backImage17 from './artpic/18.jpg';
+import backImage18 from './artpic/19.jpg';
+
+
 
 const useSectionVisibility = (threshold = 0.5, triggerOnce = false) => {
   const { ref, inView } = useInView({
@@ -259,7 +274,35 @@ function Home() {
               </div>
 
 
-              <h1 className="title2" style={{ top: '550vh', marginBottom: '500px', position: 'absolute', marginLeft: '20px' }}>Art Glossary</h1>
+              <h1 className="title2" style={{ top: '555vh', marginBottom: '500px', position: 'absolute', marginLeft: '20px' }}>Art Glossary</h1>
+              <motion.div
+                style={{ top: '557vh', marginBottom: '500px', position: 'absolute', marginLeft: '500px' }}
+                initial="initial"
+                animate="float"
+                variants={{
+                  initial: {
+                    opacity: [0],
+                    y: [-10],
+                    x: 20 // Start from the original x position
+                  },
+                  float: {
+                    y: [-10, 20],
+                    x: 20, // Move 20 pixels to the right
+                    opacity: [1],
+                    transition: {
+                      type: 'spring',
+                      damping: 5,
+                      stiffness: 50,
+                      duration: 0.2,
+                      ease: "easeInOut",
+                      repeat: Infinity,
+                      repeatType: "reverse"
+                    }
+                  }
+                }}
+              >
+              <h1 className="title3" >click for the more info</h1>
+              </motion.div>
 
               <div style={styles.pin_container}>
                 <Card
@@ -276,7 +319,7 @@ function Home() {
                   <h2>Abstract Expressionism </h2>
                 </Card>
                 <Card size="large" onClick={() => openPopupWithContent(<Artgloss3 />)}
-                  backgroundColor="#ff6347" 
+                  backgroundColor="#ffe6f2" 
                   backImage={backImage3}>
                   <h2 style={{ color: '#000000' }}>Colour Field painting </h2>
                 </Card>
@@ -291,48 +334,68 @@ function Home() {
                   <h2 style={{ color: '#000000' }}>Indo-Persian  </h2>
                 </Card>
                 <Card size="large" onClick={() => openPopupWithContent(<Artgloss6 />)}
-                  backgroundColor="#E9967A" >
+                  backgroundColor="#E9967A" 
+                    backImage={backImage6} >
                   <h2>Expressionism</h2>
                 </Card>
                 <Card size="medium" onClick={() => openPopupWithContent(<Artgloss7 />)}
-                  backgroundColor="#E8E8E8" >
+                  backgroundColor="#E8E8E8" 
+                  backImage={backImage8}>
                   <h2 style={{ color: '#000000' }}>Cubism</h2>
                 </Card>
                 <Card size="large" onClick={() => openPopupWithContent(<Artgloss8 />)}
-                  backgroundColor="#FA8072" >
+                  backgroundColor="#FA8072" 
+                  backImage={backImage7}>
                   <h2>Installation art</h2>
                 </Card>
                 <Card size="medium" onClick={() => openPopupWithContent(<Artgloss9 />)}
-                  backgroundColor="#FA807A" >
+                  backgroundColor="#FA807A" 
+                  backImage={backImage9}>
                   <h2 style={{ color: '#000000' }}>Constructivism</h2>
                 </Card>
                 <Card size="large" onClick={() => openPopupWithContent(<Artgloss10 />)}
-                  backgroundColor="#BA4949" >
+                  backgroundColor="#BA4949" 
+                  backImage={backImage10}>
                   <h2>Minimalism</h2>
                 </Card>
                 <Card size="small" onClick={() => openPopupWithContent(<Artgloss11 />)}
-                  backgroundColor="#F2B0B0" >
+                  backgroundColor="#F2B0B0"
+                  backImage={backImage12} >
                   <h2>Modernism </h2>
                 </Card>
                 <Card size="large" onClick={() => openPopupWithContent(<Artgloss12 />)}
-                  backgroundColor="#F2D5B0" >
-                  <h2>Post-Impressionism</h2>
+                  backgroundColor="#F2D5B0"
+                  backImage={backImage13} >
+                  <h2 style={{ color: '#000000' }}>Post-Impressionism</h2>
                 </Card>
                 <Card size="medium" onClick={() => openPopupWithContent(<Artgloss13 />)}
-                  backgroundColor="#FF9436" >
+                  backgroundColor="#FF9436"
+                  backImage={backImage14} >
                   <h2>Impressionism</h2>
                 </Card>
                 <Card size="small" onClick={() => openPopupWithContent(<Artgloss14 />)}
-                  backgroundColor="#FFBF00" >
+                  backgroundColor="#FFBF00"  backImage={backImage15}>
                   <h2 style={{ color: '#000000' }}>Pop Art</h2>
                 </Card>
-                <Card size="small" onClick={() => openPopupWithContent(<Artgloss15 />)}
-                  backgroundColor="#E9967A" >
+                <Card size="medium" onClick={() => openPopupWithContent(<Artgloss15 />)}
+                  backgroundColor="#E9967A" 
+                  backImage={backImage16}>
                   <h2>Romanticism</h2>
                 </Card>
-                <Card size="small" onClick={() => openPopupWithContent(<Artgloss16 />)}
-                  backgroundColor="#E9967A" >
-                  <h2>Neo-Impressionism</h2>
+                <Card size="medium" onClick={() => openPopupWithContent(<Artgloss16 />)}
+                  backgroundColor="#E9967A"
+                  backImage={backImage11} >
+                  <h2 style={{ color: '#000000' }}>Neo-Impressionism</h2>
+                </Card>
+                <Card size="small" onClick={() => openPopupWithContent(<Artgloss17 />)}
+                  backgroundColor="#ffffe6"
+                  backImage={backImage18} >
+                  <h2 style={{ color: '#000000' }}>The Bauhaus</h2>
+                </Card>
+                <Card size="small" onClick={() => openPopupWithContent(<Artgloss18 />)}
+                  backgroundColor="#ff6666"
+                  backImage={backImage17} >
+                  <h2>Figuration</h2>
                 </Card>
               </div>
               <AnimatedText
@@ -351,6 +414,8 @@ function Home() {
                   { text: "Romanticism" },
                   { text: "Modernism" },
                   { text: "Impressionism" },
+                  { text: "The Bauhaus" },
+                  { text: "Figuration" },
                 ]}
               />
               <div className='title2'>
@@ -359,7 +424,7 @@ function Home() {
                   display: 'inline-block', // Ensure the div fits the content size for better control
                   cursor: "pointer",
                   backgroundColor: "transparent", // Assuming you want the floating effect without a visible background
-                  top: '870vh',
+                  top: '900vh',
                   marginBottom: '10px',
                   position: 'absolute',
                   marginLeft: '20vh'
@@ -384,7 +449,7 @@ function Home() {
               >
                 <a href="/test1" style={{ textDecoration: 'none', color: 'inherit' }}>
                   <button className="rounded-2xl border-2 border-dashed border-black bg-white px-8 py-4 font-bold uppercase text-black transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:shadow-[4px_4px_0px_black] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none" style={{ fontSize: '80px' }}>
-                  <span className="title2">click here <br />Draw your<br />own space</span>
+                  <span className="title2">click here <br /><b>Draw your<br />own space</b></span>
                   </button>
                 </a>
               </motion.div>

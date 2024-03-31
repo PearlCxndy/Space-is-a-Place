@@ -132,6 +132,27 @@ export const Artgloss16= () => (
       <h1 className="text-2xl font-bold">Neo-Impressionism   </h1>
       <p className="mt-4"> A development of Impressionism by the French artists Georges Seurat and Paul Signac in the 1880s and 90s, where Impressionism’s blocks of complementary colours were refined to dot forms which gave the canvas a light-filled appearance. This form of art is sometimes called Pointillism.  
  </p>
+
+    </div>
+  </div>
+);
+export const Artgloss17= () => (
+  <div className="absolute inset-0 flex items-center justify-center bg-white opacity-90">
+    <div className="p-10 rounded-lg shadow-lg text-black" style={{ maxWidth: '80%', maxHeight: '80%', overflowY: 'auto' }}>
+      <h1 className="text-2xl font-bold">Neo-Impressionism   </h1>
+      <p className="mt-4"> A development of Impressionism by the French artists Georges Seurat and Paul Signac in the 1880s and 90s, where Impressionism’s blocks of complementary colours were refined to dot forms which gave the canvas a light-filled appearance. This form of art is sometimes called Pointillism.  
+ </p>
+
+    </div>
+  </div>
+);
+export const Artgloss18= () => (
+  <div className="absolute inset-0 flex items-center justify-center bg-white opacity-90">
+    <div className="p-10 rounded-lg shadow-lg text-black" style={{ maxWidth: '80%', maxHeight: '80%', overflowY: 'auto' }}>
+      <h1 className="text-2xl font-bold">Neo-Impressionism   </h1>
+      <p className="mt-4"> A development of Impressionism by the French artists Georges Seurat and Paul Signac in the 1880s and 90s, where Impressionism’s blocks of complementary colours were refined to dot forms which gave the canvas a light-filled appearance. This form of art is sometimes called Pointillism.  
+ </p>
+
     </div>
   </div>
 );

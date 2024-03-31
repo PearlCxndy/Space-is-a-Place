@@ -26,9 +26,9 @@ export function Space(props) {
       // Turn to the left and zoom in
       tl.current.to(space.current.rotation, { y: "-=" + Math.PI / 2, duration: 500 })
         .to(cameraRef.current.position, { z: "-=10", duration: 50 }, "<");
+        tl.current.to(space.current.rotation, { y: "-=" + Math.PI / 4, duration: 500 });
   
       // Rotate a little bit back
-      tl.current.to(space.current.rotation, { y: "-=" + Math.PI / 4, duration: 600 });
   
       // Step 4: Zoom out and move to the left
       // tl.current.to(cameraRef.current.position, { z: "+=10", duration: 20 }) // Zoom out
