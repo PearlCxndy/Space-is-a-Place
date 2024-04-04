@@ -258,21 +258,19 @@ const Paint = () => {
 						offsetX: i * 2 - 5, // This will create lines spread from -5 to 5 on the x-axis
 						offsetY: -40, // This sets the starting y-offset for the lines; adjust as needed
 					})),
-					sprayDroplets: Array.from({ length: 200}, () => {
-						const angle = p.random(0, p.TWO_PI); // Random angle between 0 and 2π
-						const radius = Math.sqrt(p.random()) * size.value(); // Random radius, ensuring uniform distribution
-					
-						// Converting polar coordinates to Cartesian coordinates
+					sprayDroplets: Array.from({ length: 70 }, () => { // Further reduced number for better performance
+						const angle = p.random(0, p.TWO_PI);
+						// Increase the spread radius significantly to cover more area quickly
+						const radius = Math.sqrt(p.random()) * size.value() * 3; 
 						const offsetX = radius * Math.cos(angle);
 						const offsetY = radius * Math.sin(angle);
 					
 						return {
 							offsetX,
 							offsetY,
-							alpha: p.random(15, 35),
+							alpha: p.random(50, 100), // Higher alpha for more visible impact
 						};
 					}),
-
 				};
 
 				currentLine.push(point);
@@ -443,12 +441,11 @@ const Paint = () => {
 					});
 				}
 				else if (point.type === "Spray") {
+					p.strokeWeight(4); // Further reduce stroke weight for minimal drawing cost
 					point.sprayDroplets.forEach((droplet) => {
-						// Ensure that originalColor is a string representing a color
-						let col = p.color(point.originalColor || '#000'); // Fallback to black if undefined
-						col.setAlpha(droplet.alpha);
+						let col = p.color(point.originalColor || '#000');
+						col.setAlpha(droplet.alpha); // Consider even higher alpha if visibility is an issue
 						p.stroke(col);
-						p.strokeWeight(5);
 						p.point(point.x + droplet.offsetX, point.y + droplet.offsetY);
 					});
 				}
