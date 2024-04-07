@@ -139,8 +139,8 @@ export const Artgloss16= () => (
 export const Artgloss17= () => (
   <div className="absolute inset-0 flex items-center justify-center bg-white opacity-90">
     <div className="p-10 rounded-lg shadow-lg text-black" style={{ maxWidth: '80%', maxHeight: '80%', overflowY: 'auto' }}>
-      <h1 className="text-2xl font-bold">Neo-Impressionism   </h1>
-      <p className="mt-4"> A development of Impressionism by the French artists Georges Seurat and Paul Signac in the 1880s and 90s, where Impressionism’s blocks of complementary colours were refined to dot forms which gave the canvas a light-filled appearance. This form of art is sometimes called Pointillism.  
+      <h1 className="text-2xl font-bold">The Bauhaus </h1>
+      <p className="mt-4"> The Bauhaus was an art school in Germany established by the architect Walter Gropius from 1919-1933. It taught art,craft,design and architecture and ti's teachers and pupils incclude key 20th century Modernists such as Wassily Kandinsky,Paul Klee Ludwig Mies van der Rohe.Laszio Moholy-Nagy,Naum Gabo and Josef and Anni Albers.  
  </p>
 
     </div>
@@ -149,8 +149,8 @@ export const Artgloss17= () => (
 export const Artgloss18= () => (
   <div className="absolute inset-0 flex items-center justify-center bg-white opacity-90">
     <div className="p-10 rounded-lg shadow-lg text-black" style={{ maxWidth: '80%', maxHeight: '80%', overflowY: 'auto' }}>
-      <h1 className="text-2xl font-bold">Neo-Impressionism   </h1>
-      <p className="mt-4"> A development of Impressionism by the French artists Georges Seurat and Paul Signac in the 1880s and 90s, where Impressionism’s blocks of complementary colours were refined to dot forms which gave the canvas a light-filled appearance. This form of art is sometimes called Pointillism.  
+      <h1 className="text-2xl font-bold">Figuration  </h1>
+      <p className="mt-4"> A form of art which seeks to represent a recognisable visual reality.  
  </p>
 
     </div>

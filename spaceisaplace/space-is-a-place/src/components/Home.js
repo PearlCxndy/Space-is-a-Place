@@ -219,7 +219,7 @@ function Home() {
                     top: '10vh', position: 'absolute', maxWidth: '450px', marginLeft: '30px', backgroundColor: 'rgba(255, 255, 255, 0.8)', // Semi-transparent background for readability
                     borderRadius: '40px', // Rounded corners for the background
                     boxShadow: '0 4px 6px rgba(0,0,0,0.1)', padding: '40px'
-                  }}>It is easy to overlook space in art: we can view a painting of an interior without noticing how the artist has created the illusion of dept .</h1>
+                  }}>It is easy to overlook space in art: we can view a painting of an interior without noticing how the artist has created the illusion of depth .</h1>
                 </Section>
                 <Section id={2} threshold={0.8} triggerOnce={false} hideDelay={9}>
                   <h1 style={{

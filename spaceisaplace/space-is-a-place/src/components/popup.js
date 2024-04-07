@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { AiOutlineCloseSquare } from "react-icons/ai";
 
-const MAX_POINTS = 150; // Match the max points if you want consistency
+const MAX_POINTS = 50; // Match the max points if you want consistency
 
 const Popup = ({ setIsOpenPopup, children, enableDrawing = true }) => {
     const [points, setPoints] = useState([]);
@@ -24,7 +24,7 @@ const Popup = ({ setIsOpenPopup, children, enableDrawing = true }) => {
 
         setPoints((prevPoints) => {
             const newPoints = [...prevPoints, `${x},${y}`];
-            return newPoints.length <= MAX_POINTS ? newPoints : newPoints.slice(1);
+            return newPoints.length <= MAX_POINTS ? newPoints : newPoints.slice(5);
         });
     } : null;
 
