@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useRef } from 'react';
 import Sketch from 'react-p5';
 import transition from "../transition";
 import { AnimatePresence, motion } from 'framer-motion';
@@ -68,15 +68,28 @@ const Paint = () => {
 	const HEIGHT = 600;
 	const BG_COLOR = "white";
 	class SomeClass { }
+	const [currentTool, setCurrentTool] = useState('brush');
+	const currentToolRef = useRef(currentTool);
 
+ 
 	const someObject = new SomeClass();
+<<<<<<< Updated upstream
 
 	const clearCanvas = (p) => {
         lines = []; // Reset lines array
         p.background(BG_COLOR); // Clear the canvas visually
     };
 
+=======
+	const handleSetEraser = () => {
+		setCurrentTool('Eraser');
+	  };
+>>>>>>> Stashed changes
 	console.log(someObject instanceof SomeClass); // true
+	useEffect(() => {
+		currentToolRef.current = currentTool;
+	  }, [currentTool]);
+	
 
 	// data arrays
 	let lines = [];
@@ -90,6 +103,7 @@ const Paint = () => {
 	let eraser;
 	let imgBrushes;
 	let resetButton;
+
 
 	// const [color] = useState("black");
 
@@ -161,10 +175,16 @@ const Paint = () => {
 
 
 		// Eraser button
+<<<<<<< Updated upstream
 		eraser = p.createButton("  ERASER ").parent(parentRef);
 		eraser.position(180, 500);
 		eraser.mousePressed(() => sel.selected("Eraser"));
 
+=======
+		eraser = p.createButton('ERASER').parent(parentRef);
+		eraser.position(125, 110);
+		eraser.mousePressed(handleSetEraser);
+>>>>>>> Stashed changes
 		// Save button
 		saveButton = p.createButton("  SAVE !  ").parent(parentRef);
 		saveButton.position(180, 550);
@@ -288,6 +308,7 @@ const Paint = () => {
 						const previousPoint = path[index - 1];
 						p.line(previousPoint.x, previousPoint.y, point.x, point.y);
 					}
+<<<<<<< Updated upstream
 				} else if (point.type === "Eraser") {
 					// Assuming BG_COLOR is the background color you're using to erase
 					p.stroke(BG_COLOR); // Set the stroke color to the background color
@@ -297,6 +318,15 @@ const Paint = () => {
 
 
 				} else if (point.type === "Modernism") {
+=======
+				} else if (currentToolRef.current === 'Eraser' && p.mouseIsPressed) {
+					p.stroke(BG_COLOR);
+					p.strokeWeight(size.value());
+					p.line(p.pmouseX, p.pmouseY, p.mouseX, p.mouseY);
+				} 
+
+				 else if (point.type === "Splatter Brush" || point.type === "brush2") {
+>>>>>>> Stashed changes
 					for (let i = 0; i < p.random(1, 9); i++) {
 						// Remove the stroke or set a smaller stroke weight as needed
 						p.strokeWeight(4); // Smaller stroke weight
