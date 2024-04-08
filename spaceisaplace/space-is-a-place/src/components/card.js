@@ -57,7 +57,7 @@ const Card = ({
         },
         flipped: {
             rotateY: 180, // Add rotateY for flipping
-            transition: { duration: 0.75 } // Adjust duration to slow down the flip animation
+            transition: { duration: 0.9 } // Adjust duration to slow down the flip animation
         }
     };
 
