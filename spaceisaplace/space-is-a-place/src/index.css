@@ -148,7 +148,18 @@ a {
   margin-top: 20px;
   margin-bottom: 20px;
 }
-
+.mt-4 {
+  font-size: 20px; /* Adjust the font size as needed */
+  word-spacing: 3px; /* Adjust the word spacing as needed */
+}
+.mt-3 {
+  font-size: 18px; /* Adjust the font size as needed */
+  word-spacing: 3px; /* Adjust the word spacing as needed */
+}
+.mt-2 {
+  font-size: 14.5px; /* Adjust the font size as needed */
+  word-spacing: 2px; /* Adjust the word spacing as needed */
+}
 .icon-scroll {
 	position: absolute;
 	top: 210vh; /* Adjusted to make the icon appear lower */
