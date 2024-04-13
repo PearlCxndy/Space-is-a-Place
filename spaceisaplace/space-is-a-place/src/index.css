@@ -271,6 +271,15 @@ a {
   padding-left: 40px; 
 }
 
+.control-item2 {
+  margin-bottom: 2px; /* Space between control items */
+  padding-top: 50px;
+  padding-left: 40px; 
+}
+
+
+
+
 @keyframes mouse-wheel {
 	0% {
 		opacity: 1;

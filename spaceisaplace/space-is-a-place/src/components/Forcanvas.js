@@ -15,14 +15,11 @@ import brush8 from './stroke/Brush8.png';
 import brush9 from './stroke/Brush10.png';
 import brush11 from './stroke/Brush11.png';
 import brush12 from './stroke/Brush12.png';
-import brush13 from './stroke/Brush13.png';
-import brush14 from './stroke/Brush14.png';
-import brush15 from './stroke/Brush15.png';
-import brush16 from './stroke/Brush16.png';
-
+import save from './stroke/save.png';
+import reset from './stroke/reset.png';
 
 // Then you can put them in an array for easier use
-const brushes = [brush1, brush2, brush3, brush4, brush5, brush6, brush7, brush8, brush9, brush11, brush12, brush13, brush14, brush15, brush16];
+const brushes = [brush1, brush2, brush3, brush4, brush5, brush6, brush7, brush8, brush9, brush11, brush12];
 
 
 const AnimatedText = ({ phrases }) => {
@@ -149,10 +146,13 @@ const Paint = () => {
 
 		//reset
 
-		 resetButton = p.createButton('RESET');
+		 resetButton = p.createImg(reset, 'reset button');
+		resetButton.size(50, 50); 
         resetButton.parent(parentRef);
-        resetButton.position(180, 450);
+        resetButton.position(180, 510);
         resetButton.mousePressed(() => clearCanvas(p)); 
+		resetButton.mouseOver(() => resetButton.style('transform', 'scale(0.8)'));
+		resetButton.mouseOut(() => resetButton.style('transform', 'scale(1)')); 
 
 
 		// Color picker
@@ -162,16 +162,28 @@ const Paint = () => {
 
 		// Eraser button
 		eraser = p.createButton("  ERASER ").parent(parentRef);
-		eraser.position(180, 500);
+		eraser.position(180, 450);
 		eraser.mousePressed(() => sel.selected("Eraser"));
 
 		// Save button
-		saveButton = p.createButton("  SAVE !  ").parent(parentRef);
-		saveButton.position(180, 550);
-		saveButton.mousePressed(() => {
+		saveButton = p.createImg(save, 'Save Icon');
+  
+		// Set button attributes
+		saveButton.size(50, 50); // Set the size as needed
+		saveButton.position(180, 580); // Position it on the canvas
+		saveButton.mousePressed(saveCanvasImage); // Assign a mousePressed event
+		 // When the mouse hovers over the button, apply a tint
+		 saveButton.mouseOver(() => saveButton.style('transform', 'scale(0.8)'));
+		 saveButton.mouseOut(() => saveButton.style('transform', 'scale(1)')); 
+
+		function saveCanvasImage() {
+			// Calculate the drawable area based on your canvas setup
 			let drawableArea = p.get(0, nonDrawableAreaHeight, WIDTH, HEIGHT - nonDrawableAreaHeight);
+			// Save the drawable area as a PNG image
 			drawableArea.save('drawing', 'png');
-		});
+		  }
+
+	
 		imgBrushes[0] = p.loadImage(brush1);
 		imgBrushes[1] = p.loadImage(brush2);
 		imgBrushes[2] = p.loadImage(brush3);
@@ -494,22 +506,22 @@ const Paint = () => {
 		<div className="paint-container">
   <div className="control-panel">
     <div className="control-item">
-      <label className="control-label" htmlFor="colorPicker">Color Picker:</label>
+      <p>Color Picker:</p>
     </div>
     <div className="control-item">
-      <label className="control-label" htmlFor="sizeSlider">Size Slider:</label>
+      <p> Size Slider:</p>
     </div>
     <div className="control-item">
-      <label className="control-label" htmlFor="brushType">Brush Type:</label>
+      <p> Brush Type:</p>
     </div>
     <div className="control-item">
-      <p className="control-label">Reset Canvas:</p>
+      <p>Eraser Tool:</p>
     </div>
-    <div className="control-item">
-      <p className="control-label">Eraser Tool:</p>
+    <div className="control-item2">
+      <p >Reset Canvas:</p>
     </div>
-    <div className="control-item">
-      <p className="control-label">Save Drawing:</p>
+    <div className="control-item2">
+      <p> Save Drawing:</p>
     </div>
   </div>
 			<AnimatedText
