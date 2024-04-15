@@ -126,22 +126,22 @@ const Paint = () => {
 
 		// Selector for brush type
 		sel = p.createSelect().parent(parentRef);
+		sel.id('mySelectDropdown'); // Adding an ID for specific styling
 		sel.position(180, 400);
 		sel.option("Normal Paint Brush");
 		sel.option("Modernism");
-		// sel.option("Eraser (press 'E')");
 		sel.option("Abstract");
 		sel.option("ColourField Painting");
-		sel.option("Square brush");
 		sel.option("Cubism");
 		sel.option("Impressionism");
 		sel.option("Charcoal")
-		sel.option("Combined Brush");
 		sel.option("Pencil");
 		sel.option("Watercolour");
 		sel.option("Colored Pencil");
 		sel.option("Marker");
 		sel.option("Spray");
+		sel.option("Combined Stamp");
+		sel.option("Square Stamp");
 		sel.option("Eraser");
 
 		//reset
@@ -161,10 +161,11 @@ const Paint = () => {
 
 
 		// Eraser button
-		eraser = p.createButton("  ERASER ").parent(parentRef);
+		eraser = p.createButton("ERASER").parent(parentRef);
 		eraser.position(180, 450);
-		eraser.mousePressed(() => sel.selected("Eraser"));
-
+		eraser.mousePressed(() => {
+			sel.value("Eraser"); 
+		});
 		// Save button
 		saveButton = p.createImg(save, 'Save Icon');
   
@@ -301,14 +302,27 @@ const Paint = () => {
 						p.line(previousPoint.x, previousPoint.y, point.x, point.y);
 					}
 				} else if (point.type === "Eraser") {
-					// Assuming BG_COLOR is the background color you're using to erase
-					p.stroke(BG_COLOR); // Set the stroke color to the background color
+					if (index > 0) {
+						const previousPoint = path[index - 1];
+						p.stroke(BG_COLOR); // Set the stroke color to the background color
+						p.strokeWeight(point.weight); // Use the weight for the line thickness
+						p.line(previousPoint.x, previousPoint.y, point.x, point.y);
+					}
 					p.fill(BG_COLOR); // Set the fill color to the same background color
-					p.strokeWeight(3); // Optionally, adjust the stroke weight to match your desired eraser border thickness
+					p.noStroke(); // No outline for the ellipse
 					p.ellipse(point.x, point.y, point.weight, point.weight);
+				}
+				
+				// else if (point.type === "Eraser") {
+				// 	// Assuming BG_COLOR is the background color you're using to erase
+				// 	p.stroke(BG_COLOR); // Set the stroke color to the background color
+				// 	p.fill(BG_COLOR); // Set the fill color to the same background color
+				// 	p.strokeWeight(3); // Optionally, adjust the stroke weight to match your desired eraser border thickness
+				// 	p.ellipse(point.x, point.y, point.weight, point.weight);
 
 
-				} else if (point.type === "Modernism") {
+				// }
+				else if (point.type === "Modernism") {
 					for (let i = 0; i < p.random(1, 9); i++) {
 						// Remove the stroke or set a smaller stroke weight as needed
 						p.strokeWeight(4); // Smaller stroke weight
@@ -372,14 +386,14 @@ const Paint = () => {
 						p.fill(point.color);
 						p.ellipse(point.x + xoff, point.y + yoff, point.weight, point.weight);
 					} // Ensure this closing bracket is present
-				} else if (point.type === "Square brush") {
+				} else if (point.type === "Square Stamp") {
 					if (imgBrushes[0]) {
 						p.imageMode(p.CENTER);
 						p.strokeWeight(20);
 						p.image(imgBrushes[0], point.x, point.y, point.weight, point.weight);
 					}
 				}
-				else if (point.type === "Combined Brush") {
+				else if (point.type === "Combined Stamp") {
 					// Ensure the images are loaded before trying to draw them
 					if (imgBrushes[0] && imgBrushes[1] && imgBrushes[4]) { // Ensure both images are loaded
 
@@ -483,6 +497,7 @@ const Paint = () => {
 			lines.push(currentLine);
 		}
 	};
+	
 	useEffect(() => {
 		const cursorElem = document.querySelector('.custom-cursor');
 

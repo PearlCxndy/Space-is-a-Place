@@ -274,9 +274,9 @@ function Home() {
               </div>
 
 
-              <h1 className="title2" style={{ top: '555vh', marginBottom: '500px', position: 'absolute', marginLeft: '20px' }}>Art Glossary</h1>
+              <h1 className="title2" style={{ top: '550vh', marginBottom: '500px', position: 'absolute', marginLeft: '20px' }}>Art Glossary</h1>
               <motion.div
-                style={{ top: '557vh', marginBottom: '500px', position: 'absolute', marginLeft: '500px' }}
+                style={{ top: '552vh', marginBottom: '500px', position: 'absolute', marginLeft: '500px' }}
                 initial="initial"
                 animate="float"
                 variants={{

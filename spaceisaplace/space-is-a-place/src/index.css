@@ -4,6 +4,18 @@
   box-sizing: border-box; /* This ensures elements with padding don't end up larger than you expect */
 }
 
+#parentRef {
+  position: relative; /* Ensures absolute positioning inside is relative to this container */
+  height: 100%; /* Ensure it has a height, adjust as needed */
+  width: 100%; /* Adjust width as necessary */
+}
+
+#mySelectDropdown {
+  position: absolute; /* Absolute position relative to the nearest positioned parent */
+  top: 400px; /* Position from the top of the parent */
+  left: 180px; /* Position from the left of the parent */
+}
+
 .App {
   display: flex;
   align-items: center;
