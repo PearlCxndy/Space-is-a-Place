@@ -7,19 +7,19 @@ import ReactDOM from "react-dom";
 import brush1 from './stroke/Brush1.png';
 import brush2 from './stroke/Brush2.png';
 import brush3 from './stroke/Brush3.png';
-import brush4 from './stroke/Brush4.png';
-import brush5 from './stroke/Brush5.png';
-import brush6 from './stroke/Brush6.png';
-import brush7 from './stroke/Brush7.png';
-import brush8 from './stroke/Brush8.png';
-import brush9 from './stroke/Brush10.png';
-import brush11 from './stroke/Brush11.png';
-import brush12 from './stroke/Brush12.png';
+// import brush4 from './stroke/Brush4.png';
+// import brush5 from './stroke/Brush5.png';
+// import brush6 from './stroke/Brush6.png';
+// import brush7 from './stroke/Brush7.png';
+// import brush8 from './stroke/Brush8.png';
+// import brush9 from './stroke/Brush10.png';
+// import brush11 from './stroke/Brush11.png';
+// import brush12 from './stroke/Brush12.png';
 import save from './stroke/save.png';
 import reset from './stroke/reset.png';
 
 // Then you can put them in an array for easier use
-const brushes = [brush1, brush2, brush3, brush4, brush5, brush6, brush7, brush8, brush9, brush11, brush12];
+const brushes = [brush1, brush2, brush3];
 
 
 const AnimatedText = ({ phrases }) => {
@@ -188,11 +188,6 @@ const Paint = () => {
 		imgBrushes[0] = p.loadImage(brush1);
 		imgBrushes[1] = p.loadImage(brush2);
 		imgBrushes[2] = p.loadImage(brush3);
-		imgBrushes[3] = p.loadImage(brush4);
-		imgBrushes[4] = p.loadImage(brush5);
-		imgBrushes[5] = p.loadImage(brush6);
-		imgBrushes[6] = p.loadImage(brush7);
-		imgBrushes[7] = p.loadImage(brush8);
 
 	};
 
