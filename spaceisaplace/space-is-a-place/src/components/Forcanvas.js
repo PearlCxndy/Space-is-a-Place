@@ -7,7 +7,7 @@ import ReactDOM from "react-dom";
 import brush1 from './stroke/Brush1.png';
 import brush2 from './stroke/Brush2.png';
 import brush3 from './stroke/Brush3.png';
-// import brush4 from './stroke/Brush4.png';
+import brush4 from './stroke/Brush4.png';
 // import brush5 from './stroke/Brush5.png';
 // import brush6 from './stroke/Brush6.png';
 // import brush7 from './stroke/Brush7.png';
@@ -19,7 +19,7 @@ import save from './stroke/save.png';
 import reset from './stroke/reset.png';
 
 // Then you can put them in an array for easier use
-const brushes = [brush1, brush2, brush3];
+const brushes = [brush1, brush2, brush3,brush4];
 
 
 const AnimatedText = ({ phrases }) => {
@@ -116,6 +116,9 @@ const Paint = () => {
 		// brushImage = p.loadImage('./stroke/Brush2.png', img => {
 		// 	console.log('Image loaded', img);
 		// });
+
+
+
 		// Slider for stroke size
 
 		size = p.createSlider(0, 100, 20).parent(parentRef);
@@ -188,7 +191,7 @@ const Paint = () => {
 		imgBrushes[0] = p.loadImage(brush1);
 		imgBrushes[1] = p.loadImage(brush2);
 		imgBrushes[2] = p.loadImage(brush3);
-
+		imgBrushes[3] = p.loadImage(brush4);
 	};
 
 
@@ -287,7 +290,6 @@ const Paint = () => {
 		}
 		lines.forEach((path) => {
 			path.forEach((point, index) => {
-				// Use p.fill() and p.stroke() with the p5 color object
 				p.stroke(point.color);
 				p.strokeWeight(point.weight);
 
@@ -308,15 +310,6 @@ const Paint = () => {
 					p.ellipse(point.x, point.y, point.weight, point.weight);
 				}
 				
-				// else if (point.type === "Eraser") {
-				// 	// Assuming BG_COLOR is the background color you're using to erase
-				// 	p.stroke(BG_COLOR); // Set the stroke color to the background color
-				// 	p.fill(BG_COLOR); // Set the fill color to the same background color
-				// 	p.strokeWeight(3); // Optionally, adjust the stroke weight to match your desired eraser border thickness
-				// 	p.ellipse(point.x, point.y, point.weight, point.weight);
-
-
-				// }
 				else if (point.type === "Modernism") {
 					for (let i = 0; i < p.random(1, 9); i++) {
 						// Remove the stroke or set a smaller stroke weight as needed
@@ -390,7 +383,7 @@ const Paint = () => {
 				}
 				else if (point.type === "Combined Stamp") {
 					// Ensure the images are loaded before trying to draw them
-					if (imgBrushes[0] && imgBrushes[1] && imgBrushes[4]) { // Ensure both images are loaded
+					if (imgBrushes[0] && imgBrushes[1] && imgBrushes[3]) { // Ensure both images are loaded
 
 						p.imageMode(p.CENTER);
 						p.noStroke(); // Assuming you don't want an outline for the brush images, or adjust as needed
@@ -405,7 +398,7 @@ const Paint = () => {
 						// Draw the second brush image with a slight offset to keep distance
 						p.image(imgBrushes[1], point.x + offsetX, point.y + offsetY, point.weight, point.weight);
 
-						p.image(imgBrushes[4], point.x, point.y, point.weight, point.weight);
+						p.image(imgBrushes[3], point.x, point.y, point.weight, point.weight);
 					}
 				}
 				else if (point.type === "Charcoal") {

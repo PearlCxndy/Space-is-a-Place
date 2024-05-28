@@ -62,7 +62,7 @@ const Section = ({ children, threshold, triggerOnce, hideDelay = 0, id }) => {
 function Home() {
   const [isOpenPopup, setIsOpenPopup] = useState(false);
   // Define popupContent state here
-  const [popupContent, setPopupContent] = useState(null); // This was missing in your original code
+  const [popupContent, setPopupContent] = useState(null); 
 
   const openPopupWithContent = (contentComponent) => {
     setPopupContent(contentComponent);
@@ -73,19 +73,19 @@ function Home() {
     pin_container: {
       margin: 0,
       padding: 0,
-      width: '98vw', // Increased width
+      width: '98vw', 
       height: '60vw',
       display: 'grid',
       gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))', // Adjust for flexibility
-      gridGap: '20px', // Added gap for aesthetics
+      gridGap: '20px',
       gridAutoRows: 'auto', // Adjusted for content
       position: 'relative', // Changed to relative for centering within its parent
       transform: 'translateX(-50%)',
       left: '49%', // Keep for centering if using absolute positioning
       justifyContent: 'center',
       backgroundColor: 'white',
-      top: '480vh', // Keep if you need it offscreen initially
-      marginBottom: '280px', // Adjust as needed
+      top: '480vh', 
+      marginBottom: '280px', 
     }
   };
 
@@ -98,9 +98,11 @@ function Home() {
   const cursorXSpring = useSpring(cursorX, { stiffness: 200, damping: 20 });
   const cursorYSpring = useSpring(cursorY, { stiffness: 200, damping: 20 });
 
+  // Center the cursor
+
   useEffect(() => {
     const moveCursor = e => {
-      cursorX.set(e.clientX - 16); // Center the cursor
+      cursorX.set(e.clientX - 16); 
       cursorY.set(e.clientY - 16);
     };
 
@@ -110,6 +112,7 @@ function Home() {
       window.removeEventListener("mousemove", moveCursor);
     };
   }, [cursorX, cursorY]);
+
 
 
 
